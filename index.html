@@ -237,16 +237,28 @@
     .sticky-cta { padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 16px)); }
   }
   #video-carousel::-webkit-scrollbar { display: none; }
-  .v-card { flex: 0 0 auto; width: 200px; scroll-snap-align: start; border-radius: 2px; overflow: hidden; background: white; border: 1px solid var(--border); transition: transform 0.2s; cursor: pointer; }
-  .v-card:hover { transform: translateY(-3px); }
-  .v-thumb { aspect-ratio: 9/16; background: #111; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
-  .v-thumb iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-  .v-play { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; opacity: 0.4; }
+  .v-card { flex: 0 0 auto; width: 260px; scroll-snap-align: start; border-radius: 4px; overflow: hidden; background: white; border: 1px solid var(--border); transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
+  .v-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+  .v-thumb { aspect-ratio: 9/16; background: #111; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; overflow: hidden; }
+  .v-thumb iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; pointer-events: none; }
+  .v-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; background: rgba(0,0,0,0.25); transition: background 0.2s; z-index: 2; }
+  .v-card:hover .v-overlay { background: rgba(0,0,0,0.1); }
+  .v-play-btn { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); transition: transform 0.2s, background 0.2s; }
+  .v-card:hover .v-play-btn { transform: scale(1.1); background: rgba(255,255,255,0.25); }
+  .v-expand-hint { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 0.35rem; }
+  .v-play { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; opacity: 0.5; }
   .v-soon { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.25rem 0.7rem; border: 1px solid rgba(200,135,58,0.5); border-radius: 2px; color: rgba(200,135,58,0.8); }
   .v-info { padding: 0.9rem 1rem; }
   .v-tag { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.3rem; }
-  .v-title { font-size: 0.85rem; font-weight: 500; margin-bottom: 0.25rem; line-height: 1.3; }
+  .v-title { font-size: 0.88rem; font-weight: 500; margin-bottom: 0.25rem; line-height: 1.3; }
   .v-cargo { font-size: 0.75rem; color: var(--text-muted); font-weight: 300; }
+  /* Scroll hint — peek of next card */
+  .carousel-wrap { position: relative; }
+  .carousel-wrap::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 48px; background: linear-gradient(to right, transparent, var(--warm-white)); pointer-events: none; z-index: 1; }
+  /* Modal — vertical 9:16 for Shorts */
+  .modal-box-vertical { background: #000; border-radius: 4px; width: min(90vw, 400px); position: relative; }
+  .modal-video-vertical { aspect-ratio: 9/16; width: 100%; }
+  .modal-video-vertical iframe { width: 100%; height: 100%; border: none; display: block; }
   @media (max-width: 600px) {
     .v-card { width: 160px; }
   }
@@ -343,13 +355,23 @@
     </select>
   </div>
 
+  <div class="carousel-wrap">
   <div id="video-carousel" style="display:flex;gap:1rem;overflow-x:auto;padding:1.5rem 0 1rem;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;">
-    <div class="v-card" style="width:240px;" onclick="openModal('https://www.youtube.com/embed/k-3jjOpxQls')">
+    <div class="v-card" style="width:260px;" onclick="openModal('https://www.youtube.com/embed/k-3jjOpxQls')">
       <div class="v-thumb">
-        <iframe src="https://www.youtube.com/embed/k-3jjOpxQls?mute=1&loop=1&playlist=k-3jjOpxQls" allowfullscreen loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;border:none;"></iframe>
+        <iframe src="https://www.youtube.com/embed/k-3jjOpxQls?mute=1&loop=1&playlist=k-3jjOpxQls" allowfullscreen loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;border:none;pointer-events:none;"></iframe>
+        <div class="v-overlay">
+          <div class="v-play-btn">
+            <svg width="18" height="20" viewBox="0 0 18 20" fill="white"><path d="M1 1l16 9L1 19V1z"/></svg>
+          </div>
+          <span class="v-expand-hint">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
+            Ver em ecrã completo
+          </span>
+        </div>
       </div>
       <div class="v-info">
-        <div class="v-tag" style="color:var(--amber)">Manifesto</div>
+        <div class="v-tag">Manifesto</div>
         <div class="v-title">Transparente Vivo</div>
         <div class="v-cargo">Campanha · Porto 2026</div>
       </div>
@@ -362,6 +384,7 @@
       <div class="v-thumb"><div class="v-play"><svg width="12" height="14" viewBox="0 0 12 14" fill="white"><path d="M1 1l10 6L1 13V1z"/></svg></div><span class="v-soon" data-i18n="coming_soon"></span></div>
       <div class="v-info"><div class="v-tag" data-i18n="video2_tag"></div><div class="v-title" data-i18n="video2_title"></div><div class="v-cargo" data-i18n="video2_name"></div></div>
     </div>
+  </div>
   </div>
   <div id="video-empty" style="display:none;text-align:center;padding:3rem 0;color:var(--text-muted);font-size:0.9rem;" data-i18n="videos_empty"></div>
 </section>
@@ -498,9 +521,9 @@
 </div>
 
 <div class="modal-overlay" id="video-modal" onclick="closeModal(event)">
-  <div class="modal-box">
+  <div id="modal-box-el" class="modal-box" style="position:relative;">
     <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="modal-video"><iframe id="modal-iframe" src="" allowfullscreen></iframe></div>
+    <div id="modal-video-el" class="modal-video"><iframe id="modal-iframe" src="" allowfullscreen></iframe></div>
   </div>
 </div>
 
@@ -617,7 +640,20 @@ function handleSign(e){
   });
 }
 
-function openModal(src){ document.getElementById('modal-iframe').src=src+'?autoplay=1'; document.getElementById('video-modal').classList.add('active'); document.body.style.overflow='hidden'; }
+function openModal(src, vertical){
+  document.getElementById('modal-iframe').src = src + '?autoplay=1';
+  const box = document.getElementById('modal-box-el');
+  const vid = document.getElementById('modal-video-el');
+  if(vertical || src.includes('shorts') || src.includes('k-3jjOpxQls')){
+    box.className = 'modal-box-vertical';
+    vid.className = 'modal-video-vertical';
+  } else {
+    box.className = 'modal-box';
+    vid.className = 'modal-video';
+  }
+  document.getElementById('video-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
 function closeModal(e){ if(e&&e.target!==document.getElementById('video-modal')&&!e.target.classList.contains('modal-close')) return; document.getElementById('modal-iframe').src=''; document.getElementById('video-modal').classList.remove('active'); document.body.style.overflow=''; }
 function showAddVideoHelp(){ const b=document.getElementById('video-instructions'); b.scrollIntoView({behavior:'smooth'}); b.style.borderColor='var(--amber)'; setTimeout(()=>{b.style.borderColor='';},2000); }
 
@@ -728,10 +764,12 @@ loadVideos();
 const stickyCta = document.getElementById('sticky-cta');
 if(stickyCta){
   const petition = document.getElementById('petition');
+  const contact = document.getElementById('contact');
   window.addEventListener('scroll', ()=>{
     const scrolled = window.scrollY > 300;
     const atPetition = petition && window.scrollY + window.innerHeight > petition.offsetTop - 80 && window.scrollY < petition.offsetTop + petition.offsetHeight;
-    stickyCta.style.display = (scrolled && !atPetition) ? 'block' : 'none';
+    const atContact = contact && window.scrollY + window.innerHeight > contact.offsetTop - 80;
+    stickyCta.style.display = (scrolled && !atPetition && !atContact) ? 'block' : 'none';
   }, {passive:true});
 }
 // COPY LINK
