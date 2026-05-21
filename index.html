@@ -159,6 +159,7 @@
     .hero { grid-template-columns: 1fr; }
     .hero-image-placeholder { min-height: 45vw; }
     .hero-text { padding: 3.5rem 1.5rem 2.5rem; }
+    .hero-image img { min-height: 45vw; max-height: 60vw; }
     .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
     .about { grid-template-columns: 1fr; padding: 3.5rem 1.5rem; gap: 2.5rem; }
     .reasons-grid { grid-template-columns: 1fr 1fr; }
@@ -337,9 +338,12 @@
     </div>
   </div>
   <div class="hero-image">
-    <div class="hero-image-placeholder">
-      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" opacity="0.2"><rect x="4" y="16" width="56" height="36" rx="1" stroke="white" stroke-width="1.5"/><line x1="4" y1="28" x2="60" y2="28" stroke="white" stroke-width="0.8"/><line x1="4" y1="40" x2="60" y2="40" stroke="white" stroke-width="0.8"/><line x1="18" y1="16" x2="18" y2="52" stroke="white" stroke-width="0.8"/><line x1="32" y1="16" x2="32" y2="52" stroke="white" stroke-width="0.8"/><line x1="46" y1="16" x2="46" y2="52" stroke="white" stroke-width="0.8"/></svg>
-    </div>
+    <img
+      src="hero.jpg"
+      alt="Interior do Edifício Transparente com vista para o mar, Porto"
+      style="width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block;min-height:500px;"
+      loading="eager"
+    >
     <div class="hero-caption">Edifício Transparente, Via do Castelo do Queijo, Porto</div>
   </div>
 </section>
