@@ -160,8 +160,8 @@
   /* ── 960px ── */
   @media (max-width: 960px) {
     .hero { grid-template-columns: 1fr; }
-    .hero { grid-template-columns: 1fr; }
-    .hero-image img { min-height: 45vw; max-height: 65vw; }
+    .hero { grid-template-columns: 1fr; display: flex; flex-direction: column-reverse; }
+    .hero-image img { min-height: 45vw; max-height: 55vw; object-position: center 25%; }
     .hero-text { padding: 3.5rem 1.5rem 2.5rem; background: var(--warm-white); }
     .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
     .about { grid-template-columns: 1fr; padding: 3.5rem 1.5rem; gap: 2.5rem; }
@@ -185,7 +185,8 @@
     .nav-cta { padding: 0.55rem 0.85rem; font-size: 0.75rem; letter-spacing: 0.04em; }
     .sticky-cta { display: block; }
     body { padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px)); }
-    .hero { padding-top: 58px; min-height: unset; }
+    .hero { grid-template-columns: 1fr; display: flex; flex-direction: column-reverse; min-height: unset; padding-top: 58px; }
+    .hero-image img { min-height: 55vw; max-height: 60vw; object-position: center 25%; width: 100%; display: block; }
     .hero-text { padding: 2rem 1.25rem 2rem; background: var(--warm-white); }
     .hero-text { padding: 2rem 1.25rem 2rem; }
     .hero-title { font-size: clamp(1.9rem, 7.5vw, 2.6rem); }
@@ -257,7 +258,8 @@
   .v-tag { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.3rem; }
   .v-title { font-size: 0.88rem; font-weight: 500; margin-bottom: 0.25rem; line-height: 1.3; }
   .v-cargo { font-size: 0.75rem; color: var(--text-muted); font-weight: 300; }
-  /* Scroll hint — peek of next card */
+  .carousel-wrap:empty { display: none; }
+  #video-carousel:empty { display: none; }
   .carousel-wrap { position: relative; }
   .carousel-wrap::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 48px; background: linear-gradient(to right, transparent, var(--warm-white)); pointer-events: none; z-index: 1; }
   /* Modal — vertical 9:16 for Shorts */
