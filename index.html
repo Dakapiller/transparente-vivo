@@ -373,7 +373,7 @@
   </div>
 </section>
 
-<section class="videos" id="videos" style="padding-top:3rem;">
+<section class="videos" id="videos" style="display:none;">
   <p class="section-label" data-i18n="videos_label"></p>
   <h2 class="section-title" data-i18n="videos_title"></h2>
   <p class="section-body" data-i18n="videos_body"></p>
@@ -418,6 +418,24 @@
   <div id="video-empty" style="display:none;text-align:center;padding:3rem 0;color:var(--text-muted);font-size:0.9rem;" data-i18n="videos_empty"></div>
 </section>
 
+<section class="photos" id="photos" style="padding-top:3rem;">
+  <p class="section-label" data-i18n="photos_label"></p>
+  <h2 class="section-title" data-i18n="photos_title"></h2>
+  <p class="section-body" data-i18n="photos_body"></p>
+
+  <div class="photo-filter">
+    <select id="serie-select" onchange="filterSerie(this.value)" style="width:100%;max-width:480px;padding:0.75rem 1rem;border:1px solid var(--border);border-radius:2px;font-family:'Outfit',sans-serif;font-size:0.9rem;background:white;color:var(--black);appearance:none;background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 24 24%22><path fill=%22none%22 stroke=%22%236b6460%22 stroke-width=%222%22 d=%22M6 9l6 6 6-6%22/></svg>');background-repeat:no-repeat;background-position:right 1rem center;cursor:pointer;min-height:44px;">
+      <option value="all" data-i18n="serie_all"></option>
+      <option value="pessoas" data-i18n="serie_pessoas"></option>
+      <option value="espacos" data-i18n="serie_espacos"></option>
+      <option value="eventos" data-i18n="serie_eventos"></option>
+    </select>
+  </div>
+
+  <div id="photo-carousel" class="photo-carousel"></div>
+  <div id="photo-empty" class="photo-empty" data-i18n="photos_empty"></div>
+</section>
+
 <section class="about" id="about">
   <div>
     <p class="section-label" data-i18n="about_label"></p>
@@ -452,23 +470,6 @@
 
 
 
-<section class="photos" id="photos" style="padding-top:3rem;">
-  <p class="section-label" data-i18n="photos_label"></p>
-  <h2 class="section-title" data-i18n="photos_title"></h2>
-  <p class="section-body" data-i18n="photos_body"></p>
-
-  <div class="photo-filter">
-    <select id="serie-select" onchange="filterSerie(this.value)" style="width:100%;max-width:480px;padding:0.75rem 1rem;border:1px solid var(--border);border-radius:2px;font-family:'Outfit',sans-serif;font-size:0.9rem;background:white;color:var(--black);appearance:none;background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 24 24%22><path fill=%22none%22 stroke=%22%236b6460%22 stroke-width=%222%22 d=%22M6 9l6 6 6-6%22/></svg>');background-repeat:no-repeat;background-position:right 1rem center;cursor:pointer;min-height:44px;">
-      <option value="all" data-i18n="serie_all"></option>
-      <option value="pessoas" data-i18n="serie_pessoas"></option>
-      <option value="espacos" data-i18n="serie_espacos"></option>
-      <option value="eventos" data-i18n="serie_eventos"></option>
-    </select>
-  </div>
-
-  <div id="photo-carousel" class="photo-carousel"></div>
-  <div id="photo-empty" class="photo-empty" data-i18n="photos_empty"></div>
-</section>
 
 <section class="petition" id="petition">
   <p class="section-label" data-i18n="petition_label"></p>
