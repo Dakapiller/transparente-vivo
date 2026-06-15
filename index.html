@@ -216,9 +216,9 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
   section{padding:4rem 5vw}
   /* Hero */
   .hero{grid-template-columns:1fr;min-height:unset;padding-top:var(--nav-h)}
-  .hero-image{position:relative;top:0;height:auto;order:-1;background:var(--cream);padding:0}
+  .hero-image{position:relative;top:0;height:55vw;max-height:420px;min-height:280px;order:-1;background:var(--cream);padding:1rem 5vw 0;overflow:visible}
   .hero-img-desktop{display:none!important}
-  .hero-img-mobile{display:block!important;width:100%;height:auto;object-fit:cover;border-radius:0}
+  .hero-img-mobile{display:block!important;width:100%;height:100%;object-fit:cover;border-radius:16px}
   .hero-text{padding:2.5rem 5vw 3rem}
   /* Stats */
   .stats-grid{grid-template-columns:repeat(2,1fr);border-top:1px solid var(--border)}
@@ -257,6 +257,7 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
   .nav-logo img{height:34px}
   /* Sections */
   section{padding:2.5rem 5vw}
+    .hero-image{height:54vw;max-height:380px;padding:.75rem 5vw 0}
   /* Hero */
   .hero-text{padding:1.75rem 5vw 2.5rem}
   .hero-title{font-size:clamp(1.9rem,8.5vw,2.8rem);line-height:1.08}
@@ -264,7 +265,7 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
   .btn-orange{font-size:.95rem;padding:.85rem 1.5rem}
   /* Stats */
   .stats{padding:2.5rem 5vw}
-  .stats-question{font-size:clamp(1.2rem,5.5vw,1.6rem);margin-bottom:2rem}
+  .stats-question{font-size:clamp(1.25rem,6vw,1.75rem);margin-bottom:2rem;line-height:1.25}
   .stats-grid{grid-template-columns:1fr 1fr;border-left:none;border-top:none}
   .stat-item{padding:1.25rem 1rem;border:none;border-bottom:1px solid var(--border)}
   .stat-item:nth-child(1),.stat-item:nth-child(2){border-bottom:1px solid var(--border)}
@@ -291,7 +292,7 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
   .ecosystem{padding:2.5rem 5vw}
   .ecosystem-title{font-size:clamp(1.3rem,6vw,1.8rem)}
   .ecosystem-sub{font-size:.9rem}
-  .eco-circle{width:260px;height:260px}
+  .eco-circle{width:260px;height:260px;margin:2rem auto 0}
   .eco-bubble{width:60px;height:60px}
   .eco-bubble svg{width:26px;height:26px}
   .eco-label-txt{font-size:.72rem}
@@ -315,7 +316,7 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
   /* Footer */
   footer{padding:3rem 5vw 5rem}
   .footer-inner{gap:2rem}
-  .footer-about p{font-size:.85rem}
+  .footer-about p{font-size:.85rem;text-transform:none;color:var(--grey-dark);font-weight:400;letter-spacing:0}
   .footer-contact p{font-size:.78rem}
   .footer-bottom{font-size:.75rem}
   .footer-vivo svg{max-height:140px}
@@ -325,6 +326,7 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
 
 /* ── MEDIA: 390px (iPhone standard) ── */
 @media(max-width:390px){
+  .hero-image{height:58vw}
   .hero-title{font-size:clamp(1.7rem,8vw,2.2rem)}
   .stats-question{font-size:1.15rem}
   .test-card{flex:0 0 85vw}
