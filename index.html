@@ -101,7 +101,7 @@ section{padding:5rem 5vw}
 .stat-icon{margin-bottom:1rem;color:var(--blue-dark)}
 .stat-icon svg{width:32px;height:32px;stroke:var(--blue-dark);stroke-width:1.5;fill:none}
 .stat-num{font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;color:var(--blue-mid);line-height:1}
-.stat-unit{font-size:clamp(1rem,1.5vw,1.3rem);font-weight:700;color:var(--blue-mid)}
+.stat-unit{font-size:clamp(1rem,1.5vw,1.3rem);font-weight:700;color:var(--blue-mid);display:block}
 .stat-desc{font-size:.85rem;color:var(--grey);margin-top:.4rem;line-height:1.5}
 
 /* ── TIMELINE ── */
@@ -126,14 +126,14 @@ section{padding:5rem 5vw}
 .test-carousel-wrap{position:relative}
 .test-carousel{display:flex;gap:1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:1rem}
 .test-carousel::-webkit-scrollbar{display:none}
-.test-card{flex:0 0 280px;scroll-snap-align:start;border:1.5px solid var(--blue-light2);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,100,200,.06)}
-.test-photo{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top;background:var(--blue-light);display:block}
-.test-photo-placeholder{width:100%;aspect-ratio:4/3;background:var(--blue-light);display:flex;align-items:center;justify-content:center}
-.test-body{padding:1.2rem}
+.test-card{flex:0 0 280px;scroll-snap-align:start;border:2px solid var(--blue-light2);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,100,200,.06);padding:10px}
+.test-photo{width:100%;aspect-ratio:3/2.5;object-fit:cover;object-position:top center;background:var(--blue-light);display:block;border-radius:8px;border:2px solid var(--blue-light2)}
+.test-photo-placeholder{width:100%;aspect-ratio:3/2.5;background:var(--blue-light);display:flex;align-items:center;justify-content:center;border-radius:8px;border:2px solid var(--blue-light2)}
+.test-body{padding:.9rem .3rem .3rem}
 .test-quote{font-size:.9rem;color:var(--blue-mid);font-weight:600;line-height:1.5;margin-bottom:.75rem}
-.test-since{font-size:.72rem;color:var(--grey);text-transform:uppercase;letter-spacing:.05em;float:right;margin-top:.1rem}
+.test-since{font-size:.65rem;color:var(--grey);text-transform:uppercase;letter-spacing:.06em}
 .test-name{font-size:.95rem;font-weight:700;color:var(--blue-dark);clear:both}
-.test-role{font-size:.75rem;color:var(--grey);text-transform:uppercase;letter-spacing:.05em;margin-top:.1rem}
+.test-role{font-size:.7rem;color:var(--grey);text-transform:uppercase;letter-spacing:.06em;display:flex;justify-content:space-between;align-items:center;margin-top:.25rem}
 .test-nav{display:flex;gap:.75rem;margin-top:1.5rem}
 .test-nav button{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--blue-dark);transition:all .2s}
 .test-nav button:hover{background:var(--blue-dark);color:#fff;border-color:var(--blue-dark)}
@@ -144,11 +144,20 @@ section{padding:5rem 5vw}
 
 /* ── ECOSYSTEM ── */
 .ecosystem{background:var(--blue-light);padding:5rem 5vw}
-.ecosystem-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.ecosystem-inner{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
 .ecosystem-left .eco-label{font-size:.85rem;color:var(--grey);font-weight:500;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.05em}
 .ecosystem-title{font-size:clamp(1.4rem,2.5vw,2rem);font-weight:700;color:var(--blue-dark);line-height:1.25;margin-bottom:1rem}
-.ecosystem-sub{font-size:.95rem;color:var(--grey-dark);line-height:1.7;max-width:400px}
-.eco-icons{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;place-items:center}
+.ecosystem-sub{font-size:.95rem;color:var(--blue-mid);line-height:1.7;max-width:400px;border-left:4px solid var(--blue-mid);padding-left:1rem;font-weight:500}
+.eco-circle{position:relative;width:320px;height:320px;flex-shrink:0}
+.eco-arcs{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.eco-node{position:absolute;display:flex;flex-direction:column;align-items:center;gap:.4rem;z-index:1}
+.eco-top{top:0;left:50%;transform:translateX(-50%)}
+.eco-right{right:0;top:50%;transform:translateY(-50%)}
+.eco-bottom{bottom:0;left:50%;transform:translateX(-50%)}
+.eco-left{left:0;top:50%;transform:translateY(-50%)}
+.eco-bubble{width:80px;height:80px;border-radius:50%;border:1.5px solid var(--blue-light2);background:#fff;display:flex;align-items:center;justify-content:center}
+.eco-bubble svg{width:36px;height:36px}
+.eco-label-txt{font-size:.78rem;font-weight:600;color:var(--blue-mid);text-align:center;white-space:nowrap}
 .eco-icon-item{display:flex;flex-direction:column;align-items:center;gap:.5rem;text-align:center}
 .eco-icon-item svg{width:44px;height:44px;stroke:var(--blue-dark);stroke-width:1.5;fill:none}
 .eco-icon-item span{font-size:.8rem;color:var(--grey-dark);font-weight:500}
@@ -156,8 +165,8 @@ section{padding:5rem 5vw}
 /* ── COMPARISON ── */
 .comparison{background:var(--white);padding:5rem 5vw}
 .comparison-label{font-size:.85rem;color:var(--grey);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.75rem}
-.comparison-title{font-size:clamp(1.6rem,3vw,2.5rem);font-weight:700;color:var(--blue-dark);margin-bottom:3rem}
-.comparison-title em{font-style:normal;color:var(--orange)}
+.comparison-title{font-size:clamp(1.6rem,3vw,2.5rem);font-weight:700;color:var(--blue-mid);margin-bottom:3rem}
+.comparison-title em{font-style:normal;color:var(--blue-dark);font-weight:700}
 .comparison-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
 .comp-col{border:2px solid var(--border);border-radius:var(--radius);padding:2rem;background:var(--white)}
 .comp-col.active{border-color:var(--blue-mid);background:#f5faff}
@@ -189,8 +198,8 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
 .footer-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;position:relative;z-index:1}
 .footer-about p{font-size:.88rem;color:var(--grey-dark);line-height:1.7;margin-top:.75rem}
 .footer-col-title{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--grey);margin-bottom:.75rem}
-.footer-contact p{font-size:.85rem;color:var(--grey-dark);line-height:1.8}
-.footer-contact a{color:var(--blue-dark);text-decoration:none;font-weight:500}
+.footer-contact p{font-size:.8rem;color:var(--blue-dark);line-height:2;text-transform:uppercase;font-weight:500;letter-spacing:.03em}
+.footer-contact a{color:var(--blue-dark);text-decoration:none;font-weight:600}
 .footer-social{display:flex;flex-direction:column;gap:.75rem}
 .footer-social a{display:flex;align-items:center;gap:.6rem;font-size:.9rem;color:var(--blue-dark);text-decoration:none;font-weight:500}
 .footer-social a:hover{color:var(--blue-mid)}
@@ -205,9 +214,9 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
 @media(max-width:960px){
   section{padding:4rem 4vw}
   .hero{grid-template-columns:1fr;min-height:unset;padding-top:var(--nav-h)}
-  .hero-image{position:relative;top:0;height:auto;order:-1;background:var(--cream)}
+  .hero-image{position:relative;top:0;height:auto;order:-1;background:var(--cream);padding:1.25rem 1.25rem 0}
   .hero-img-desktop{display:none!important}
-  .hero-img-mobile{display:block!important;width:100%;height:auto;object-fit:contain}
+  .hero-img-mobile{display:block!important;width:100%;height:auto;object-fit:cover;border-radius:16px}
   .hero-text{padding:2.5rem 4vw}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .timeline-items{grid-template-columns:1fr;gap:0}
@@ -215,10 +224,14 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
   .timeline-line,.timeline-line-orange{display:none}
   .timeline-item{display:flex;gap:1rem;align-items:flex-start;padding:.75rem 0;border-left:3px solid var(--blue-dark);padding-left:1.5rem;margin-left:9px;position:relative}
   .timeline-item:last-child{border-left-color:var(--orange)}
+  .timeline-item.dashed{border-left:3px dashed var(--blue-dark)}
   .timeline-dot{position:absolute;left:-11px;top:16px;flex-shrink:0;margin-bottom:0}
   .timeline-content{flex:1}
-  .test-card{flex:0 0 260px}
+  .test-card{flex:0 0 75vw;max-width:300px}
   .ecosystem-inner{grid-template-columns:1fr}
+  .eco-circle{width:260px;height:260px}
+  .eco-bubble{width:64px;height:64px}
+  .eco-bubble svg{width:28px;height:28px}
   .comparison-grid{grid-template-columns:1fr}
   .footer-inner{grid-template-columns:1fr}
 }
@@ -228,13 +241,13 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
   :root{--nav-h:58px}
   .nav-logo img{height:34px}
   section{padding:3rem 5vw}
-  .hero-image{height:auto}
+  .hero-image{height:auto;padding:1rem 1rem 0}
   .hero-title{font-size:clamp(2rem,9vw,3rem)}
   .stats{padding:3rem 5vw}
   .stats-grid{grid-template-columns:1fr 1fr;border-left:none}
   .stat-item{border:none;border-bottom:1px solid var(--border);padding:1.2rem}
   .timeline{padding:3rem 5vw}
-  .test-card{flex:0 0 85vw}
+  .test-card{flex:0 0 82vw;max-width:320px}
   .cta-mid{flex-direction:column;align-items:flex-start}
   .comparison-grid{gap:1rem}
   .petition-btns{max-width:100%}
@@ -309,7 +322,7 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
 
 <!-- STATS -->
 <section class="stats" id="dados">
-  <p class="stats-question" data-i18n="stats_question"></p>
+  <p class="stats-question" id="stats-question"></p>
   <div class="stats-grid">
     <div class="stat-item">
       <div class="stat-icon">
@@ -360,7 +373,7 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
           <div class="timeline-desc" data-i18n="tl_2001"></div>
         </div>
       </div>
-      <div class="timeline-item">
+      <div class="timeline-item dashed">
         <div class="timeline-dot"></div>
         <div class="timeline-content">
           <div class="timeline-year">2007</div>
@@ -430,23 +443,42 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
       <h2 class="ecosystem-title" data-i18n="eco_title"></h2>
       <p class="ecosystem-sub" data-i18n="eco_sub"></p>
     </div>
-    <div class="eco-icons">
-      <div class="eco-icon-item">
-        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-        <span data-i18n="eco_escritorios"></span>
+    <div style="display:flex;justify-content:center;align-items:center"><div class="eco-circle">
+      <!-- Top: Escritórios -->
+      <div class="eco-node eco-top">
+        <div class="eco-bubble">
+          <svg viewBox="0 0 24 24" stroke="var(--blue-mid)" stroke-width="1.5" fill="none"><path d="M2 4h7l2 3H2V4z"/><path d="M2 7v13h20V7H2z"/><path d="M8 7v13"/><line x1="6" y1="11" x2="6" y2="11.01"/><line x1="6" y1="15" x2="6" y2="15.01"/><path d="M12 11h6M12 15h6"/></svg>
+        </div>
+        <span class="eco-label-txt" data-i18n="eco_escritorios"></span>
       </div>
-      <div class="eco-icon-item">
-        <svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>
-        <span data-i18n="eco_restaurantes"></span>
+      <!-- Right: Restaurantes -->
+      <div class="eco-node eco-right">
+        <div class="eco-bubble">
+          <svg viewBox="0 0 24 24" stroke="var(--blue-mid)" stroke-width="1.5" fill="none"><rect x="2" y="7" width="20" height="14" rx="1"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><path d="M12 12v3"/><path d="M8 12h8"/></svg>
+        </div>
+        <span class="eco-label-txt" data-i18n="eco_restaurantes"></span>
       </div>
-      <div class="eco-icon-item">
-        <svg viewBox="0 0 24 24"><path d="M2 12h20M12 2v20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"/></svg>
-        <span data-i18n="eco_arte"></span>
+      <!-- Bottom: Desporto -->
+      <div class="eco-node eco-bottom">
+        <div class="eco-bubble">
+          <svg viewBox="0 0 24 24" stroke="var(--blue-mid)" stroke-width="1.5" fill="none"><path d="M2 12c0 0 2-4 5-4s5 4 8 4 5-4 5-4"/><path d="M2 17c0 0 2-4 5-4s5 4 8 4 5-4 5-4"/></svg>
+        </div>
+        <span class="eco-label-txt" data-i18n="eco_desporto"></span>
       </div>
-      <div class="eco-icon-item">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/><path d="M2 12h20"/></svg>
-        <span data-i18n="eco_desporto"></span>
+      <!-- Left: Arte & Cultura -->
+      <div class="eco-node eco-left">
+        <div class="eco-bubble">
+          <svg viewBox="0 0 24 24" stroke="var(--blue-mid)" stroke-width="1.5" fill="none"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+        </div>
+        <span class="eco-label-txt" data-i18n="eco_arte"></span>
       </div>
+      <!-- Connecting arcs -->
+      <svg class="eco-arcs" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M150 60 A110 110 0 0 1 240 150" stroke="#c8dff5" stroke-width="1.5" fill="none"/>
+        <path d="M240 150 A110 110 0 0 1 150 240" stroke="#c8dff5" stroke-width="1.5" fill="none"/>
+        <path d="M150 240 A110 110 0 0 1 60 150" stroke="#c8dff5" stroke-width="1.5" fill="none"/>
+        <path d="M60 150 A110 110 0 0 1 150 60" stroke="#c8dff5" stroke-width="1.5" fill="none"/>
+      </svg>
     </div>
   </div>
 </section>
@@ -554,8 +586,13 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
     <span>© 2026 · Transparente Vivo</span>
   </div>
   <div class="footer-vivo" aria-hidden="true">
-    <svg viewBox="0 0 500 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <text x="0" y="180" font-family="Outfit,sans-serif" font-weight="700" font-size="200" fill="#89c8f8" opacity=".5">VIVO</text>
+    <svg viewBox="0 0 700 334" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M104 10C110 7.5 117 10 120 16L256 308C258 314 256 321 250 324C244 326 237 324 234 318L98 26C95.5 19.7 98 13 104 10Z" fill="#89c8f8"/>
+      <path d="M386 10C392 13 394 19.7 392 26L282 273C279 279 272 281 266 279C261 276 258 269 261 263L371 16C374 10 380 7.5 386 10Z" fill="#89c8f8"/>
+      <path d="M245 325C239 325 233 319 233 313V21C233 14 239 9 245 9C251 9 257 14 257 21V313C257 319 251 325 245 325Z" fill="#89c8f8"/>
+      <path d="M454 10C460 7.5 467 10 470 16L606 308C608 314 606 321 600 324C594 326 587 324 584 318L448 26C445.5 19.7 448 13 454 10Z" fill="#89c8f8"/>
+      <path d="M636 10C642 13 644 19.7 642 26L532 273C529 279 522 281 516 279C511 276 508 269 511 263L621 16C624 10 630 7.5 636 10Z" fill="#89c8f8"/>
+      <path d="M495 325C489 325 483 319 483 313V21C483 14 489 9 495 9C501 9 507 14 507 21V313C507 319 501 325 495 325Z" fill="#89c8f8"/>
     </svg>
   </div>
 </footer>
@@ -731,6 +768,16 @@ function applyLang(lang) {
     waBtn.href = `https://wa.me/?text=${msgs[lang]||msgs.pt}%20https%3A%2F%2Fpeticaopublica.com%2Fpsign.aspx%3Fpi%3DPT131237`;
   }
   renderTestimonials();
+  renderStatsQuestion(t);
+}
+
+function renderStatsQuestion(t) {
+  const el = document.getElementById('stats-question');
+  if (!el) return;
+  // The question has two tones: most text in blue-dark, key phrase in blue-mid
+  const raw = t.stats_question || '';
+  el.innerHTML = raw.replace(/<strong>(.*?)<\/strong>/g, '<strong style="color:var(--blue-mid)">$1</strong>');
+  el.style.color = 'var(--blue-dark)';
 }
 
 function cycleLang() {
@@ -754,13 +801,14 @@ function renderTestimonials() {
   const lang = currentLang;
   const carousel = document.getElementById('test-carousel');
   if (!carousel) return;
+  const sinceLabel = {pt:'AQUI DESDE',en:'HERE SINCE',de:'HIER SEIT',fr:'ICI DEPUIS',it:'QUI DAL',es:'AQUÍ DESDE'}[lang]||'HERE SINCE';
   carousel.innerHTML = TESTIMONIALS.map(t => `
     <div class="test-card">
       ${t.photo ? `<img class="test-photo" src="${t.photo}" alt="${t.name}" loading="lazy">` : `<div class="test-photo-placeholder"></div>`}
       <div class="test-body">
-        <p class="test-quote">${lang==='pt'?t.quote_pt:t.quote_en} <span class="test-since">HERE SINCE ${t.since}</span></p>
+        <p class="test-quote">${lang==='pt'?t.quote_pt:t.quote_en}</p>
         <p class="test-name">${t.name}</p>
-        <p class="test-role">${lang==='pt'?t.role_pt:t.role_en}</p>
+        <p class="test-role"><span>${lang==='pt'?t.role_pt:t.role_en}</span><span class="test-since">${sinceLabel} ${t.since}</span></p>
       </div>
     </div>
   `).join('');
