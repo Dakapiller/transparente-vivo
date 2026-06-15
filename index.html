@@ -99,9 +99,10 @@ p{line-height:1.7}
 /* TESTIMONIALS */
 .testimonials{background:var(--white);padding:4rem 5vw}
 .testimonials-title{font-size:clamp(1.6rem,3vw,2.5rem);font-weight:700;color:var(--blue-dark);margin-bottom:2.5rem;line-height:1.15}
+/* Testimonials title: bold+dark for emphasis words, regular+grey for connectors */
 .testimonials-title .t-dark{color:var(--blue-dark);font-weight:700}
-.testimonials-title .t-light{color:var(--grey);font-weight:700}
-.testimonials-title .t-mid{color:var(--blue-mid);font-weight:700}
+.testimonials-title .t-light{color:var(--grey);font-weight:400}
+.testimonials-title .t-mid{color:var(--grey);font-weight:400}
 .test-carousel{display:flex;gap:1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:.5rem}
 .test-carousel::-webkit-scrollbar{display:none}
 .test-card{flex:0 0 280px;scroll-snap-align:start;border:2px solid var(--blue-light);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,100,200,.06);padding:8px}
@@ -176,8 +177,8 @@ p{line-height:1.7}
 
 /* PETITION */
 .petition{background:var(--cream);padding:5rem 5vw 8rem}
-.petition-title{font-size:clamp(1.8rem,3.5vw,3.5rem);font-weight:700;color:var(--orange-light);line-height:1.1;margin-bottom:2rem}
-.petition-title strong{color:var(--orange)}
+.petition-title{font-size:clamp(1.8rem,3.5vw,3.5rem);font-weight:400;color:var(--orange-light);line-height:1.1;margin-bottom:2rem}
+.petition-title strong{color:var(--orange);font-weight:700}
 .petition-btns{display:flex;flex-direction:column;gap:.75rem;max-width:400px}
 .petition-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin-top:.5rem;text-align:center}
 
@@ -369,7 +370,7 @@ footer{background:var(--blue-light);padding:4rem 5vw 0;position:relative;overflo
   <h2 class="testimonials-title">
     <span class="t-dark" data-i18n="test_t1"></span> <span class="t-mid" data-i18n="test_t2"></span><br>
     <span class="t-dark" data-i18n="test_t3"></span> <span class="t-light" data-i18n="test_t4"></span><br>
-    <span class="t-dark" data-i18n="test_t5"></span> <span class="t-mid" data-i18n="test_t6"></span>
+    <span class="t-light" data-i18n="test_t5"></span> <span class="t-dark" data-i18n="test_t6"></span>
   </h2>
   <div class="test-carousel" id="test-carousel"></div>
   <div class="test-nav">
@@ -595,7 +596,7 @@ const T = {
     eco_label:"Porque funciona",eco_title_pre:"Um ecossistema económico e social",eco_title_bold:"no Porto",
     eco_sub:"Restaurantes, escritórios, cultura e desporto trazem vida a uma zona que, sem este espaço, seria sazonal.",
     eco_escritorios:"Escritórios",eco_restaurantes:"Restaurantes",eco_arte:"Arte & Cultura",eco_desporto:"Desporto",
-    petition_title_pre:"Assina para capacitar",petition_title_bold:"este ecossistema",
+    petition_title_pre:"Assina para ",petition_title_bold:"capacitar",petition_title_post:" este ecossistema",
     petition_sign:"Assinar petição",
     footer_about:"O movimento <strong>Transparente Vivo</strong> é uma ação cívica criada por membros da comunidade do Edifício Transparente que pretende dar a conhecer o ecossistema existente neste espaço."
   },
@@ -629,7 +630,7 @@ const T = {
     eco_label:"Why it works",eco_title_pre:"An economic and social ecosystem",eco_title_bold:"in Porto",
     eco_sub:"Restaurants, offices, culture and sport bring life to an area that, without this space, would be seasonal.",
     eco_escritorios:"Offices",eco_restaurantes:"Restaurants",eco_arte:"Arts & Culture",eco_desporto:"Sport",
-    petition_title_pre:"Sign to strengthen",petition_title_bold:"this ecosystem",
+    petition_title_pre:"Sign to ",petition_title_bold:"strengthen",petition_title_post:" this ecosystem",
     petition_sign:"Sign the petition",
     footer_about:"<strong>Transparente Vivo</strong> is a civic movement created by members of the Edifício Transparente community to make visible the ecosystem that thrives in this space."
   }
@@ -680,7 +681,7 @@ function renderEcoTitle(t) {
 }
 function renderPetitionTitle(t) {
   const el = document.getElementById('petition-title-el');
-  if (el) el.innerHTML = t.petition_title_pre + '<br><strong>' + t.petition_title_bold + '</strong>';
+  if (el) el.innerHTML = t.petition_title_pre + '<strong>' + t.petition_title_bold + '</strong>' + (t.petition_title_post||'');
 }
 function renderFooterAbout(t) {
   const el = document.getElementById('footer-about-text');
