@@ -54,6 +54,11 @@ section{padding:5rem 5vw}
 .nav-right{display:flex;align-items:center;gap:1.5rem}
 .nav-lang{display:flex;align-items:center;gap:4px;font-size:.9rem;font-weight:500;color:var(--blue-dark);cursor:pointer;background:none;border:none;font-family:'Outfit',sans-serif}
 .nav-lang svg{transition:transform .2s}
+.nav-lang-wrap{position:relative}
+.lang-dropdown{position:absolute;top:calc(100% + 8px);right:0;background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;display:none;flex-direction:column;min-width:64px;box-shadow:0 4px 16px rgba(0,0,0,.1);z-index:200}
+.lang-dropdown.open{display:flex}
+.lang-dropdown button{background:none;border:none;padding:.6rem 1rem;font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:500;color:var(--blue-dark);cursor:pointer;text-align:left}
+.lang-dropdown button:hover{background:var(--blue-light)}
 .nav-hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
 .nav-hamburger span{display:block;width:24px;height:2px;background:var(--blue-dark);border-radius:2px;transition:all .3s}
 
@@ -195,7 +200,7 @@ section{padding:5rem 5vw}
 .petition-btns{display:flex;flex-direction:column;gap:1rem;max-width:340px}
 
 /* ── FOOTER ── */
-footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;overflow:hidden}
+footer{background:var(--blue-light);padding:4rem 5vw 12rem;position:relative;overflow:hidden}
 .footer-top-line{height:3px;background:var(--blue-mid);margin-bottom:3rem;border-radius:2px}
 .footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:3rem;position:relative;z-index:1;align-items:start}
 .footer-about p{font-size:.9rem;color:var(--grey-dark);line-height:1.8}
@@ -206,8 +211,8 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
 .footer-social a{display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:var(--blue-dark);text-decoration:none;font-weight:700;letter-spacing:.06em}
 .footer-social a:hover{color:var(--blue-mid)}
 .footer-bottom{border-top:1px solid var(--border);padding-top:1.5rem;font-size:.8rem;color:var(--grey);position:relative;z-index:1}
-.footer-vivo{position:absolute;bottom:-30px;left:-2%;right:-2%;opacity:.5;pointer-events:none;z-index:0}
-.footer-vivo svg{width:104%;height:auto;max-height:220px}
+.footer-vivo{position:absolute;bottom:0;left:0;right:0;opacity:.45;pointer-events:none;z-index:0}
+.footer-vivo svg{width:100%;height:auto;max-height:200px;display:block}
 
 /* ── STICKY MOBILE CTA ── */
 .sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;padding:1rem;background:linear-gradient(to top,rgba(255,255,255,.97) 70%,transparent)}
@@ -316,7 +321,7 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
   .petition-btns{gap:.75rem}
   .btn-wa{font-size:.9rem}
   /* Footer */
-  footer{padding:3rem 5vw 5rem}
+  footer{padding:3rem 5vw 10rem}
   .footer-inner{gap:2rem}
   .footer-about p{font-size:.85rem;text-transform:none;color:var(--grey-dark);font-weight:400;letter-spacing:0}
   .footer-contact p{font-size:.78rem}
@@ -347,10 +352,16 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
     <img src="data:image/svg+xml,%3Csvg%20width%3D%221355%22%20height%3D%22334%22%20viewBox%3D%220%200%201355%20334%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Cg%20clip-path%3D%22url%28%23clip0_124_1485%29%22%3E%0A%3Cpath%20d%3D%22M1354.71%20123.192H1313.16V145.661H1352.39V175.264H1313.16V198.447H1354.71V228.05H1278.2V93.5887H1354.71V123.192Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M1244.64%20123.192V228.05H1209.69V123.192H1180.98V93.5887H1273.36V123.192H1244.64Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M1041.86%20228.05V93.5887H1076.81L1141.37%20175.799V93.5887H1176.14V228.05H1141.37L1076.81%20145.84V228.05H1041.86Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M1032.71%20123.192H991.157V145.661H1030.39V175.264H991.157V198.447H1032.71V228.05H956.204V93.5887H1032.71V123.192Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M875.423%20153.686H882.021C888.917%20153.686%20894.207%20152.26%20897.893%20149.406C901.578%20146.553%20903.421%20142.451%20903.421%20137.101C903.421%20131.752%20901.578%20127.65%20897.893%20124.797C894.207%20121.943%20888.917%20120.517%20882.021%20120.517H875.423V153.686ZM952.284%20228.05H908.771L875.423%20176.334V228.05H840.47V93.5887H894.861C902.351%2093.5887%20908.89%2094.7181%20914.478%2096.9769C920.065%2099.1169%20924.642%20102.089%20928.209%20105.893C931.895%20109.698%20934.629%20114.097%20936.412%20119.09C938.315%20124.083%20939.266%20129.433%20939.266%20135.14C939.266%20145.364%20936.769%20153.686%20931.776%20160.106C926.901%20166.407%20919.649%20170.687%20910.019%20172.946L952.284%20228.05Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M781.307%20178.118L765.614%20133.356L749.921%20178.118H781.307ZM790.58%20204.689H740.648L732.623%20228.05H695.352L746.533%2093.5887H784.695L835.876%20228.05H798.605L790.58%20204.689Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M640.472%20155.291H652.063C664.903%20155.291%20671.323%20149.703%20671.323%20138.528C671.323%20127.353%20664.903%20121.765%20652.063%20121.765H640.472V155.291ZM640.472%20228.05H605.519V93.5887H661.158C676.257%2093.5887%20687.789%2097.5119%20695.755%20105.359C703.839%20113.205%20707.881%20124.262%20707.881%20138.528C707.881%20152.795%20703.839%20163.851%20695.755%20171.698C687.789%20179.544%20676.257%20183.468%20661.158%20183.468H640.472V228.05Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M574.759%20128.007C570.955%20124.915%20567.151%20122.657%20563.346%20121.23C559.542%20119.684%20555.856%20118.912%20552.29%20118.912C547.772%20118.912%20544.087%20119.982%20541.233%20122.122C538.38%20124.262%20536.953%20127.055%20536.953%20130.503C536.953%20132.881%20537.667%20134.843%20539.093%20136.388C540.52%20137.934%20542.363%20139.301%20544.622%20140.49C546.999%20141.56%20549.615%20142.511%20552.468%20143.343C555.44%20144.175%20558.353%20145.067%20561.206%20146.018C572.62%20149.822%20580.942%20154.935%20586.173%20161.354C591.523%20167.656%20594.198%20175.918%20594.198%20186.143C594.198%20193.038%20593.009%20199.28%20590.631%20204.867C588.372%20210.455%20584.984%20215.27%20580.466%20219.312C576.067%20223.235%20570.598%20226.267%20564.06%20228.407C557.64%20230.666%20550.328%20231.795%20542.125%20231.795C525.124%20231.795%20509.371%20226.743%20494.867%20216.637L509.847%20188.461C515.078%20193.097%20520.25%20196.545%20525.362%20198.804C530.474%20201.063%20535.527%20202.192%20540.52%20202.192C546.227%20202.192%20550.447%20200.885%20553.181%20198.269C556.035%20195.653%20557.461%20192.681%20557.461%20189.352C557.461%20187.331%20557.105%20185.608%20556.391%20184.181C555.678%20182.635%20554.489%20181.268%20552.825%20180.079C551.16%20178.771%20548.961%20177.583%20546.227%20176.513C543.611%20175.443%20540.401%20174.254%20536.597%20172.946C532.079%20171.519%20527.621%20169.974%20523.222%20168.309C518.942%20166.526%20515.078%20164.208%20511.63%20161.354C508.301%20158.501%20505.567%20154.935%20503.427%20150.655C501.406%20146.256%20500.395%20140.728%20500.395%20134.07C500.395%20127.412%20501.465%20121.408%20503.605%20116.058C505.864%20110.59%20508.955%20105.953%20512.879%20102.149C516.921%2098.2253%20521.795%2095.1937%20527.502%2093.0537C533.327%2090.9137%20539.807%2089.8437%20546.94%2089.8437C553.598%2089.8437%20560.552%2090.7948%20567.805%2092.697C575.057%2094.4803%20582.012%2097.1553%20588.669%20100.722L574.759%20128.007Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M349.147%20228.05V93.5887H384.1L448.656%20175.799V93.5887H483.43V228.05H448.656L384.1%20145.84V228.05H349.147Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M289.984%20178.118L274.291%20133.356L258.598%20178.118H289.984ZM299.258%20204.689H249.325L241.3%20228.05H204.029L255.21%2093.5887H293.373L344.554%20228.05H307.283L299.258%20204.689Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M132.521%20153.686H139.119C146.014%20153.686%20151.305%20152.26%20154.99%20149.406C158.676%20146.553%20160.519%20142.451%20160.519%20137.101C160.519%20131.752%20158.676%20127.65%20154.99%20124.797C151.305%20121.943%20146.014%20120.517%20139.119%20120.517H132.521V153.686ZM209.381%20228.05H165.869L132.521%20176.334V228.05H97.5679V93.5887H151.959C159.449%2093.5887%20165.988%2094.7181%20171.575%2096.9769C177.163%2099.1169%20181.74%20102.089%20185.307%20105.893C188.992%20109.698%20191.727%20114.097%20193.51%20119.09C195.412%20124.083%20196.363%20129.433%20196.363%20135.14C196.363%20145.364%20193.867%20153.686%20188.873%20160.106C183.999%20166.407%20176.747%20170.687%20167.117%20172.946L209.381%20228.05Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M64.0099%20123.192V228.05H29.057V123.192H0.345703V93.5887H92.7212V123.192H64.0099Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M604.084%2010.0051C609.93%207.56913%20616.751%2010.0051%20619.674%2015.8514L756.089%20308.168C758.524%20314.014%20756.088%20320.835%20750.242%20323.758C744.396%20326.194%20737.575%20323.758%20734.652%20317.912L598.238%2025.5953C595.802%2019.749%20598.238%2012.9283%20604.084%2010.0051ZM886.657%2010.0051C892.503%2012.9283%20894.939%2019.749%20892.503%2025.5953L782.298%20272.889C779.375%20278.736%20772.554%20281.172%20766.708%20278.736C760.861%20275.812%20758.425%20268.992%20760.861%20263.145L871.066%2015.8514C873.99%2010.0051%20880.81%207.56913%20886.657%2010.0051Z%22%20fill%3D%22%231636C9%22/%3E%0A%3Cpath%20d%3D%22M494.992%20324.702C488.659%20324.702%20483.3%20319.343%20483.3%20313.009V20.6927C483.3%2014.3591%20488.659%209%20494.992%209C501.326%209%20506.685%2014.3591%20506.685%2020.6927V313.009C506.685%20319.343%20501.326%20324.702%20494.992%20324.702Z%22%20fill%3D%22%231636C9%22/%3E%0A%3Cpath%20d%3D%22M103.784%209.99582C109.63%207.55985%20116.451%209.99582%20119.374%2015.8422L255.789%20308.159C258.225%20314.005%20255.789%20320.826%20249.942%20323.749C244.096%20326.185%20237.275%20323.749%20234.352%20317.903L97.9377%2025.586C95.5017%2019.7397%2097.9377%2012.919%20103.784%209.99582ZM386.357%209.99582C392.203%2012.919%20394.639%2019.7397%20392.203%2025.586L281.998%20272.88C279.075%20278.726%20272.254%20281.162%20266.408%20278.726C260.562%20275.803%20258.126%20268.982%20260.562%20263.136L370.767%2015.8422C373.69%209.99582%20380.51%207.55985%20386.357%209.99582Z%22%20fill%3D%22%231636C9%22/%3E%0A%3Cpath%20d%3D%22M932.6%20169.5C932.6%20111.067%20962.946%2059.7296%201008.68%2030.376C1014.12%2026.8859%201021.36%2028.4652%201024.85%2033.9033C1028.34%2039.3414%201026.76%2046.5793%201021.32%2050.0693C982.008%2075.301%20956%20119.367%20956%20169.5C956%20247.814%201019.49%20311.3%201097.8%20311.3C1118.2%20311.3%201137.57%20306.998%201155.07%20299.263C1160.98%20296.65%201167.89%20299.323%201170.5%20305.233C1173.11%20311.143%201170.44%20318.053%201164.53%20320.665C1144.11%20329.692%201121.52%20334.7%201097.8%20334.7C1006.56%20334.7%20932.6%20260.737%20932.6%20169.5ZM1243.6%20165.5C1243.6%2087.186%201180.11%2023.7002%201101.8%2023.7002C1087.75%2023.7002%201074.19%2025.7407%201061.4%2029.5342C1055.21%2031.3715%201048.7%2027.8393%201046.86%2021.6445C1045.02%2015.4497%201048.55%208.93831%201054.75%207.10059C1069.67%202.67322%201085.47%200.299805%201101.8%200.299805C1193.04%200.299805%201267%2074.2626%201267%20165.5C1267%20216.553%201243.83%20262.205%201207.47%20292.49C1202.5%20296.626%201195.13%20295.953%201190.99%20290.988C1186.85%20286.023%201187.53%20278.645%201192.49%20274.51C1223.74%20248.48%201243.6%20209.315%201243.6%20165.5Z%22%20fill%3D%22%231636C9%22/%3E%0A%3C/g%3E%0A%3Cdefs%3E%0A%3CclipPath%20id%3D%22clip0_124_1485%22%3E%0A%3Crect%20width%3D%221355%22%20height%3D%22334%22/%3E%0A%3C/clipPath%3E%0A%3C/defs%3E%0A%3C/svg%3E" alt="Transparente Vivo" loading="eager">
   </a>
   <div class="nav-right">
-    <button class="nav-lang" onclick="cycleLang()" aria-label="Idioma">
-      <span id="lang-label">PT</span>
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </button>
+    <div class="nav-lang-wrap">
+      <button class="nav-lang" onclick="cycleLang()" aria-label="Idioma">
+        <span id="lang-label">PT</span>
+        <svg id="lang-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="lang-dropdown" id="lang-dropdown">
+        <button onclick="selectLang('pt')">PT</button>
+        <button onclick="selectLang('en')">EN</button>
+      </div>
+    </div>
     <button class="nav-hamburger" onclick="openMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -724,9 +735,9 @@ const T = {
   en:{
     menu_intro:"Introduction",menu_dados:"Data",menu_comunidade:"Community",menu_acreditamos:"What we believe",menu_ecossistema:"Ecosystem",menu_sign:"Sign the petition",
     hero_line1:"A",hero_line2:"community",hero_line3:"alive is the city's heritage",
-    hero_sub:"This space is today a place of work, encounter and creation. Before deciding its future, it is essential to hear those who give it life every day.",
+    hero_sub:"This space is a place of work, encounter and creation. Before deciding its future, those who bring it to life every day must be heard.",
     hero_cta:"Support this cause",
-    stats_question:"Did you know the Edifício Transparente is <strong>full of life</strong> inside?",
+    stats_question:"Did you know the Edifício Transparente is <strong>alive</strong> inside?",
     stat_pessoas_unit:"people",stat_pessoas_desc:"work here every day",
     stat_empresas_unit:"companies",stat_empresas_desc:"depend on this ecosystem",
     stat_rest_unit:"restaurants",stat_rest_desc:"live from this community",
@@ -734,16 +745,16 @@ const T = {
     tl_label_pre:"How this place became",tl_label_bold:"community",
     tl_2001:"Built for culture",tl_2007:"Opens to the public",tl_2021:"Creation of office space",tl_2025:"Building 100% occupied",tl_now_label:"Now",tl_now:"Demolition announced",
     test_title_1:"People",test_title_2:"who work",test_title_3:"here",test_title_4:"and make",test_title_5:"this place alive",
-    cta_mid_btn:"Protect this community",cta_mid_label:"Takes less than 1 minute",
+    cta_mid_btn:"Defend this community",cta_mid_label:"Takes less than 1 minute",
     eco_label:"Why it works",eco_title:"An economic and social ecosystem in Porto",eco_sub:"Restaurants, offices, culture and sport bring life to an area that, without this space, would be seasonal.",
     eco_escritorios:"Offices",eco_restaurantes:"Restaurants",eco_arte:"Arts & Culture",eco_desporto:"Sport",
-    comp_label:"What we believe",comp_title:"Reusing is also building the <em>future</em>",
+    comp_label:"What we believe",comp_title:"Reuse is also how we build the <em>future</em>",
     comp_nao_title:"Don't demolish",comp_dem_title:"Demolish",
     comp_nao_1:"Preserves urban, economic and social value",comp_nao_2:"Keeps local economic activity alive",comp_nao_3:"Promotes jobs, businesses and projects",comp_nao_4:"Allows renovation without destruction",
     comp_dem_1:"Has public costs hard to justify",comp_dem_2:"Eliminates jobs and active businesses",comp_dem_3:"Destroys a functioning economic ecosystem",comp_dem_4:"Dismantles an existing community",
-    petition_title:"Sign to empower this ecosystem",petition_body:"We believe in solutions that maintain the value and economic activity of an ecosystem that is already functioning.",
-    petition_sign:"Sign for reuse",petition_wa:"Share on WhatsApp",
-    footer_about:"The Transparente Vivo movement is a civic action created by members of the Edifício Transparente community to raise awareness of the ecosystem that exists in this space.",
+    petition_title:"Sign to strengthen this ecosystem",petition_body:"We believe in solutions that maintain the value and economic activity of an ecosystem that is already functioning.",
+    petition_sign:"Sign for rehabilitation",petition_wa:"Share on WhatsApp",
+    footer_about:"<strong>Transparente Vivo</strong> is a civic movement created by members of the Edifício Transparente community to make visible the ecosystem that thrives in this space.",
     footer_contact_label:"Contact",footer_social_label:"Social"
   },
   de:{
@@ -832,7 +843,7 @@ const T = {
   }
 };
 
-const LANGS = ['pt','en','de','fr','it','es'];
+const LANGS = ['pt','en'];
 let currentLang = 'pt';
 
 function detectLang() {
@@ -845,6 +856,7 @@ function applyLang(lang) {
   window.__lang = lang;
   document.documentElement.lang = lang;
   document.getElementById('lang-label').textContent = lang.toUpperCase();
+  const chev = document.getElementById('lang-chevron'); if(chev) chev.style.transform='';
   const t = T[lang] || T.pt;
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
@@ -893,9 +905,21 @@ function renderEcoTitle(t) {
 }
 
 function cycleLang() {
-  const idx = (LANGS.indexOf(currentLang) + 1) % LANGS.length;
-  applyLang(LANGS[idx]);
+  const dd = document.getElementById('lang-dropdown');
+  if (dd) { dd.classList.toggle('open'); return; }
 }
+function selectLang(lang) {
+  applyLang(lang);
+  const dd = document.getElementById('lang-dropdown');
+  if (dd) dd.classList.remove('open');
+}
+// Close dropdown on outside click
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.nav-lang-wrap')) {
+    const dd = document.getElementById('lang-dropdown');
+    if (dd) dd.classList.remove('open');
+  }
+});
 
 // ── Menu ──
 function openMenu() { document.getElementById('menu-overlay').classList.add('open'); document.body.style.overflow='hidden'; }
