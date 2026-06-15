@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Transparente Vivo</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 334 334' fill='none'%3E%3Cpath d='M104 10C110 7.5 117 10 120 16L256 308C258 314 256 321 250 324C244 326 237 324 234 318L98 26C95.5 19.7 98 13 104 10ZM386 10C392 13 394 19.7 392 26L282 273C279 279 272 281 266 279C261 276 258 269 261 263L371 16C374 10 380 7.5 386 10Z' fill='%231636C9'/%3E%3Cpath d='M195 325C189 325 183 319 183 313V21C183 14 189 9 195 9C201 9 207 14 207 21V313C207 319 201 325 195 325Z' fill='%231636C9'/%3E%3C/svg%3E">
-<meta name="description" content="Uma comunidade viva é património da cidade. Defenda o Edifício Transparente.">
+<meta name="description" content="Não se destrói uma comunidade que está viva. Defenda o Edifício Transparente.">
 <meta property="og:title" content="Transparente Vivo">
-<meta property="og:description" content="Uma comunidade viva é património da cidade.">
+<meta property="og:description" content="Não se destrói uma comunidade que está viva.">
 <meta property="og:image" content="https://transparentevivo.pt/hero-desktop.jpg">
 <style>
 @font-face { font-family:'Outfit'; font-weight:300; font-style:normal; font-display:swap; src:url('fonts/Outfit-300.ttf') format('truetype'); }
@@ -17,12 +17,9 @@
 @font-face { font-family:'Outfit'; font-weight:700; font-style:normal; font-display:swap; src:url('fonts/Outfit-700.ttf') format('truetype'); }
 </style>
 <style>
-/* ── Reset & Base ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Outfit',sans-serif;font-weight:400;background:#fff;color:#1a1a2e;-webkit-font-smoothing:antialiased}
-
-/* ── Design Tokens ── */
 :root{
   --cream:#fffdf8;
   --orange:#ff4b00;
@@ -30,317 +27,230 @@ body{font-family:'Outfit',sans-serif;font-weight:400;background:#fff;color:#1a1a
   --blue-dark:#1636c8;
   --blue-mid:#0190fd;
   --blue-light:#e4f2ff;
-  --blue-light2:#dbeeff;
   --grey:#8a8fa8;
   --grey-dark:#5a5f7a;
   --white:#ffffff;
   --border:#d0dff0;
   --radius:12px;
-  --container:1200px;
   --nav-h:68px;
 }
-
-/* ── Typography ── */
 h1,h2,h3{font-weight:700;line-height:1.1}
 p{line-height:1.7}
 
-/* ── Layout Helpers ── */
-.container{max-width:var(--container);margin:0 auto;padding:0 5vw}
-section{padding:5rem 5vw}
-
-/* ── NAV ── */
+/* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 5vw}
 .nav-logo img{height:44px;width:auto;display:block}
 .nav-right{display:flex;align-items:center;gap:1.5rem}
 .nav-lang{display:flex;align-items:center;gap:4px;font-size:.9rem;font-weight:500;color:var(--blue-dark);cursor:pointer;background:none;border:none;font-family:'Outfit',sans-serif}
-.nav-lang svg{transition:transform .2s}
 .nav-lang-wrap{position:relative}
 .lang-dropdown{position:absolute;top:calc(100% + 8px);right:0;background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;display:none;flex-direction:column;min-width:64px;box-shadow:0 4px 16px rgba(0,0,0,.1);z-index:200}
 .lang-dropdown.open{display:flex}
 .lang-dropdown button{background:none;border:none;padding:.6rem 1rem;font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:500;color:var(--blue-dark);cursor:pointer;text-align:left}
 .lang-dropdown button:hover{background:var(--blue-light)}
 .nav-hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-.nav-hamburger span{display:block;width:24px;height:2px;background:var(--blue-dark);border-radius:2px;transition:all .3s}
+.nav-hamburger span{display:block;width:24px;height:2px;background:var(--blue-dark);border-radius:2px}
 
-/* ── MENU OVERLAY ── */
+/* MENU */
 .menu-overlay{position:fixed;inset:0;z-index:200;background:var(--blue-light);display:none;flex-direction:column}
 .menu-overlay.open{display:flex}
 .menu-header{height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;border-bottom:1px solid var(--border)}
-.menu-header .nav-logo img{height:44px;width:auto}
-.menu-close{background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:1rem}
+.menu-close{background:none;border:none;cursor:pointer}
 .menu-close svg{width:24px;height:24px;stroke:var(--blue-dark);stroke-width:2;fill:none}
-.menu-body{flex:1;padding:3rem 5vw;display:flex;flex-direction:column;justify-content:flex-start}
+.menu-body{flex:1;padding:3rem 5vw;display:flex;flex-direction:column}
 .menu-items{list-style:none;margin-bottom:3rem}
 .menu-items li{border-bottom:2px dashed var(--blue-mid);padding:1.2rem 0}
 .menu-items li:last-child{border-bottom:none}
 .menu-items a{font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:var(--blue-dark);text-decoration:none;display:block}
-.menu-cta{display:inline-flex;align-items:center;gap:1rem;background:var(--orange);color:#fff;font-size:1rem;font-weight:600;padding:.9rem 2rem;border-radius:50px;text-decoration:none;border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:background .2s}
-.menu-cta:hover{background:#e04000}
-.menu-cta svg{flex-shrink:0}
-.menu-lang-row{margin-bottom:1.5rem;font-size:.9rem;color:var(--grey);display:flex;align-items:center;gap:.5rem}
+.menu-cta{display:inline-flex;align-items:center;gap:1rem;background:var(--orange);color:#fff;font-size:1rem;font-weight:600;padding:.9rem 2rem;border-radius:50px;text-decoration:none;cursor:pointer;font-family:'Outfit',sans-serif}
 
-/* ── HERO ── */
+/* HERO */
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:var(--nav-h);background:var(--cream)}
 .hero-text{display:flex;flex-direction:column;justify-content:center;padding:4rem 5vw 4rem 5vw}
-.hero-title{font-size:clamp(2.8rem,5vw,5rem);line-height:1.05;margin-bottom:1.5rem;font-weight:700}
+.hero-title{font-size:clamp(2.2rem,4vw,4.5rem);line-height:1.05;margin-bottom:1.5rem;font-weight:700}
 .hero-title .light{color:var(--orange-light);font-weight:700}
 .hero-title .bold{color:var(--orange);font-weight:700}
-.hero-sub{font-size:1rem;color:#3a3a4a;max-width:480px;margin-bottom:2.5rem;font-weight:400;line-height:1.75}
+.hero-sub-box{background:#fde8de;border-radius:8px;padding:1.25rem 1.5rem;margin-bottom:2rem;font-size:.95rem;color:#3a3a4a;line-height:1.75}
 .hero-image{position:sticky;top:var(--nav-h);height:calc(100vh - var(--nav-h));overflow:hidden;background:#111}
 .hero-image img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block}
 .hero-img-mobile{display:none}
 
-/* ── ORANGE CTA BUTTON ── */
+/* BUTTONS */
 .btn-orange{display:inline-flex;align-items:center;gap:1rem;background:var(--orange);color:#fff;font-size:1rem;font-weight:600;padding:.9rem 2rem;border-radius:50px;text-decoration:none;border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:background .2s;white-space:nowrap}
 .btn-orange:hover{background:#e04000}
-.btn-orange svg{flex-shrink:0}
-.btn-wa{display:inline-flex;align-items:center;gap:.75rem;background:none;color:var(--blue-dark);font-size:1rem;font-weight:500;padding:.85rem 1.5rem;border-radius:50px;text-decoration:none;border:2px solid var(--blue-dark);cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s}
-.btn-wa:hover{background:var(--blue-dark);color:#fff}
+.btn-wa{display:inline-flex;align-items:center;gap:.75rem;background:none;color:var(--blue-dark);font-size:1rem;font-weight:500;padding:.85rem 1.5rem;border-radius:50px;text-decoration:none;border:2px solid var(--blue-dark);cursor:pointer;font-family:'Outfit',sans-serif}
+.hero-cta-btn{/* visible desktop, hidden mobile */}
 
-/* ── STATS SECTION ── */
-.stats{background:var(--blue-light);padding:4rem 5vw}
-.stats-question{font-size:clamp(1.4rem,2.5vw,2rem);font-weight:700;color:var(--blue-dark);margin-bottom:3rem;max-width:600px}
-.stats-question strong{color:var(--blue-mid)}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-left:1px solid var(--border)}
-.stat-item{padding:1.5rem 2rem;border-right:1px solid var(--border)}
-.stat-icon{margin-bottom:1rem;color:var(--blue-dark)}
+/* STATS */
+.stats{background:var(--blue-light);padding:4rem 5vw 3rem}
+.stats-headline{font-size:clamp(1.6rem,3.5vw,3rem);font-weight:700;color:var(--blue-mid);margin-bottom:2rem;line-height:1.15}
+.stats-headline strong{color:var(--blue-dark)}
+.stats-alert{background:var(--blue-dark);color:white;padding:.65rem 1.25rem;margin-bottom:2rem;border-radius:4px;font-size:.85rem;font-weight:500;display:flex;align-items:center;gap:.6rem}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-left:1px solid rgba(0,0,0,.1)}
+.stat-item{padding:1.5rem 2rem;border-right:1px solid rgba(0,0,0,.1)}
+.stat-icon{margin-bottom:.75rem}
 .stat-icon svg{width:32px;height:32px;stroke:var(--blue-dark);stroke-width:1.5;fill:none}
-.stat-num{font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;color:var(--blue-mid);line-height:1}
-.stat-unit{font-size:clamp(1rem,1.5vw,1.3rem);font-weight:700;color:var(--blue-mid);display:block}
-.stat-desc{font-size:.85rem;color:var(--grey);margin-top:.4rem;line-height:1.5}
+.stat-num-unit{font-size:clamp(1rem,1.5vw,1.2rem);font-weight:700;color:var(--blue-mid)}
+.stat-desc{font-size:.82rem;color:var(--grey);margin-top:.3rem;line-height:1.4}
 
-/* ── TIMELINE ── */
-.timeline{background:var(--white);padding:5rem 5vw}
-.timeline-label{font-size:clamp(1.2rem,2vw,1.6rem);font-weight:400;color:var(--grey);margin-bottom:.5rem}
-.timeline-label strong{color:var(--blue-dark)}
-.timeline-track{position:relative;margin-top:3.5rem;padding-bottom:1rem}
-.timeline-line{position:absolute;top:10px;left:0;right:0;height:3px;background:var(--blue-dark);z-index:0}
-.timeline-line-orange{position:absolute;top:10px;right:0;width:20%;height:3px;background:var(--orange);z-index:1}
-.timeline-items{display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:2}
-.timeline-item{padding-top:0}
-.timeline-dot{width:22px;height:22px;border-radius:50%;background:var(--blue-dark);border:3px solid var(--white);outline:2px solid var(--blue-dark);margin-bottom:1rem}
-.timeline-item:last-child .timeline-dot{background:var(--orange);outline-color:var(--orange)}
-.timeline-year{font-size:.95rem;font-weight:700;color:var(--blue-dark);margin-bottom:.3rem}
-.timeline-item:last-child .timeline-year{color:var(--orange)}
-.timeline-desc{font-size:.82rem;color:var(--grey-dark);line-height:1.5;padding-right:1rem}
-
-/* ── TESTIMONIALS ── */
+/* TESTIMONIALS */
 .testimonials{background:var(--white);padding:4rem 5vw}
-.testimonials-title{font-size:clamp(1.6rem,3vw,2.5rem);font-weight:700;color:var(--blue-dark);margin-bottom:2.5rem}
-.testimonials-title .light{color:var(--blue-mid);font-weight:700}
-.test-carousel-wrap{position:relative}
-.test-carousel{display:flex;gap:1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:1rem}
+.testimonials-title{font-size:clamp(1.6rem,3vw,2.5rem);font-weight:700;color:var(--blue-dark);margin-bottom:2.5rem;line-height:1.15}
+.testimonials-title .t-light{color:var(--grey);font-weight:700}
+.testimonials-title .t-mid{color:var(--blue-mid);font-weight:700}
+.test-carousel{display:flex;gap:1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:.5rem}
 .test-carousel::-webkit-scrollbar{display:none}
-.test-card{flex:0 0 280px;scroll-snap-align:start;border:2px solid var(--blue-light2);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,100,200,.06);padding:8px}
-.test-photo{width:100%;aspect-ratio:3/2.5;object-fit:cover;object-position:top center;background:var(--blue-light);display:block;border-radius:8px;border:2px solid var(--blue-light2)}
-.test-photo-placeholder{width:100%;aspect-ratio:3/2.5;background:var(--blue-light);display:flex;align-items:center;justify-content:center;border-radius:8px;border:2px solid var(--blue-light2)}
+.test-card{flex:0 0 280px;scroll-snap-align:start;border:2px solid var(--blue-light);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,100,200,.06);padding:8px}
+.test-photo{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top center;background:var(--blue-light);display:block;border-radius:8px;border:2px solid var(--blue-light)}
+.test-photo-placeholder{width:100%;aspect-ratio:4/3;background:var(--blue-light);display:flex;align-items:center;justify-content:center;border-radius:8px;border:2px solid var(--blue-light)}
 .test-body{padding:.9rem .3rem .3rem}
-.test-quote{font-size:.9rem;color:var(--blue-mid);font-weight:600;line-height:1.5;margin-bottom:.75rem}
+.test-quote{font-size:.88rem;color:var(--blue-mid);font-weight:600;line-height:1.5;margin-bottom:.6rem}
+.test-name{font-size:.95rem;font-weight:700;color:var(--blue-dark)}
+.test-role{font-size:.7rem;color:var(--grey);text-transform:uppercase;letter-spacing:.06em;display:flex;justify-content:space-between;align-items:center;margin-top:.2rem}
 .test-since{font-size:.65rem;color:var(--grey);text-transform:uppercase;letter-spacing:.06em}
-.test-name{font-size:.95rem;font-weight:700;color:var(--blue-dark);clear:both}
-.test-role{font-size:.7rem;color:var(--grey);text-transform:uppercase;letter-spacing:.06em;display:flex;justify-content:space-between;align-items:center;margin-top:.25rem}
-.test-nav{display:flex;gap:.75rem;margin-top:1.5rem;padding-left:5vw}
-.test-nav button{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--blue-dark);transition:all .2s}
+.test-nav{display:flex;gap:.75rem;margin-top:1.5rem}
+.test-nav button{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--blue-dark)}
 .test-nav button:hover{background:var(--blue-dark);color:#fff;border-color:var(--blue-dark)}
 
-/* ── CTA MID ── */
-.cta-mid{padding:3rem 5vw;display:flex;align-items:center;gap:2rem;flex-wrap:wrap}
-.cta-mid-label{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin-top:.75rem}
+/* CTA MID */
+.cta-mid{padding:2.5rem 5vw;display:flex;align-items:center;gap:2rem;flex-wrap:wrap}
+.cta-mid-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
 
-/* ── ECOSYSTEM ── */
-.ecosystem{background:var(--blue-light);padding:5rem 5vw}
+/* REUTILIZAÇÃO BANNER */
+.banner-reutilizacao{background:var(--blue-dark);padding:3rem 5vw;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.banner-reutilizacao .b-label{font-size:.8rem;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem}
+.banner-reutilizacao .b-title{font-size:clamp(1.8rem,3.5vw,3rem);font-weight:700;color:var(--blue-mid);line-height:1.1}
+.banner-reutilizacao .b-title strong{color:white;font-weight:700}
+.banner-reutilizacao .b-body{font-size:.95rem;color:rgba(255,255,255,.85);line-height:1.75;border-left:3px solid var(--blue-mid);padding-left:1rem}
+
+/* COMPARISON */
+.comparison{background:var(--white);padding:5rem 5vw}
+.comparison-label{font-size:.82rem;color:var(--grey);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem}
+.comparison-title{font-size:clamp(1.6rem,3vw,2.8rem);font-weight:700;color:var(--blue-mid);margin-bottom:3rem;line-height:1.15}
+.comparison-title strong{color:var(--blue-dark)}
+.comparison-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.comp-col{border-radius:var(--radius);padding:2rem}
+.comp-col.demolir{background:#f2f4f7;margin-right:1rem}
+.comp-col.valorizar{background:var(--blue-mid);color:white}
+.comp-col-title{font-size:1.3rem;font-weight:700;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px dashed rgba(0,0,0,.1)}
+.comp-col.valorizar .comp-col-title{border-bottom-color:rgba(255,255,255,.25)}
+.comp-item{display:flex;gap:.75rem;align-items:flex-start;padding:.65rem 0;border-bottom:1.5px dashed rgba(0,0,0,.08)}
+.comp-col.valorizar .comp-item{border-bottom-color:rgba(255,255,255,.2)}
+.comp-item:last-child{border-bottom:none}
+.comp-check{width:18px;height:18px;flex-shrink:0;margin-top:2px}
+.comp-item-text{font-size:.88rem;line-height:1.5}
+.comp-col.demolir .comp-item-text{color:#6b7080}
+.comp-col.valorizar .comp-item-text{color:rgba(255,255,255,.9)}
+.comp-col.demolir .comp-check{color:#9aa0b0}
+.comp-col.valorizar .comp-check{color:white}
+
+/* ECOSYSTEM */
+.ecosystem{background:var(--white);padding:5rem 5vw}
 .ecosystem-inner{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
-.ecosystem-left .eco-label{font-size:.85rem;color:var(--grey);font-weight:500;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.05em}
+.eco-label{font-size:.82rem;color:var(--grey);font-weight:500;text-transform:none;margin-bottom:.5rem}
 .ecosystem-title{font-size:clamp(1.4rem,2.5vw,2rem);font-weight:400;color:var(--grey);line-height:1.25;margin-bottom:1rem}
 .ecosystem-title strong{font-weight:700;color:var(--blue-dark)}
-.ecosystem-sub{font-size:.95rem;color:var(--blue-mid);line-height:1.7;max-width:400px;border-left:4px solid var(--blue-mid);padding-left:1rem;font-weight:500}
-.eco-circle{position:relative;width:320px;height:320px;flex-shrink:0}
-.eco-arcs{position:absolute;inset:0;width:100%;height:100%;z-index:0;overflow:visible}
+.ecosystem-sub{font-size:.95rem;color:var(--blue-mid);line-height:1.7;border-left:4px solid var(--blue-mid);padding-left:1rem;font-weight:500}
+.eco-circle{position:relative;width:320px;height:320px;flex-shrink:0;margin:0 auto}
+.eco-arcs{position:absolute;inset:0;width:100%;height:100%;z-index:0}
 .eco-node{position:absolute;display:flex;flex-direction:column;align-items:center;gap:.4rem;z-index:1}
 .eco-top{top:0;left:50%;transform:translateX(-50%)}
 .eco-right{right:0;top:50%;transform:translateY(-50%)}
 .eco-bottom{bottom:0;left:50%;transform:translateX(-50%)}
 .eco-left{left:0;top:50%;transform:translateY(-50%)}
-.eco-bubble{width:80px;height:80px;border-radius:50%;border:1.5px solid var(--blue-light2);background:#fff;display:flex;align-items:center;justify-content:center}
+.eco-bubble{width:80px;height:80px;border-radius:50%;border:1.5px solid var(--blue-light);background:#fff;display:flex;align-items:center;justify-content:center}
 .eco-bubble svg{width:36px;height:36px}
 .eco-label-txt{font-size:.78rem;font-weight:600;color:var(--blue-mid);text-align:center;white-space:nowrap}
-.eco-icon-item{display:flex;flex-direction:column;align-items:center;gap:.5rem;text-align:center}
-.eco-icon-item svg{width:44px;height:44px;stroke:var(--blue-dark);stroke-width:1.5;fill:none}
-.eco-icon-item span{font-size:.8rem;color:var(--grey-dark);font-weight:500}
 
-/* ── COMPARISON ── */
-.comparison{background:var(--white);padding:5rem 5vw}
-.comparison-label{font-size:.85rem;color:var(--grey);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.75rem}
-.comparison-title{font-size:clamp(1.6rem,3vw,2.5rem);font-weight:700;color:var(--blue-mid);margin-bottom:3rem}
-.comparison-title em{font-style:normal;color:var(--blue-dark);font-weight:700}
-.comparison-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.comp-col{border:2px solid var(--border);border-radius:var(--radius);padding:2rem;background:var(--white)}
-.comp-col.active{border-color:var(--blue-mid);background:#f5faff}
-.comp-col-title{font-size:1.1rem;font-weight:700;color:var(--blue-dark);margin-bottom:1.5rem}
-.comp-col.inactive .comp-col-title{color:var(--grey-dark)}
-.comp-item{display:flex;gap:.75rem;align-items:flex-start;padding:.75rem 0;border-bottom:2px dashed var(--border)}
-.comp-item:last-child{border-bottom:none}
-.comp-check{width:20px;height:20px;flex-shrink:0;margin-top:2px}
-.comp-check.yes{color:var(--blue-mid)}
-.comp-check.no{color:var(--grey)}
-.comp-item-text{font-size:.9rem;color:var(--grey-dark);line-height:1.5}
-.comp-col.active .comp-item-text{color:var(--blue-dark)}
+/* GALLERY */
+.gallery{background:var(--white);padding:0 5vw 4rem}
+.gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.gallery-placeholder{width:100%;aspect-ratio:4/3;border-radius:8px;background:var(--blue-light);display:block}
 
-/* ── GALLERY ── */
-.gallery{background:var(--white);padding:4rem 5vw}
-.gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:2rem}
-.gallery-grid img,.gallery-placeholder{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;background:var(--blue-light);display:block;min-height:0}
+/* PETITION */
+.petition{background:var(--cream);padding:5rem 5vw 8rem}
+.petition-title{font-size:clamp(1.8rem,3.5vw,3.5rem);font-weight:700;color:var(--orange-light);line-height:1.1;margin-bottom:2rem}
+.petition-title strong{color:var(--orange)}
+.petition-btns{display:flex;flex-direction:column;gap:.75rem;max-width:400px}
+.petition-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin-top:.5rem;text-align:center}
 
-/* ── PETITION ── */
-.petition{background:var(--blue-light);padding:5rem 5vw 8rem}
-.petition-inner{max-width:600px}
-.petition-title{font-size:clamp(1.8rem,3.5vw,3rem);font-weight:700;color:var(--blue-dark);line-height:1.1;margin-bottom:1.5rem}
-.petition-title em{font-style:normal;color:var(--orange)}
-.petition-body{font-size:1rem;color:var(--grey-dark);margin-bottom:2rem;line-height:1.75}
-.petition-btns{display:flex;flex-direction:column;gap:1rem;max-width:340px}
-
-/* ── FOOTER ── */
-footer{background:var(--blue-light);padding:4rem 5vw 12rem;position:relative;overflow:hidden}
+/* FOOTER */
+footer{background:var(--blue-light);padding:4rem 5vw 0;position:relative;overflow:hidden}
 .footer-top-line{height:3px;background:var(--blue-mid);margin-bottom:3rem;border-radius:2px}
-.footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:3rem;position:relative;z-index:1;align-items:start}
+.footer-inner{display:grid;grid-template-columns:1.8fr 1fr 1fr;gap:3rem;margin-bottom:4rem;position:relative;z-index:1;align-items:start}
 .footer-about p{font-size:.9rem;color:var(--grey-dark);line-height:1.8}
-.footer-col-title{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--grey);margin-bottom:.75rem}
-.footer-contact p{font-size:.8rem;color:var(--blue-dark);line-height:2;text-transform:uppercase;font-weight:500;letter-spacing:.03em}
-.footer-contact a{color:var(--blue-dark);text-decoration:none;font-weight:600}
+.footer-col-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--grey);margin-bottom:.6rem}
+.footer-contact-info p{font-size:.82rem;color:var(--blue-dark);line-height:2;text-transform:uppercase;font-weight:600;letter-spacing:.02em}
+.footer-contact-info a{color:var(--blue-dark);text-decoration:none}
 .footer-social{display:flex;flex-direction:column;gap:.75rem}
 .footer-social a{display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:var(--blue-dark);text-decoration:none;font-weight:700;letter-spacing:.06em}
 .footer-social a:hover{color:var(--blue-mid)}
-.footer-bottom{border-top:1px solid var(--border);padding-top:1.5rem;font-size:.8rem;color:var(--grey);position:relative;z-index:1}
-.footer-vivo{position:absolute;bottom:0;left:0;right:0;opacity:.45;pointer-events:none;z-index:0}
-.footer-vivo svg{width:100%;height:auto;max-height:200px;display:block}
+.footer-bottom{border-top:1px solid var(--border);padding:1.25rem 0;font-size:.78rem;color:var(--grey);position:relative;z-index:1;margin-top:1rem}
+.footer-vivo{position:absolute;bottom:0;left:0;right:0;pointer-events:none;z-index:0;line-height:0}
+.footer-vivo svg{width:100%;height:auto;display:block;opacity:.5}
 
-/* ── STICKY MOBILE CTA ── */
-.sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;padding:1rem;background:linear-gradient(to top,rgba(255,255,255,.97) 70%,transparent)}
+/* STICKY CTA */
+.sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;padding:.75rem 1rem;background:rgba(255,255,255,.97);border-top:1px solid var(--border)}
 
-/* ── MEDIA: 960px (tablet) ── */
+/* ── 960px ── */
 @media(max-width:960px){
-  section{padding:4rem 5vw}
-  /* Hero */
+  :root{--nav-h:58px}
+  .nav-logo img{height:36px}
+  section{padding:3rem 5vw}
   .hero{grid-template-columns:1fr;min-height:unset;padding-top:var(--nav-h)}
-  .hero-image{position:relative;top:0;height:80vw;max-height:540px;min-height:320px;order:-1;background:var(--cream);padding:1rem 5vw 0;overflow:hidden}
+  .hero-image{position:relative;top:0;height:80vw;max-height:540px;order:-1;background:var(--cream);overflow:hidden}
   .hero-img-desktop{display:none!important}
-  .hero-img-mobile{display:block!important;width:100%;height:100%;object-fit:cover;border-radius:16px}
-  .hero-text{padding:2.5rem 5vw 3rem}
-  /* Stats */
-  .stats-grid{grid-template-columns:repeat(2,1fr);border-top:1px solid var(--border)}
-  /* Timeline */
-  .timeline-items{grid-template-columns:1fr;gap:0}
-  .timeline-track{padding-bottom:0}
-  .timeline-line,.timeline-line-orange{display:none}
-  .timeline-item{display:flex;gap:1rem;align-items:flex-start;padding:.75rem 0;border-left:3px solid var(--blue-dark);padding-left:1.5rem;margin-left:9px;position:relative}
-  .timeline-item:last-child{border-left-color:var(--orange)}
-  .timeline-item.dashed{border-left:3px dashed var(--blue-dark)}
-  .timeline-dot{position:absolute;left:-12px;top:16px;flex-shrink:0;margin-bottom:0;outline-offset:0}
-  .timeline-content{flex:1}
-  /* Testimonials */
-  .test-card{flex:0 0 78vw;max-width:360px}
-  .test-nav{display:none}
-  /* CTA mid */
-  .cta-mid{flex-direction:column;align-items:stretch}
-  .cta-mid .btn-orange{width:100%;justify-content:space-between}
-  .cta-mid-label{text-align:center;margin-top:.5rem}
-  /* Ecosystem */
-  .ecosystem-inner{grid-template-columns:1fr;gap:2rem}
-  .ecosystem-left{text-align:left}
-  .eco-circle{width:280px;height:280px;margin:0 auto}
-  .eco-bubble{width:68px;height:68px}
-  .eco-bubble svg{width:30px;height:30px}
-  /* Comparison */
+  .hero-img-mobile{display:block!important;width:100%;height:100%;object-fit:cover}
+  .hero-text{padding:1.75rem 5vw 2.5rem}
+  .hero-cta-btn{display:none}
+  .stats-headline{font-size:clamp(1.4rem,6vw,2rem)}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .banner-reutilizacao{grid-template-columns:1fr;gap:1.5rem}
   .comparison-grid{grid-template-columns:1fr;gap:1rem}
-  /* Footer */
-  .footer-inner{grid-template-columns:1fr;gap:2.5rem}
+  .comp-col.demolir{margin-right:0}
+  .ecosystem-inner{grid-template-columns:1fr}
+  .eco-circle{width:260px;height:260px}
+  .eco-bubble{width:64px;height:64px}
+  .eco-bubble svg{width:28px;height:28px}
+  .footer-inner{grid-template-columns:1fr;gap:2rem}
+  .sticky-cta{display:block}
+  footer{padding-bottom:4rem}
 }
 
-/* ── MEDIA: 600px (mobile) ── */
+/* ── 600px ── */
 @media(max-width:600px){
-  :root{--nav-h:58px}
-  /* Nav */
-  .nav-logo img{height:34px}
-  /* Sections */
-  section{padding:2.5rem 5vw}
-    .hero-image{height:78vw;max-height:520px;padding:.75rem 5vw 0}
-  /* Hero */
-  .hero-text{padding:1.25rem 5vw 2.5rem}
-  .hero-cta-btn{display:none}
-  .hero-title{font-size:clamp(1.9rem,8.5vw,2.8rem);line-height:1.08}
-  .hero-sub{font-size:.95rem;margin-bottom:1.75rem}
-  .btn-orange{font-size:.95rem;padding:.85rem 1.5rem}
-  /* Stats */
+  .hero-image{height:85vw;max-height:480px}
+  .hero-title{font-size:clamp(1.9rem,8.5vw,2.8rem)}
   .stats{padding:2.5rem 5vw}
-  .stats-question{font-size:clamp(1.25rem,6vw,1.75rem);margin-bottom:2rem;line-height:1.25}
-  .stats-grid{grid-template-columns:1fr 1fr;border-left:none;border-top:none}
-  .stat-item{padding:1.25rem 1rem;border:none;border-bottom:1px solid var(--border)}
-  .stat-item:nth-child(1),.stat-item:nth-child(2){border-bottom:1px solid var(--border)}
-  .stat-item:nth-child(odd){border-right:1px solid var(--border)}
+  .stats-headline{font-size:clamp(1.25rem,6vw,1.6rem)}
+  .stats-grid{grid-template-columns:1fr 1fr;border-left:none}
+  .stat-item{padding:1.25rem 1rem;border-right:1px solid rgba(0,0,0,.08);border-bottom:1px solid rgba(0,0,0,.06)}
+  .stat-item:nth-child(even){border-right:none}
   .stat-icon svg{width:26px;height:26px}
-  .stat-num{font-size:clamp(1.5rem,7vw,2rem)}
-  .stat-unit{font-size:clamp(.9rem,4vw,1.1rem)}
-  .stat-desc{font-size:.78rem}
-  /* Timeline */
-  .timeline{padding:2.5rem 5vw}
-  .timeline-label{font-size:1.3rem}
-  .timeline-year{font-size:.9rem}
-  .timeline-desc{font-size:.8rem}
-  /* Testimonials */
   .testimonials{padding:2.5rem 0 2.5rem 5vw}
-  .testimonials-title{font-size:clamp(1.4rem,6.5vw,2rem);padding-right:5vw}
+  .testimonials-title{padding-right:5vw}
   .test-card{flex:0 0 80vw;max-width:320px}
-  .test-quote{font-size:.85rem}
-  .test-name{font-size:.9rem}
-  /* CTA mid */
-  .cta-mid{padding:2rem 5vw}
-  .cta-mid .btn-orange{font-size:.95rem}
-  /* Ecosystem */
-  .ecosystem{padding:2.5rem 5vw}
-  .ecosystem-title{font-size:clamp(1.3rem,6vw,1.8rem)}
-  .ecosystem-sub{font-size:.9rem}
-  .eco-circle{width:260px;height:260px;margin:2rem auto 0}
-  .eco-bubble{width:60px;height:60px}
-  .eco-bubble svg{width:26px;height:26px}
-  .eco-label-txt{font-size:.72rem}
-  /* Comparison */
+  .test-nav{display:none}
+  .cta-mid{padding:2rem 5vw;flex-direction:column;align-items:stretch}
+  .cta-mid .btn-orange{width:100%;justify-content:space-between}
+  .cta-mid-label{text-align:center}
   .comparison{padding:2.5rem 5vw}
-  .comparison-label{font-size:.78rem}
   .comparison-title{font-size:clamp(1.3rem,6vw,1.8rem);margin-bottom:1.5rem}
   .comp-col{padding:1.5rem 1.25rem}
-  .comp-col-title{font-size:1rem}
-  .comp-item-text{font-size:.85rem}
-  .comp-check{width:18px;height:18px}
-  /* Gallery */
-  .gallery{padding:2.5rem 5vw}
-  .gallery-grid{gap:.75rem}
-  /* Petition */
+  .ecosystem{padding:2.5rem 5vw}
+  .eco-circle{width:240px;height:240px}
+  .eco-bubble{width:58px;height:58px}
+  .eco-bubble svg{width:24px;height:24px}
   .petition{padding:2.5rem 5vw 7rem}
-  .petition-title{font-size:clamp(1.5rem,6.5vw,2.2rem)}
-  .petition-body{font-size:.92rem}
-  .petition-btns{gap:.75rem}
-  .btn-wa{font-size:.9rem}
-  /* Footer */
-  footer{padding:3rem 5vw 10rem}
-  .footer-inner{gap:2rem}
-  .footer-about p{font-size:.85rem;text-transform:none;color:var(--grey-dark);font-weight:400;letter-spacing:0}
-  .footer-contact p{font-size:.78rem}
-  .footer-bottom{font-size:.75rem}
-  .footer-vivo svg{max-height:140px}
-  /* Sticky CTA */
-  .sticky-cta{display:block}
-  .hero-cta-btn{display:none}
+  .petition-title{font-size:clamp(1.5rem,7vw,2.5rem)}
+  .petition-btns{max-width:100%}
+  .footer-vivo svg{opacity:.45}
 }
 
-/* ── MEDIA: 390px (iPhone standard) ── */
+/* ── 390px ── */
 @media(max-width:390px){
-  .hero-image{height:82vw}
+  .hero-image{height:88vw}
   .hero-title{font-size:clamp(1.7rem,8vw,2.2rem)}
-  .stats-question{font-size:1.15rem}
-  .test-card{flex:0 0 85vw}
-  .eco-circle{width:230px;height:230px}
-  .eco-bubble{width:54px;height:54px}
-  .eco-bubble svg{width:22px;height:22px}
+  .eco-circle{width:220px;height:220px}
 }
 </style>
 </head>
@@ -348,14 +258,14 @@ footer{background:var(--blue-light);padding:4rem 5vw 12rem;position:relative;ove
 
 <!-- NAV -->
 <nav class="nav">
-  <a href="#intro" class="nav-logo">
+  <a href="#hero" class="nav-logo">
     <img src="data:image/svg+xml,%3Csvg%20width%3D%221355%22%20height%3D%22334%22%20viewBox%3D%220%200%201355%20334%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Cg%20clip-path%3D%22url%28%23clip0_124_1485%29%22%3E%0A%3Cpath%20d%3D%22M1354.71%20123.192H1313.16V145.661H1352.39V175.264H1313.16V198.447H1354.71V228.05H1278.2V93.5887H1354.71V123.192Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M1244.64%20123.192V228.05H1209.69V123.192H1180.98V93.5887H1273.36V123.192H1244.64Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M1041.86%20228.05V93.5887H1076.81L1141.37%20175.799V93.5887H1176.14V228.05H1141.37L1076.81%20145.84V228.05H1041.86Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M1032.71%20123.192H991.157V145.661H1030.39V175.264H991.157V198.447H1032.71V228.05H956.204V93.5887H1032.71V123.192Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M875.423%20153.686H882.021C888.917%20153.686%20894.207%20152.26%20897.893%20149.406C901.578%20146.553%20903.421%20142.451%20903.421%20137.101C903.421%20131.752%20901.578%20127.65%20897.893%20124.797C894.207%20121.943%20888.917%20120.517%20882.021%20120.517H875.423V153.686ZM952.284%20228.05H908.771L875.423%20176.334V228.05H840.47V93.5887H894.861C902.351%2093.5887%20908.89%2094.7181%20914.478%2096.9769C920.065%2099.1169%20924.642%20102.089%20928.209%20105.893C931.895%20109.698%20934.629%20114.097%20936.412%20119.09C938.315%20124.083%20939.266%20129.433%20939.266%20135.14C939.266%20145.364%20936.769%20153.686%20931.776%20160.106C926.901%20166.407%20919.649%20170.687%20910.019%20172.946L952.284%20228.05Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M781.307%20178.118L765.614%20133.356L749.921%20178.118H781.307ZM790.58%20204.689H740.648L732.623%20228.05H695.352L746.533%2093.5887H784.695L835.876%20228.05H798.605L790.58%20204.689Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M640.472%20155.291H652.063C664.903%20155.291%20671.323%20149.703%20671.323%20138.528C671.323%20127.353%20664.903%20121.765%20652.063%20121.765H640.472V155.291ZM640.472%20228.05H605.519V93.5887H661.158C676.257%2093.5887%20687.789%2097.5119%20695.755%20105.359C703.839%20113.205%20707.881%20124.262%20707.881%20138.528C707.881%20152.795%20703.839%20163.851%20695.755%20171.698C687.789%20179.544%20676.257%20183.468%20661.158%20183.468H640.472V228.05Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M574.759%20128.007C570.955%20124.915%20567.151%20122.657%20563.346%20121.23C559.542%20119.684%20555.856%20118.912%20552.29%20118.912C547.772%20118.912%20544.087%20119.982%20541.233%20122.122C538.38%20124.262%20536.953%20127.055%20536.953%20130.503C536.953%20132.881%20537.667%20134.843%20539.093%20136.388C540.52%20137.934%20542.363%20139.301%20544.622%20140.49C546.999%20141.56%20549.615%20142.511%20552.468%20143.343C555.44%20144.175%20558.353%20145.067%20561.206%20146.018C572.62%20149.822%20580.942%20154.935%20586.173%20161.354C591.523%20167.656%20594.198%20175.918%20594.198%20186.143C594.198%20193.038%20593.009%20199.28%20590.631%20204.867C588.372%20210.455%20584.984%20215.27%20580.466%20219.312C576.067%20223.235%20570.598%20226.267%20564.06%20228.407C557.64%20230.666%20550.328%20231.795%20542.125%20231.795C525.124%20231.795%20509.371%20226.743%20494.867%20216.637L509.847%20188.461C515.078%20193.097%20520.25%20196.545%20525.362%20198.804C530.474%20201.063%20535.527%20202.192%20540.52%20202.192C546.227%20202.192%20550.447%20200.885%20553.181%20198.269C556.035%20195.653%20557.461%20192.681%20557.461%20189.352C557.461%20187.331%20557.105%20185.608%20556.391%20184.181C555.678%20182.635%20554.489%20181.268%20552.825%20180.079C551.16%20178.771%20548.961%20177.583%20546.227%20176.513C543.611%20175.443%20540.401%20174.254%20536.597%20172.946C532.079%20171.519%20527.621%20169.974%20523.222%20168.309C518.942%20166.526%20515.078%20164.208%20511.63%20161.354C508.301%20158.501%20505.567%20154.935%20503.427%20150.655C501.406%20146.256%20500.395%20140.728%20500.395%20134.07C500.395%20127.412%20501.465%20121.408%20503.605%20116.058C505.864%20110.59%20508.955%20105.953%20512.879%20102.149C516.921%2098.2253%20521.795%2095.1937%20527.502%2093.0537C533.327%2090.9137%20539.807%2089.8437%20546.94%2089.8437C553.598%2089.8437%20560.552%2090.7948%20567.805%2092.697C575.057%2094.4803%20582.012%2097.1553%20588.669%20100.722L574.759%20128.007Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M349.147%20228.05V93.5887H384.1L448.656%20175.799V93.5887H483.43V228.05H448.656L384.1%20145.84V228.05H349.147Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M289.984%20178.118L274.291%20133.356L258.598%20178.118H289.984ZM299.258%20204.689H249.325L241.3%20228.05H204.029L255.21%2093.5887H293.373L344.554%20228.05H307.283L299.258%20204.689Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M132.521%20153.686H139.119C146.014%20153.686%20151.305%20152.26%20154.99%20149.406C158.676%20146.553%20160.519%20142.451%20160.519%20137.101C160.519%20131.752%20158.676%20127.65%20154.99%20124.797C151.305%20121.943%20146.014%20120.517%20139.119%20120.517H132.521V153.686ZM209.381%20228.05H165.869L132.521%20176.334V228.05H97.5679V93.5887H151.959C159.449%2093.5887%20165.988%2094.7181%20171.575%2096.9769C177.163%2099.1169%20181.74%20102.089%20185.307%20105.893C188.992%20109.698%20191.727%20114.097%20193.51%20119.09C195.412%20124.083%20196.363%20129.433%20196.363%20135.14C196.363%20145.364%20193.867%20153.686%20188.873%20160.106C183.999%20166.407%20176.747%20170.687%20167.117%20172.946L209.381%20228.05Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M64.0099%20123.192V228.05H29.057V123.192H0.345703V93.5887H92.7212V123.192H64.0099Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M604.084%2010.0051C609.93%207.56913%20616.751%2010.0051%20619.674%2015.8514L756.089%20308.168C758.524%20314.014%20756.088%20320.835%20750.242%20323.758C744.396%20326.194%20737.575%20323.758%20734.652%20317.912L598.238%2025.5953C595.802%2019.749%20598.238%2012.9283%20604.084%2010.0051ZM886.657%2010.0051C892.503%2012.9283%20894.939%2019.749%20892.503%2025.5953L782.298%20272.889C779.375%20278.736%20772.554%20281.172%20766.708%20278.736C760.861%20275.812%20758.425%20268.992%20760.861%20263.145L871.066%2015.8514C873.99%2010.0051%20880.81%207.56913%20886.657%2010.0051Z%22%20fill%3D%22%231636C9%22/%3E%0A%3Cpath%20d%3D%22M494.992%20324.702C488.659%20324.702%20483.3%20319.343%20483.3%20313.009V20.6927C483.3%2014.3591%20488.659%209%20494.992%209C501.326%209%20506.685%2014.3591%20506.685%2020.6927V313.009C506.685%20319.343%20501.326%20324.702%20494.992%20324.702Z%22%20fill%3D%22%231636C9%22/%3E%0A%3Cpath%20d%3D%22M103.784%209.99582C109.63%207.55985%20116.451%209.99582%20119.374%2015.8422L255.789%20308.159C258.225%20314.005%20255.789%20320.826%20249.942%20323.749C244.096%20326.185%20237.275%20323.749%20234.352%20317.903L97.9377%2025.586C95.5017%2019.7397%2097.9377%2012.919%20103.784%209.99582ZM386.357%209.99582C392.203%2012.919%20394.639%2019.7397%20392.203%2025.586L281.998%20272.88C279.075%20278.726%20272.254%20281.162%20266.408%20278.726C260.562%20275.803%20258.126%20268.982%20260.562%20263.136L370.767%2015.8422C373.69%209.99582%20380.51%207.55985%20386.357%209.99582Z%22%20fill%3D%22%231636C9%22/%3E%0A%3Cpath%20d%3D%22M932.6%20169.5C932.6%20111.067%20962.946%2059.7296%201008.68%2030.376C1014.12%2026.8859%201021.36%2028.4652%201024.85%2033.9033C1028.34%2039.3414%201026.76%2046.5793%201021.32%2050.0693C982.008%2075.301%20956%20119.367%20956%20169.5C956%20247.814%201019.49%20311.3%201097.8%20311.3C1118.2%20311.3%201137.57%20306.998%201155.07%20299.263C1160.98%20296.65%201167.89%20299.323%201170.5%20305.233C1173.11%20311.143%201170.44%20318.053%201164.53%20320.665C1144.11%20329.692%201121.52%20334.7%201097.8%20334.7C1006.56%20334.7%20932.6%20260.737%20932.6%20169.5ZM1243.6%20165.5C1243.6%2087.186%201180.11%2023.7002%201101.8%2023.7002C1087.75%2023.7002%201074.19%2025.7407%201061.4%2029.5342C1055.21%2031.3715%201048.7%2027.8393%201046.86%2021.6445C1045.02%2015.4497%201048.55%208.93831%201054.75%207.10059C1069.67%202.67322%201085.47%200.299805%201101.8%200.299805C1193.04%200.299805%201267%2074.2626%201267%20165.5C1267%20216.553%201243.83%20262.205%201207.47%20292.49C1202.5%20296.626%201195.13%20295.953%201190.99%20290.988C1186.85%20286.023%201187.53%20278.645%201192.49%20274.51C1223.74%20248.48%201243.6%20209.315%201243.6%20165.5Z%22%20fill%3D%22%231636C9%22/%3E%0A%3C/g%3E%0A%3Cdefs%3E%0A%3CclipPath%20id%3D%22clip0_124_1485%22%3E%0A%3Crect%20width%3D%221355%22%20height%3D%22334%22/%3E%0A%3C/clipPath%3E%0A%3C/defs%3E%0A%3C/svg%3E" alt="Transparente Vivo" loading="eager">
   </a>
   <div class="nav-right">
     <div class="nav-lang-wrap">
       <button class="nav-lang" onclick="cycleLang()" aria-label="Idioma">
         <span id="lang-label">PT</span>
-        <svg id="lang-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="lang-dropdown" id="lang-dropdown">
         <button onclick="selectLang('pt')">PT</button>
@@ -371,7 +281,7 @@ footer{background:var(--blue-light);padding:4rem 5vw 12rem;position:relative;ove
 <!-- MENU OVERLAY -->
 <div class="menu-overlay" id="menu-overlay">
   <div class="menu-header">
-    <a href="#intro" class="nav-logo" onclick="closeMenu()">
+    <a href="#hero" class="nav-logo" onclick="closeMenu()">
       <img src="data:image/svg+xml,%3Csvg%20width%3D%221355%22%20height%3D%22334%22%20viewBox%3D%220%200%201355%20334%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Cg%20clip-path%3D%22url%28%23clip0_124_1485%29%22%3E%0A%3Cpath%20d%3D%22M1354.71%20123.192H1313.16V145.661H1352.39V175.264H1313.16V198.447H1354.71V228.05H1278.2V93.5887H1354.71V123.192Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M1244.64%20123.192V228.05H1209.69V123.192H1180.98V93.5887H1273.36V123.192H1244.64Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M1041.86%20228.05V93.5887H1076.81L1141.37%20175.799V93.5887H1176.14V228.05H1141.37L1076.81%20145.84V228.05H1041.86Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M1032.71%20123.192H991.157V145.661H1030.39V175.264H991.157V198.447H1032.71V228.05H956.204V93.5887H1032.71V123.192Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M875.423%20153.686H882.021C888.917%20153.686%20894.207%20152.26%20897.893%20149.406C901.578%20146.553%20903.421%20142.451%20903.421%20137.101C903.421%20131.752%20901.578%20127.65%20897.893%20124.797C894.207%20121.943%20888.917%20120.517%20882.021%20120.517H875.423V153.686ZM952.284%20228.05H908.771L875.423%20176.334V228.05H840.47V93.5887H894.861C902.351%2093.5887%20908.89%2094.7181%20914.478%2096.9769C920.065%2099.1169%20924.642%20102.089%20928.209%20105.893C931.895%20109.698%20934.629%20114.097%20936.412%20119.09C938.315%20124.083%20939.266%20129.433%20939.266%20135.14C939.266%20145.364%20936.769%20153.686%20931.776%20160.106C926.901%20166.407%20919.649%20170.687%20910.019%20172.946L952.284%20228.05Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M781.307%20178.118L765.614%20133.356L749.921%20178.118H781.307ZM790.58%20204.689H740.648L732.623%20228.05H695.352L746.533%2093.5887H784.695L835.876%20228.05H798.605L790.58%20204.689Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M640.472%20155.291H652.063C664.903%20155.291%20671.323%20149.703%20671.323%20138.528C671.323%20127.353%20664.903%20121.765%20652.063%20121.765H640.472V155.291ZM640.472%20228.05H605.519V93.5887H661.158C676.257%2093.5887%20687.789%2097.5119%20695.755%20105.359C703.839%20113.205%20707.881%20124.262%20707.881%20138.528C707.881%20152.795%20703.839%20163.851%20695.755%20171.698C687.789%20179.544%20676.257%20183.468%20661.158%20183.468H640.472V228.05Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M574.759%20128.007C570.955%20124.915%20567.151%20122.657%20563.346%20121.23C559.542%20119.684%20555.856%20118.912%20552.29%20118.912C547.772%20118.912%20544.087%20119.982%20541.233%20122.122C538.38%20124.262%20536.953%20127.055%20536.953%20130.503C536.953%20132.881%20537.667%20134.843%20539.093%20136.388C540.52%20137.934%20542.363%20139.301%20544.622%20140.49C546.999%20141.56%20549.615%20142.511%20552.468%20143.343C555.44%20144.175%20558.353%20145.067%20561.206%20146.018C572.62%20149.822%20580.942%20154.935%20586.173%20161.354C591.523%20167.656%20594.198%20175.918%20594.198%20186.143C594.198%20193.038%20593.009%20199.28%20590.631%20204.867C588.372%20210.455%20584.984%20215.27%20580.466%20219.312C576.067%20223.235%20570.598%20226.267%20564.06%20228.407C557.64%20230.666%20550.328%20231.795%20542.125%20231.795C525.124%20231.795%20509.371%20226.743%20494.867%20216.637L509.847%20188.461C515.078%20193.097%20520.25%20196.545%20525.362%20198.804C530.474%20201.063%20535.527%20202.192%20540.52%20202.192C546.227%20202.192%20550.447%20200.885%20553.181%20198.269C556.035%20195.653%20557.461%20192.681%20557.461%20189.352C557.461%20187.331%20557.105%20185.608%20556.391%20184.181C555.678%20182.635%20554.489%20181.268%20552.825%20180.079C551.16%20178.771%20548.961%20177.583%20546.227%20176.513C543.611%20175.443%20540.401%20174.254%20536.597%20172.946C532.079%20171.519%20527.621%20169.974%20523.222%20168.309C518.942%20166.526%20515.078%20164.208%20511.63%20161.354C508.301%20158.501%20505.567%20154.935%20503.427%20150.655C501.406%20146.256%20500.395%20140.728%20500.395%20134.07C500.395%20127.412%20501.465%20121.408%20503.605%20116.058C505.864%20110.59%20508.955%20105.953%20512.879%20102.149C516.921%2098.2253%20521.795%2095.1937%20527.502%2093.0537C533.327%2090.9137%20539.807%2089.8437%20546.94%2089.8437C553.598%2089.8437%20560.552%2090.7948%20567.805%2092.697C575.057%2094.4803%20582.012%2097.1553%20588.669%20100.722L574.759%20128.007Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M349.147%20228.05V93.5887H384.1L448.656%20175.799V93.5887H483.43V228.05H448.656L384.1%20145.84V228.05H349.147Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M289.984%20178.118L274.291%20133.356L258.598%20178.118H289.984ZM299.258%20204.689H249.325L241.3%20228.05H204.029L255.21%2093.5887H293.373L344.554%20228.05H307.283L299.258%20204.689Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M132.521%20153.686H139.119C146.014%20153.686%20151.305%20152.26%20154.99%20149.406C158.676%20146.553%20160.519%20142.451%20160.519%20137.101C160.519%20131.752%20158.676%20127.65%20154.99%20124.797C151.305%20121.943%20146.014%20120.517%20139.119%20120.517H132.521V153.686ZM209.381%20228.05H165.869L132.521%20176.334V228.05H97.5679V93.5887H151.959C159.449%2093.5887%20165.988%2094.7181%20171.575%2096.9769C177.163%2099.1169%20181.74%20102.089%20185.307%20105.893C188.992%20109.698%20191.727%20114.097%20193.51%20119.09C195.412%20124.083%20196.363%20129.433%20196.363%20135.14C196.363%20145.364%20193.867%20153.686%20188.873%20160.106C183.999%20166.407%20176.747%20170.687%20167.117%20172.946L209.381%20228.05Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M64.0099%20123.192V228.05H29.057V123.192H0.345703V93.5887H92.7212V123.192H64.0099Z%22%20fill%3D%22%238AC8F8%22/%3E%0A%3Cpath%20d%3D%22M604.084%2010.0051C609.93%207.56913%20616.751%2010.0051%20619.674%2015.8514L756.089%20308.168C758.524%20314.014%20756.088%20320.835%20750.242%20323.758C744.396%20326.194%20737.575%20323.758%20734.652%20317.912L598.238%2025.5953C595.802%2019.749%20598.238%2012.9283%20604.084%2010.0051ZM886.657%2010.0051C892.503%2012.9283%20894.939%2019.749%20892.503%2025.5953L782.298%20272.889C779.375%20278.736%20772.554%20281.172%20766.708%20278.736C760.861%20275.812%20758.425%20268.992%20760.861%20263.145L871.066%2015.8514C873.99%2010.0051%20880.81%207.56913%20886.657%2010.0051Z%22%20fill%3D%22%231636C9%22/%3E%0A%3Cpath%20d%3D%22M494.992%20324.702C488.659%20324.702%20483.3%20319.343%20483.3%20313.009V20.6927C483.3%2014.3591%20488.659%209%20494.992%209C501.326%209%20506.685%2014.3591%20506.685%2020.6927V313.009C506.685%20319.343%20501.326%20324.702%20494.992%20324.702Z%22%20fill%3D%22%231636C9%22/%3E%0A%3Cpath%20d%3D%22M103.784%209.99582C109.63%207.55985%20116.451%209.99582%20119.374%2015.8422L255.789%20308.159C258.225%20314.005%20255.789%20320.826%20249.942%20323.749C244.096%20326.185%20237.275%20323.749%20234.352%20317.903L97.9377%2025.586C95.5017%2019.7397%2097.9377%2012.919%20103.784%209.99582ZM386.357%209.99582C392.203%2012.919%20394.639%2019.7397%20392.203%2025.586L281.998%20272.88C279.075%20278.726%20272.254%20281.162%20266.408%20278.726C260.562%20275.803%20258.126%20268.982%20260.562%20263.136L370.767%2015.8422C373.69%209.99582%20380.51%207.55985%20386.357%209.99582Z%22%20fill%3D%22%231636C9%22/%3E%0A%3Cpath%20d%3D%22M932.6%20169.5C932.6%20111.067%20962.946%2059.7296%201008.68%2030.376C1014.12%2026.8859%201021.36%2028.4652%201024.85%2033.9033C1028.34%2039.3414%201026.76%2046.5793%201021.32%2050.0693C982.008%2075.301%20956%20119.367%20956%20169.5C956%20247.814%201019.49%20311.3%201097.8%20311.3C1118.2%20311.3%201137.57%20306.998%201155.07%20299.263C1160.98%20296.65%201167.89%20299.323%201170.5%20305.233C1173.11%20311.143%201170.44%20318.053%201164.53%20320.665C1144.11%20329.692%201121.52%20334.7%201097.8%20334.7C1006.56%20334.7%20932.6%20260.737%20932.6%20169.5ZM1243.6%20165.5C1243.6%2087.186%201180.11%2023.7002%201101.8%2023.7002C1087.75%2023.7002%201074.19%2025.7407%201061.4%2029.5342C1055.21%2031.3715%201048.7%2027.8393%201046.86%2021.6445C1045.02%2015.4497%201048.55%208.93831%201054.75%207.10059C1069.67%202.67322%201085.47%200.299805%201101.8%200.299805C1193.04%200.299805%201267%2074.2626%201267%20165.5C1267%20216.553%201243.83%20262.205%201207.47%20292.49C1202.5%20296.626%201195.13%20295.953%201190.99%20290.988C1186.85%20286.023%201187.53%20278.645%201192.49%20274.51C1223.74%20248.48%201243.6%20209.315%201243.6%20165.5Z%22%20fill%3D%22%231636C9%22/%3E%0A%3C/g%3E%0A%3Cdefs%3E%0A%3CclipPath%20id%3D%22clip0_124_1485%22%3E%0A%3Crect%20width%3D%221355%22%20height%3D%22334%22/%3E%0A%3C/clipPath%3E%0A%3C/defs%3E%0A%3C/svg%3E" alt="Transparente Vivo">
     </a>
     <button class="menu-close" onclick="closeMenu()">
@@ -379,12 +289,12 @@ footer{background:var(--blue-light);padding:4rem 5vw 12rem;position:relative;ove
     </button>
   </div>
   <div class="menu-body">
-    <ul class="menu-items" id="menu-items">
-      <li><a href="#intro" onclick="closeMenu()" data-i18n="menu_intro"></a></li>
-      <li><a href="#dados" onclick="closeMenu()" data-i18n="menu_dados"></a></li>
-      <li><a href="#comunidade" onclick="closeMenu()" data-i18n="menu_comunidade"></a></li>
-      <li><a href="#acreditamos" onclick="closeMenu()" data-i18n="menu_acreditamos"></a></li>
-      <li><a href="#ecossistema" onclick="closeMenu()" data-i18n="menu_ecossistema"></a></li>
+    <ul class="menu-items">
+      <li><a href="#hero" onclick="closeMenu()" data-i18n="menu_intro"></a></li>
+      <li><a href="#stats" onclick="closeMenu()" data-i18n="menu_dados"></a></li>
+      <li><a href="#testimonials" onclick="closeMenu()" data-i18n="menu_comunidade"></a></li>
+      <li><a href="#comparison" onclick="closeMenu()" data-i18n="menu_acreditamos"></a></li>
+      <li><a href="#ecosystem" onclick="closeMenu()" data-i18n="menu_ecossistema"></a></li>
     </ul>
     <a href="https://peticaopublica.com/psign.aspx?pi=PT131237" target="_blank" rel="noopener" class="menu-cta">
       <span data-i18n="menu_sign"></span>
@@ -394,14 +304,17 @@ footer{background:var(--blue-light);padding:4rem 5vw 12rem;position:relative;ove
 </div>
 
 <!-- HERO -->
-<section class="hero" id="intro">
+<section class="hero" id="hero" style="padding-top:var(--nav-h)">
   <div class="hero-text">
     <h1 class="hero-title">
       <span class="light" data-i18n="hero_line1"></span><br>
-      <span class="bold" data-i18n="hero_line2"></span><br>
-      <span class="light" data-i18n="hero_line3"></span>
+      <span class="light" data-i18n="hero_line2"></span><br>
+      <span class="bold" data-i18n="hero_line3"></span><br>
+      <span class="light" data-i18n="hero_line4"></span>
     </h1>
-    <p class="hero-sub" data-i18n="hero_sub"></p>
+    <div class="hero-sub-box">
+      <p data-i18n="hero_sub"></p>
+    </div>
     <a href="https://peticaopublica.com/psign.aspx?pi=PT131237" target="_blank" rel="noopener" class="btn-orange hero-cta-btn">
       <span data-i18n="hero_cta"></span>
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -414,108 +327,49 @@ footer{background:var(--blue-light);padding:4rem 5vw 12rem;position:relative;ove
 </section>
 
 <!-- STATS -->
-<section class="stats" id="dados">
-  <p class="stats-question" id="stats-question"></p>
+<section class="stats" id="stats">
+  <h2 class="stats-headline" id="stats-headline"></h2>
+  <div class="stats-alert">
+    <span>⚠</span><span data-i18n="stats_alert"></span>
+  </div>
   <div class="stats-grid">
     <div class="stat-item">
-      <div class="stat-icon">
-        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-      </div>
-      <div><span class="stat-num">600+</span></div>
-      <div class="stat-unit" data-i18n="stat_pessoas_unit"></div>
+      <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+      <div class="stat-num-unit">600+ <span data-i18n="stat_pessoas_unit"></span></div>
       <div class="stat-desc" data-i18n="stat_pessoas_desc"></div>
     </div>
     <div class="stat-item">
-      <div class="stat-icon">
-        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      </div>
-      <div><span class="stat-num">100~</span></div>
-      <div class="stat-unit" data-i18n="stat_empresas_unit"></div>
+      <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="stat-num-unit">100 <span data-i18n="stat_empresas_unit"></span></div>
       <div class="stat-desc" data-i18n="stat_empresas_desc"></div>
     </div>
     <div class="stat-item">
-      <div class="stat-icon">
-        <svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>
-      </div>
-      <div><span class="stat-num">6</span></div>
-      <div class="stat-unit" data-i18n="stat_rest_unit"></div>
+      <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg></div>
+      <div class="stat-num-unit">7 <span data-i18n="stat_rest_unit"></span></div>
       <div class="stat-desc" data-i18n="stat_rest_desc"></div>
     </div>
     <div class="stat-item">
-      <div class="stat-icon">
-        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="9 16 11 18 15 14"/></svg>
-      </div>
-      <div><span class="stat-num">365</span></div>
-      <div class="stat-unit" data-i18n="stat_dias_unit"></div>
+      <div class="stat-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="9 16 11 18 15 14"/></svg></div>
+      <div class="stat-num-unit">365 <span data-i18n="stat_dias_unit"></span></div>
       <div class="stat-desc" data-i18n="stat_dias_desc"></div>
     </div>
   </div>
 </section>
 
-<!-- TIMELINE -->
-<section class="timeline">
-  <p class="timeline-label"><span data-i18n="tl_label_pre"></span> <strong data-i18n="tl_label_bold"></strong></p>
-  <div class="timeline-track">
-    <div class="timeline-line"></div>
-    <div class="timeline-line-orange"></div>
-    <div class="timeline-items">
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-year">2001</div>
-          <div class="timeline-desc" data-i18n="tl_2001"></div>
-        </div>
-      </div>
-      <div class="timeline-item dashed">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-year">2007</div>
-          <div class="timeline-desc" data-i18n="tl_2007"></div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-year">2021</div>
-          <div class="timeline-desc" data-i18n="tl_2021"></div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-year">2025</div>
-          <div class="timeline-desc" data-i18n="tl_2025"></div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-year" data-i18n="tl_now_label"></div>
-          <div class="timeline-desc" data-i18n="tl_now"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- TESTIMONIALS -->
-<section class="testimonials" id="comunidade">
+<section class="testimonials" id="testimonials">
   <h2 class="testimonials-title">
-    <span data-i18n="test_title_1"></span> <span class="light" data-i18n="test_title_2"></span><br>
-    <span data-i18n="test_title_3"></span> <span class="light" data-i18n="test_title_4"></span> <span data-i18n="test_title_5"></span>
+    <span class="t-dark" data-i18n="test_t1"></span> <span class="t-mid" data-i18n="test_t2"></span><br>
+    <span class="t-dark" data-i18n="test_t3"></span> <span class="t-light" data-i18n="test_t4"></span> <span class="t-dark" data-i18n="test_t5"></span>
   </h2>
-  <div class="test-carousel-wrap">
-    <div class="test-carousel" id="test-carousel">
-      <!-- Cards rendered by JS from testimonials.json -->
-    </div>
-    <div class="test-nav">
-      <button onclick="scrollTest(-1)" aria-label="Anterior">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      </button>
-      <button onclick="scrollTest(1)" aria-label="Seguinte">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </button>
-    </div>
+  <div class="test-carousel" id="test-carousel"></div>
+  <div class="test-nav">
+    <button onclick="scrollTest(-1)" aria-label="Anterior">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    </button>
+    <button onclick="scrollTest(1)" aria-label="Seguinte">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
   </div>
 </section>
 
@@ -528,140 +382,132 @@ footer{background:var(--blue-light);padding:4rem 5vw 12rem;position:relative;ove
   <p class="cta-mid-label" data-i18n="cta_mid_label"></p>
 </div>
 
-<!-- ECOSYSTEM -->
-<section class="ecosystem" id="ecossistema">
-  <div class="ecosystem-inner">
-    <div class="ecosystem-left">
-      <p class="eco-label" data-i18n="eco_label"></p>
-      <h2 class="ecosystem-title" id="eco-title-el"></h2>
-      <p class="ecosystem-sub" data-i18n="eco_sub"></p>
+<!-- REUTILIZAÇÃO BANNER -->
+<div class="banner-reutilizacao">
+  <div>
+    <p class="b-label">⚠ <span data-i18n="banner_label"></span></p>
+    <h2 class="b-title" id="banner-title"></h2>
+  </div>
+  <p class="b-body" data-i18n="banner_body"></p>
+</div>
+
+<!-- COMPARISON -->
+<section class="comparison" id="comparison">
+  <p class="comparison-label" data-i18n="comp_supertitle"></p>
+  <h2 class="comparison-title" id="comp-title-el"></h2>
+  <div class="comparison-grid">
+    <div class="comp-col demolir">
+      <div class="comp-col-title" data-i18n="comp_dem_title"></div>
+      <div class="comp-item">
+        <svg class="comp-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <span class="comp-item-text" data-i18n="comp_dem_1"></span>
+      </div>
+      <div class="comp-item">
+        <svg class="comp-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <span class="comp-item-text" data-i18n="comp_dem_2"></span>
+      </div>
+      <div class="comp-item">
+        <svg class="comp-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <span class="comp-item-text" data-i18n="comp_dem_3"></span>
+      </div>
+      <div class="comp-item">
+        <svg class="comp-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <span class="comp-item-text" data-i18n="comp_dem_4"></span>
+      </div>
     </div>
-    <div style="display:flex;justify-content:center;align-items:center"><div class="eco-circle">
-      <!-- Top: Escritórios -->
-      <div class="eco-node eco-top">
-        <div class="eco-bubble">
-          <svg viewBox="0 0 24 24" stroke="var(--blue-mid)" stroke-width="1.5" fill="none"><path d="M2 4h7l2 3H2V4z"/><path d="M2 7v13h20V7H2z"/><path d="M8 7v13"/><line x1="6" y1="11" x2="6" y2="11.01"/><line x1="6" y1="15" x2="6" y2="15.01"/><path d="M12 11h6M12 15h6"/></svg>
-        </div>
-        <span class="eco-label-txt" data-i18n="eco_escritorios"></span>
+    <div class="comp-col valorizar">
+      <div class="comp-col-title" data-i18n="comp_val_title"></div>
+      <div class="comp-item">
+        <svg class="comp-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        <span class="comp-item-text" data-i18n="comp_val_1"></span>
       </div>
-      <!-- Right: Restaurantes -->
-      <div class="eco-node eco-right">
-        <div class="eco-bubble">
-          <svg viewBox="0 0 24 24" stroke="var(--blue-mid)" stroke-width="1.5" fill="none"><rect x="2" y="7" width="20" height="14" rx="1"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><path d="M12 12v3"/><path d="M8 12h8"/></svg>
-        </div>
-        <span class="eco-label-txt" data-i18n="eco_restaurantes"></span>
+      <div class="comp-item">
+        <svg class="comp-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        <span class="comp-item-text" data-i18n="comp_val_2"></span>
       </div>
-      <!-- Bottom: Desporto -->
-      <div class="eco-node eco-bottom">
-        <div class="eco-bubble">
-          <svg viewBox="0 0 24 24" stroke="var(--blue-mid)" stroke-width="1.5" fill="none"><path d="M2 12c0 0 2-4 5-4s5 4 8 4 5-4 5-4"/><path d="M2 17c0 0 2-4 5-4s5 4 8 4 5-4 5-4"/></svg>
-        </div>
-        <span class="eco-label-txt" data-i18n="eco_desporto"></span>
+      <div class="comp-item">
+        <svg class="comp-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        <span class="comp-item-text" data-i18n="comp_val_3"></span>
       </div>
-      <!-- Left: Arte & Cultura -->
-      <div class="eco-node eco-left">
-        <div class="eco-bubble">
-          <svg viewBox="0 0 24 24" stroke="var(--blue-mid)" stroke-width="1.5" fill="none"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
-        </div>
-        <span class="eco-label-txt" data-i18n="eco_arte"></span>
+      <div class="comp-item">
+        <svg class="comp-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        <span class="comp-item-text" data-i18n="comp_val_4"></span>
       </div>
-      <!-- Connecting arcs -->
-      <svg class="eco-arcs" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M150 60 A110 110 0 0 1 240 150" stroke="#c8dff5" stroke-width="1.5" fill="none"/>
-        <path d="M240 150 A110 110 0 0 1 150 240" stroke="#c8dff5" stroke-width="1.5" fill="none"/>
-        <path d="M150 240 A110 110 0 0 1 60 150" stroke="#c8dff5" stroke-width="1.5" fill="none"/>
-        <path d="M60 150 A110 110 0 0 1 150 60" stroke="#c8dff5" stroke-width="1.5" fill="none"/>
-      </svg>
     </div>
   </div>
 </section>
 
-<!-- COMPARISON -->
-<section class="comparison" id="acreditamos">
-  <p class="comparison-label" data-i18n="comp_label"></p>
-  <h2 class="comparison-title" data-i18n="comp_title"></h2>
-  <div class="comparison-grid">
-    <div class="comp-col active">
-      <div class="comp-col-title" data-i18n="comp_nao_title"></div>
-      <div class="comp-item">
-        <svg class="comp-check yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-        <span class="comp-item-text" data-i18n="comp_nao_1"></span>
-      </div>
-      <div class="comp-item">
-        <svg class="comp-check yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-        <span class="comp-item-text" data-i18n="comp_nao_2"></span>
-      </div>
-      <div class="comp-item">
-        <svg class="comp-check yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-        <span class="comp-item-text" data-i18n="comp_nao_3"></span>
-      </div>
-      <div class="comp-item">
-        <svg class="comp-check yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-        <span class="comp-item-text" data-i18n="comp_nao_4"></span>
-      </div>
+<!-- ECOSYSTEM -->
+<section class="ecosystem" id="ecosystem">
+  <div class="ecosystem-inner">
+    <div>
+      <p class="eco-label" data-i18n="eco_label"></p>
+      <h2 class="ecosystem-title" id="eco-title-el"></h2>
+      <p class="ecosystem-sub" data-i18n="eco_sub"></p>
     </div>
-    <div class="comp-col inactive">
-      <div class="comp-col-title" data-i18n="comp_dem_title"></div>
-      <div class="comp-item">
-        <svg class="comp-check no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        <span class="comp-item-text" data-i18n="comp_dem_1"></span>
-      </div>
-      <div class="comp-item">
-        <svg class="comp-check no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        <span class="comp-item-text" data-i18n="comp_dem_2"></span>
-      </div>
-      <div class="comp-item">
-        <svg class="comp-check no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        <span class="comp-item-text" data-i18n="comp_dem_3"></span>
-      </div>
-      <div class="comp-item">
-        <svg class="comp-check no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        <span class="comp-item-text" data-i18n="comp_dem_4"></span>
+    <div style="display:flex;justify-content:center">
+      <div class="eco-circle">
+        <div class="eco-node eco-top">
+          <div class="eco-bubble"><svg viewBox="0 0 24 24" stroke="var(--blue-mid)" stroke-width="1.5" fill="none"><path d="M3 3h7l1 3H3V3z"/><path d="M3 6v14h18V6H3z"/><path d="M9 6v14"/><line x1="6" y1="10" x2="6" y2="10.01"/><line x1="6" y1="14" x2="6" y2="14.01"/><path d="M12 10h6M12 14h6"/></svg></div>
+          <span class="eco-label-txt" data-i18n="eco_escritorios"></span>
+        </div>
+        <div class="eco-node eco-right">
+          <div class="eco-bubble"><svg viewBox="0 0 24 24" stroke="var(--blue-mid)" stroke-width="1.5" fill="none"><rect x="2" y="7" width="20" height="14" rx="1"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></div>
+          <span class="eco-label-txt" data-i18n="eco_restaurantes"></span>
+        </div>
+        <div class="eco-bottom eco-node">
+          <div class="eco-bubble"><svg viewBox="0 0 24 24" stroke="var(--blue-mid)" stroke-width="1.5" fill="none"><path d="M2 12c0 0 2-4 5-4s5 4 8 4 5-4 5-4"/><path d="M2 17c0 0 2-4 5-4s5 4 8 4 5-4 5-4"/></svg></div>
+          <span class="eco-label-txt" data-i18n="eco_desporto"></span>
+        </div>
+        <div class="eco-node eco-left">
+          <div class="eco-bubble"><svg viewBox="0 0 24 24" stroke="var(--blue-mid)" stroke-width="1.5" fill="none"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
+          <span class="eco-label-txt" data-i18n="eco_arte"></span>
+        </div>
+        <svg class="eco-arcs" viewBox="0 0 300 300" fill="none">
+          <path d="M150 60 A110 110 0 0 1 240 150" stroke="#c8dff5" stroke-width="1.5"/>
+          <path d="M240 150 A110 110 0 0 1 150 240" stroke="#c8dff5" stroke-width="1.5"/>
+          <path d="M150 240 A110 110 0 0 1 60 150" stroke="#c8dff5" stroke-width="1.5"/>
+          <path d="M60 150 A110 110 0 0 1 150 60" stroke="#c8dff5" stroke-width="1.5"/>
+        </svg>
       </div>
     </div>
   </div>
 </section>
 
 <!-- GALLERY -->
-<section class="gallery">
-  <div class="gallery-grid" id="gallery-grid">
-    <div class="gallery-placeholder" style="background:var(--blue-light)"></div>
-    <div class="gallery-placeholder" style="background:var(--blue-light2)"></div>
+<section class="gallery" id="gallery">
+  <div class="gallery-grid">
+    <div class="gallery-placeholder"></div>
+    <div class="gallery-placeholder"></div>
   </div>
 </section>
 
 <!-- PETITION -->
-<section class="petition" id="peticao">
-  <div class="petition-inner">
-    <h2 class="petition-title" data-i18n="petition_title"></h2>
-    <p class="petition-body" data-i18n="petition_body"></p>
-    <div class="petition-btns">
-      <a href="https://peticaopublica.com/psign.aspx?pi=PT131237" target="_blank" rel="noopener" class="btn-orange">
-        <span data-i18n="petition_sign"></span>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <a href="https://wa.me/?text=Assina+a+petição+para+salvar+o+Edifício+Transparente+do+Porto%21+https%3A%2F%2Fpeticaopublica.com%2Fpsign.aspx%3Fpi%3DPT131237" target="_blank" rel="noopener" class="btn-wa" id="wa-btn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        <span data-i18n="petition_wa"></span>
-      </a>
-    </div>
+<section class="petition" id="petition">
+  <h2 class="petition-title" id="petition-title-el"></h2>
+  <div class="petition-btns">
+    <a href="https://peticaopublica.com/psign.aspx?pi=PT131237" target="_blank" rel="noopener" class="btn-orange">
+      <span data-i18n="petition_sign"></span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <p class="petition-label" data-i18n="cta_mid_label"></p>
   </div>
 </section>
 
 <!-- FOOTER -->
-<footer>
+<footer id="contacto">
   <div class="footer-top-line"></div>
   <div class="footer-inner">
-    <div class="footer-about">
-      <p id="footer-about-text"></p>
-    </div>
-    <div class="footer-contact">
+    <div class="footer-about"><p id="footer-about-text"></p></div>
+    <div>
       <p class="footer-col-title">CONTACTO</p>
-      <p><a href="mailto:ola@transparentevivo.pt">OLA@TRANSPARENTEVIVO.PT</a></p>
-    </div>
-    <div class="footer-contact">
-      <p class="footer-col-title">MORADA</p>
-      <p>VIA DO CASTELO DO QUEIJO 395<br>4100–429 PORTO</p>
+      <div class="footer-contact-info">
+        <p><a href="mailto:ola@transparentevivo.pt">OLA@TRANSPARENTEVIVO.PT</a></p>
+      </div>
+      <p class="footer-col-title" style="margin-top:1.5rem">MORADA</p>
+      <div class="footer-contact-info">
+        <p>VIA DO CASTELO DO QUEIJO 395<br>4100–429 PORTO</p>
+      </div>
     </div>
     <div>
       <p class="footer-col-title">SOCIAL</p>
@@ -677,24 +523,22 @@ footer{background:var(--blue-light);padding:4rem 5vw 12rem;position:relative;ove
       </div>
     </div>
   </div>
-  <div class="footer-bottom">
-    <span>© 2026 · Transparente Vivo</span>
-  </div>
-  <div class="footer-vivo" aria-hidden="true">
-    <svg viewBox="0 0 900 334" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-      <!-- First V (left) -->
-      <path d="M104 10C110 7.5 117 10 120 16L256 308C258 314 256 321 250 324C244 326 237 324 234 318L98 26C95.5 19.7 98 13 104 10Z" fill="#89c8f8"/>
-      <path d="M386 10C392 13 394 19.7 392 26L282 273C279 279 272 281 266 279C261 276 258 269 261 263L371 16C374 10 380 7.5 386 10Z" fill="#89c8f8"/>
-      <path d="M245 325C239 325 233 319 233 313V21C233 14 239 9 245 9C251 9 257 14 257 21V313C257 319 251 325 245 325Z" fill="#89c8f8"/>
-      <!-- Second V (right) -->
-      <path d="M454 10C460 7.5 467 10 470 16L606 308C608 314 606 321 600 324C594 326 587 324 584 318L448 26C445.5 19.7 448 13 454 10Z" fill="#89c8f8"/>
-      <path d="M636 10C642 13 644 19.7 642 26L532 273C529 279 522 281 516 279C511 276 508 269 511 263L621 16C624 10 630 7.5 636 10Z" fill="#89c8f8"/>
-      <path d="M495 325C489 325 483 319 483 313V21C483 14 489 9 495 9C501 9 507 14 507 21V313C507 319 501 325 495 325Z" fill="#89c8f8"/>
-      <!-- C circle (partial arc like the logo) -->
-      <path d="M682.6 169.5C682.6 111.067 712.946 59.7296 758.68 30.376C764.12 26.8859 771.36 28.4652 774.85 33.9033C778.34 39.3414 776.76 46.5793 771.32 50.0693C732.008 75.301 706 119.367 706 169.5C706 247.814 769.49 311.3 847.8 311.3C868.2 311.3 887.57 306.998 905.07 299.263C910.98 296.65 917.89 299.323 920.5 305.233C923.11 311.143 920.44 318.053 914.53 320.665C894.11 329.692 871.52 334.7 847.8 334.7C756.56 334.7 682.6 260.737 682.6 169.5Z" fill="#89c8f8"/>
-      <path d="M993.6 165.5C993.6 87.186 930.11 23.7 851.8 23.7C837.75 23.7 824.19 25.74 811.4 29.53C805.21 31.37 798.7 27.84 796.86 21.64C795.02 15.45 798.55 8.94 804.75 7.1C819.67 2.67 835.47 0.3 851.8 0.3C943.04 0.3 1017 74.26 1017 165.5C1017 216.553 993.83 262.205 957.47 292.49C952.5 296.626 945.13 295.953 940.99 290.988C936.85 286.023 937.53 278.645 942.49 274.51C973.74 248.48 993.6 209.315 993.6 165.5Z" fill="#89c8f8"/>
-    </svg>
-  </div>
+  <div class="footer-bottom">© 2026 · Transparente Vivo</div>
+  <div class="footer-vivo" aria-hidden="true"><svg width="734" height="210" viewBox="0 0 734 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g>
+
+<path d="M318.072 6.05897C321.742 4.52963 326.024 6.05897 327.859 9.7294L413.503 193.251C415.032 196.921 413.503 201.203 409.832 203.039C406.162 204.568 401.88 203.039 400.045 199.368L314.401 15.8468C312.872 12.1763 314.401 7.89418 318.072 6.05897ZM495.476 6.05897C499.146 7.89418 500.675 12.1763 499.146 15.8468L429.958 171.102C428.122 174.773 423.84 176.302 420.17 174.773C416.499 172.937 414.97 168.655 416.499 164.985L485.688 9.7294C487.523 6.05897 491.805 4.52963 495.476 6.05897Z" fill="#89c8f8"/>
+<path d="M249.582 203.631C245.606 203.631 242.241 200.266 242.241 196.29V12.7688C242.241 8.7925 245.606 5.42795 249.582 5.42795C253.559 5.42795 256.923 8.7925 256.923 12.7688V196.29C256.923 200.266 253.559 203.631 249.582 203.631Z" fill="#89c8f8"/>
+<path d="M3.97496 6.05315C7.64539 4.5238 11.9276 6.05315 13.7628 9.72358L99.4061 193.245C100.935 196.915 99.4061 201.198 95.7356 203.033C92.0652 204.562 87.783 203.033 85.9478 199.362L0.304535 15.841C-1.22481 12.1705 0.304535 7.88835 3.97496 6.05315ZM181.379 6.05315C185.049 7.88835 186.579 12.1705 185.049 15.841L115.861 171.096C114.026 174.767 109.743 176.296 106.073 174.767C102.403 172.932 100.873 168.649 102.403 164.979L171.591 9.72358C173.426 6.05315 177.708 4.5238 181.379 6.05315Z" fill="#89c8f8"/>
+<path d="M524.319 106.193C524.319 69.5074 543.372 37.2769 572.086 18.8482C575.5 16.657 580.044 17.6485 582.236 21.0627C584.427 24.4768 583.435 29.0209 580.021 31.212C555.339 47.0529 539.011 74.7182 539.011 106.193C539.011 155.359 578.868 195.217 628.035 195.217C640.844 195.217 653.004 192.516 663.99 187.66C667.7 186.02 672.038 187.698 673.678 191.408C675.318 195.119 673.64 199.456 669.929 201.097C657.108 206.764 642.929 209.908 628.035 209.908C570.755 209.908 524.319 163.473 524.319 106.193ZM719.571 103.681C719.571 54.5145 679.713 14.657 630.546 14.657C621.724 14.657 613.213 15.9381 605.184 18.3197C601.295 19.4731 597.207 17.2556 596.053 13.3664C594.899 9.47719 597.117 5.38922 601.006 4.23547C610.377 1.45589 620.294 -0.0341797 630.546 -0.0341797C687.827 -0.0341797 734.262 46.4009 734.262 103.681C734.262 135.734 719.713 164.395 696.887 183.408C693.77 186.004 689.138 185.582 686.541 182.465C683.945 179.348 684.367 174.716 687.484 172.12C707.103 155.778 719.571 131.189 719.571 103.681Z" fill="#89c8f8"/>
+</g>
+<defs>
+<clipPath id="clip0_132_2">
+
+</clipPath>
+</defs>
+</svg>
+</div>
 </footer>
 
 <!-- STICKY MOBILE CTA -->
@@ -704,142 +548,76 @@ footer{background:var(--blue-light);padding:4rem 5vw 12rem;position:relative;ove
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
   </a>
 </div>
+
 <script>
-// ── i18n ──
 const T = {
   pt:{
-    menu_intro:"Introdução",menu_dados:"Dados",menu_comunidade:"Comunidade",menu_acreditamos:"Em que acreditamos",menu_ecossistema:"Ecossistema",menu_sign:"Assina a petição",
-    hero_line1:"Uma",hero_line2:"comunidade",hero_line3:"viva é património da cidade",
+    menu_intro:"Introdução",menu_dados:"Dados",menu_comunidade:"Comunidade",menu_acreditamos:"No que acreditamos",menu_ecossistema:"Ecossistema",menu_sign:"Assinar petição",
+    hero_line1:"Não se",hero_line2:"destrói uma",hero_line3:"comunidade",hero_line4:"que está viva",
     hero_sub:"Este espaço é hoje um lugar de trabalho, encontro e criação. Antes de decidir o seu futuro, é essencial ouvir quem lhe dá vida todos os dias.",
-    hero_cta:"Apoia esta causa",
-    stats_question:"Sabias que o Edifício Transparente está <strong>cheio de vida</strong> por dentro?",
+    hero_cta:"Apoiar esta causa",
+    stats_headline_pre:"Mantemos esta zona do Porto ativa",stats_headline_strong:"365 dias",stats_headline_post:"por ano",
+    stats_alert:"Porque é que isto importa?",
     stat_pessoas_unit:"pessoas",stat_pessoas_desc:"trabalham aqui todos os dias",
     stat_empresas_unit:"empresas",stat_empresas_desc:"dependem deste ecossistema",
     stat_rest_unit:"restaurantes",stat_rest_desc:"vivem desta comunidade",
     stat_dias_unit:"dias",stat_dias_desc:"de atividade real no Porto",
-    tl_label_pre:"Como este lugar se tornou",tl_label_bold:"comunidade",
-    tl_2001:"Construído para a cultura",tl_2007:"Abertura ao público",tl_2021:"Criação do espaço de escritórios",tl_2025:"Edifício ocupado a 100%",tl_now_label:"Agora",tl_now:"Demolição anunciada",
-    test_title_1:"Pessoas",test_title_2:"que aqui",test_title_3:"trabalham",test_title_4:"e tornam",test_title_5:"este lugar vivo",
-    cta_mid_btn:"Protege esta comunidade",cta_mid_label:"Leva menos de 1 minuto",
-    eco_label:"Porque funciona",eco_title:"Um ecossistema económico e social no Porto",eco_sub:"Restaurantes, escritórios, cultura e desporto trazem vida a uma zona que, sem este espaço, seria sazonal.",
+    test_t1:"Pessoas",test_t2:"que aqui",test_t3:"trabalham",test_t4:"e tornam",test_t5:"este lugar vivo",
+    cta_mid_btn:"Protege esta comunidade",cta_mid_label:"LEVA MENOS DE 1 MINUTO",
+    banner_label:"Não somos contra a mudança",
+    banner_pre:"Somos a favor da",banner_bold:"reutilização",
+    banner_body:"Acreditamos em soluções que mantêm o valor e a atividade económica de um ecossistema que já está em funcionamento.",
+    comp_supertitle:"No que acreditamos",
+    comp_title_pre:"Reutilizar também é construir o",comp_title_bold:"futuro",
+    comp_dem_title:"Demolir",comp_val_title:"Valorizar",
+    comp_dem_1:"Tem custos públicos e urbanos difíceis de justificar",
+    comp_dem_2:"Elimina postos de trabalho e negócios ativos",
+    comp_dem_3:"Interrompe um ecossistema económico em funcionamento",
+    comp_dem_4:"Desfaz uma comunidade já existente",
+    comp_val_1:"Preserva valor urbano, económico e social",
+    comp_val_2:"Mantém viva a atividade económica local",
+    comp_val_3:"Promove empregos, negócios e projetos",
+    comp_val_4:"Permite requalificar sem destruir",
+    eco_label:"Porque funciona",eco_title_pre:"Um ecossistema económico e social",eco_title_bold:"no Porto",
+    eco_sub:"Restaurantes, escritórios, cultura e desporto trazem vida a uma zona que, sem este espaço, seria sazonal.",
     eco_escritorios:"Escritórios",eco_restaurantes:"Restaurantes",eco_arte:"Arte & Cultura",eco_desporto:"Desporto",
-    comp_label:"No que acreditamos",comp_title:"Reutilizar também é construir o <em>futuro</em>",
-    comp_nao_title:"Não demolir",comp_dem_title:"Demolir",
-    comp_nao_1:"Preserva valor urbano, económico e social",comp_nao_2:"Mantém viva a atividade económica local",comp_nao_3:"Promove empregos, negócios e projetos",comp_nao_4:"Permite requalificar sem destruir",
-    comp_dem_1:"Tem custos públicos difíceis de justificar",comp_dem_2:"Elimina postos de trabalho e negócios ativos",comp_dem_3:"Destrói um ecossistema económico que funciona",comp_dem_4:"Desfaz uma comunidade já existente",
-    petition_title:"Assina para capacitar este ecossistema",petition_body:"Acreditamos em soluções que mantêm o valor e a atividade económica de um ecossistema que já está em funcionamento.",
-    petition_sign:"Assina pela reutilização",petition_wa:"Partilha por WhatsApp",
-    footer_about:"O movimento Transparente Vivo é uma ação cívica criada por membros da comunidade do Edifício Transparente que pretende dar a conhecer o ecossistema existente neste espaço.",
-    footer_contact_label:"Contacto",footer_social_label:"Social"
+    petition_title_pre:"Assina para capacitar",petition_title_bold:"este ecossistema",
+    petition_sign:"Assinar petição",
+    footer_about:"O movimento <strong>Transparente Vivo</strong> é uma ação cívica criada por membros da comunidade do Edifício Transparente que pretende dar a conhecer o ecossistema existente neste espaço."
   },
   en:{
-    menu_intro:"Introduction",menu_dados:"Data",menu_comunidade:"Community",menu_acreditamos:"What we believe",menu_ecossistema:"Ecosystem",menu_sign:"Sign the petition",
-    hero_line1:"A",hero_line2:"community",hero_line3:"alive is the city's heritage",
+    menu_intro:"Introduction",menu_dados:"Data",menu_comunidade:"Community",menu_acreditamos:"What we believe",menu_ecossistema:"Ecosystem",menu_sign:"Sign petition",
+    hero_line1:"You cannot",hero_line2:"destroy a",hero_line3:"community",hero_line4:"that is alive",
     hero_sub:"This space is a place of work, encounter and creation. Before deciding its future, those who bring it to life every day must be heard.",
     hero_cta:"Support this cause",
-    stats_question:"Did you know the Edifício Transparente is <strong>alive</strong> inside?",
+    stats_headline_pre:"We keep this part of Porto active",stats_headline_strong:"365 days",stats_headline_post:"a year",
+    stats_alert:"Why does this matter?",
     stat_pessoas_unit:"people",stat_pessoas_desc:"work here every day",
     stat_empresas_unit:"companies",stat_empresas_desc:"depend on this ecosystem",
     stat_rest_unit:"restaurants",stat_rest_desc:"live from this community",
     stat_dias_unit:"days",stat_dias_desc:"of real activity in Porto",
-    tl_label_pre:"How this place became",tl_label_bold:"community",
-    tl_2001:"Built for culture",tl_2007:"Opens to the public",tl_2021:"Creation of office space",tl_2025:"Building 100% occupied",tl_now_label:"Now",tl_now:"Demolition announced",
-    test_title_1:"People",test_title_2:"who work",test_title_3:"here",test_title_4:"and make",test_title_5:"this place alive",
-    cta_mid_btn:"Defend this community",cta_mid_label:"Takes less than 1 minute",
-    eco_label:"Why it works",eco_title:"An economic and social ecosystem in Porto",eco_sub:"Restaurants, offices, culture and sport bring life to an area that, without this space, would be seasonal.",
+    test_t1:"People",test_t2:"who work",test_t3:"here",test_t4:"and make",test_t5:"this place alive",
+    cta_mid_btn:"Defend this community",cta_mid_label:"TAKES LESS THAN 1 MINUTE",
+    banner_label:"We are not against change",
+    banner_pre:"We are for",banner_bold:"rehabilitation",
+    banner_body:"We believe in solutions that preserve the value and economic activity of an ecosystem that is already functioning.",
+    comp_supertitle:"What we believe",
+    comp_title_pre:"Reuse is also how we build the",comp_title_bold:"future",
+    comp_dem_title:"Demolish",comp_val_title:"Preserve",
+    comp_dem_1:"Has public and urban costs hard to justify",
+    comp_dem_2:"Eliminates jobs and active businesses",
+    comp_dem_3:"Interrupts a functioning economic ecosystem",
+    comp_dem_4:"Dismantles an existing community",
+    comp_val_1:"Preserves urban, economic and social value",
+    comp_val_2:"Keeps local economic activity alive",
+    comp_val_3:"Promotes jobs, businesses and projects",
+    comp_val_4:"Allows renovation without destruction",
+    eco_label:"Why it works",eco_title_pre:"An economic and social ecosystem",eco_title_bold:"in Porto",
+    eco_sub:"Restaurants, offices, culture and sport bring life to an area that, without this space, would be seasonal.",
     eco_escritorios:"Offices",eco_restaurantes:"Restaurants",eco_arte:"Arts & Culture",eco_desporto:"Sport",
-    comp_label:"What we believe",comp_title:"Reuse is also how we build the <em>future</em>",
-    comp_nao_title:"Don't demolish",comp_dem_title:"Demolish",
-    comp_nao_1:"Preserves urban, economic and social value",comp_nao_2:"Keeps local economic activity alive",comp_nao_3:"Promotes jobs, businesses and projects",comp_nao_4:"Allows renovation without destruction",
-    comp_dem_1:"Has public costs hard to justify",comp_dem_2:"Eliminates jobs and active businesses",comp_dem_3:"Destroys a functioning economic ecosystem",comp_dem_4:"Dismantles an existing community",
-    petition_title:"Sign to strengthen this ecosystem",petition_body:"We believe in solutions that maintain the value and economic activity of an ecosystem that is already functioning.",
-    petition_sign:"Sign for rehabilitation",petition_wa:"Share on WhatsApp",
-    footer_about:"<strong>Transparente Vivo</strong> is a civic movement created by members of the Edifício Transparente community to make visible the ecosystem that thrives in this space.",
-    footer_contact_label:"Contact",footer_social_label:"Social"
-  },
-  de:{
-    menu_intro:"Einführung",menu_dados:"Daten",menu_comunidade:"Gemeinschaft",menu_acreditamos:"Was wir glauben",menu_ecossistema:"Ökosystem",menu_sign:"Petition unterzeichnen",
-    hero_line1:"Eine",hero_line2:"lebendige Gemeinschaft",hero_line3:"ist Stadterbe",
-    hero_sub:"Dieser Raum ist heute ein Ort der Arbeit, Begegnung und Schöpfung. Bevor seine Zukunft entschieden wird, muss man jene hören, die ihm täglich Leben einhauchen.",
-    hero_cta:"Diese Sache unterstützen",
-    stats_question:"Wussten Sie, dass das Edifício Transparente <strong>voller Leben</strong> ist?",
-    stat_pessoas_unit:"Personen",stat_pessoas_desc:"arbeiten hier täglich",stat_empresas_unit:"Unternehmen",stat_empresas_desc:"sind von diesem Ökosystem abhängig",stat_rest_unit:"Restaurants",stat_rest_desc:"leben von dieser Gemeinschaft",stat_dias_unit:"Tage",stat_dias_desc:"echter Aktivität in Porto",
-    tl_label_pre:"Wie dieser Ort zur",tl_label_bold:"Gemeinschaft wurde",tl_2001:"Für Kultur gebaut",tl_2007:"Öffnung für die Öffentlichkeit",tl_2021:"Entstehung des Bürobereichs",tl_2025:"Gebäude zu 100% belegt",tl_now_label:"Jetzt",tl_now:"Abriss angekündigt",
-    test_title_1:"Menschen",test_title_2:"die hier",test_title_3:"arbeiten",test_title_4:"und diesen Ort",test_title_5:"lebendig machen",
-    cta_mid_btn:"Diese Gemeinschaft schützen",cta_mid_label:"Dauert weniger als 1 Minute",
-    eco_label:"Warum es funktioniert",eco_title:"Ein wirtschaftliches und soziales Ökosystem in Porto",eco_sub:"Restaurants, Büros, Kultur und Sport beleben eine Zone, die ohne diesen Raum saisonal wäre.",
-    eco_escritorios:"Büros",eco_restaurantes:"Restaurants",eco_arte:"Kunst & Kultur",eco_desporto:"Sport",
-    comp_label:"Was wir glauben",comp_title:"Wiederverwenden heißt auch <em>Zukunft</em> bauen",
-    comp_nao_title:"Nicht abreißen",comp_dem_title:"Abreißen",
-    comp_nao_1:"Bewahrt urbanen, wirtschaftlichen und sozialen Wert",comp_nao_2:"Hält lokale Wirtschaftstätigkeit am Leben",comp_nao_3:"Fördert Arbeitsplätze, Unternehmen und Projekte",comp_nao_4:"Ermöglicht Sanierung ohne Zerstörung",
-    comp_dem_1:"Verursacht schwer zu rechtfertigende öffentliche Kosten",comp_dem_2:"Vernichtet Arbeitsplätze und aktive Unternehmen",comp_dem_3:"Zerstört ein funktionierendes Ökosystem",comp_dem_4:"Löst eine bestehende Gemeinschaft auf",
-    petition_title:"Unterzeichnen Sie, um dieses Ökosystem zu stärken",petition_body:"Wir glauben an Lösungen, die den Wert und die Wirtschaftstätigkeit eines bereits funktionierenden Ökosystems erhalten.",
-    petition_sign:"Für die Wiederverwendung unterzeichnen",petition_wa:"Auf WhatsApp teilen",
-    footer_about:"Die Bewegung Transparente Vivo ist eine zivilgesellschaftliche Aktion von Mitgliedern der Gemeinschaft des Edifício Transparente.",
-    footer_contact_label:"Kontakt",footer_social_label:"Soziale Medien"
-  },
-  fr:{
-    menu_intro:"Introduction",menu_dados:"Données",menu_comunidade:"Communauté",menu_acreditamos:"Ce que nous croyons",menu_ecossistema:"Écosystème",menu_sign:"Signer la pétition",
-    hero_line1:"Une",hero_line2:"communauté vivante",hero_line3:"est le patrimoine de la ville",
-    hero_sub:"Cet espace est aujourd'hui un lieu de travail, de rencontre et de création. Avant de décider de son avenir, il est essentiel d'entendre ceux qui lui donnent vie chaque jour.",
-    hero_cta:"Soutenir cette cause",
-    stats_question:"Saviez-vous que l'Edifício Transparente est <strong>plein de vie</strong> à l'intérieur ?",
-    stat_pessoas_unit:"personnes",stat_pessoas_desc:"travaillent ici chaque jour",stat_empresas_unit:"entreprises",stat_empresas_desc:"dépendent de cet écosystème",stat_rest_unit:"restaurants",stat_rest_desc:"vivent de cette communauté",stat_dias_unit:"jours",stat_dias_desc:"d'activité réelle à Porto",
-    tl_label_pre:"Comment cet endroit est devenu une",tl_label_bold:"communauté",tl_2001:"Construit pour la culture",tl_2007:"Ouverture au public",tl_2021:"Création de l'espace de bureaux",tl_2025:"Bâtiment occupé à 100%",tl_now_label:"Maintenant",tl_now:"Démolition annoncée",
-    test_title_1:"Personnes",test_title_2:"qui travaillent",test_title_3:"ici",test_title_4:"et rendent",test_title_5:"ce lieu vivant",
-    cta_mid_btn:"Protéger cette communauté",cta_mid_label:"Prend moins de 1 minute",
-    eco_label:"Pourquoi ça fonctionne",eco_title:"Un écosystème économique et social à Porto",eco_sub:"Restaurants, bureaux, culture et sport apportent de la vie à une zone qui, sans cet espace, serait saisonnière.",
-    eco_escritorios:"Bureaux",eco_restaurantes:"Restaurants",eco_arte:"Art & Culture",eco_desporto:"Sport",
-    comp_label:"Ce que nous croyons",comp_title:"Réutiliser c'est aussi construire l'<em>avenir</em>",
-    comp_nao_title:"Ne pas démolir",comp_dem_title:"Démolir",
-    comp_nao_1:"Préserve la valeur urbaine, économique et sociale",comp_nao_2:"Maintient l'activité économique locale",comp_nao_3:"Favorise emplois, entreprises et projets",comp_nao_4:"Permet la rénovation sans destruction",
-    comp_dem_1:"Entraîne des coûts publics difficiles à justifier",comp_dem_2:"Supprime des emplois et des entreprises actives",comp_dem_3:"Détruit un écosystème économique fonctionnel",comp_dem_4:"Démantèle une communauté existante",
-    petition_title:"Signez pour renforcer cet écosystème",petition_body:"Nous croyons en des solutions qui maintiennent la valeur et l'activité économique d'un écosystème déjà en fonctionnement.",
-    petition_sign:"Signer pour la réutilisation",petition_wa:"Partager sur WhatsApp",
-    footer_about:"Le mouvement Transparente Vivo est une action civique créée par des membres de la communauté de l'Edifício Transparente.",
-    footer_contact_label:"Contact",footer_social_label:"Réseaux sociaux"
-  },
-  it:{
-    menu_intro:"Introduzione",menu_dados:"Dati",menu_comunidade:"Comunità",menu_acreditamos:"In cosa crediamo",menu_ecossistema:"Ecosistema",menu_sign:"Firma la petizione",
-    hero_line1:"Una",hero_line2:"comunità viva",hero_line3:"è patrimonio della città",
-    hero_sub:"Questo spazio è oggi un luogo di lavoro, incontro e creazione. Prima di decidere il suo futuro, è essenziale ascoltare chi gli dà vita ogni giorno.",
-    hero_cta:"Sostieni questa causa",
-    stats_question:"Sapevi che l'Edifício Transparente è <strong>pieno di vita</strong> dentro?",
-    stat_pessoas_unit:"persone",stat_pessoas_desc:"lavorano qui ogni giorno",stat_empresas_unit:"aziende",stat_empresas_desc:"dipendono da questo ecosistema",stat_rest_unit:"ristoranti",stat_rest_desc:"vivono di questa comunità",stat_dias_unit:"giorni",stat_dias_desc:"di attività reale a Porto",
-    tl_label_pre:"Come questo luogo è diventato",tl_label_bold:"comunità",tl_2001:"Costruito per la cultura",tl_2007:"Apertura al pubblico",tl_2021:"Creazione dello spazio uffici",tl_2025:"Edificio occupato al 100%",tl_now_label:"Ora",tl_now:"Demolizione annunciata",
-    test_title_1:"Persone",test_title_2:"che lavorano",test_title_3:"qui",test_title_4:"e rendono",test_title_5:"questo luogo vivo",
-    cta_mid_btn:"Proteggi questa comunità",cta_mid_label:"Richiede meno di 1 minuto",
-    eco_label:"Perché funziona",eco_title:"Un ecosistema economico e sociale a Porto",eco_sub:"Ristoranti, uffici, cultura e sport portano vita a una zona che, senza questo spazio, sarebbe stagionale.",
-    eco_escritorios:"Uffici",eco_restaurantes:"Ristoranti",eco_arte:"Arte & Cultura",eco_desporto:"Sport",
-    comp_label:"In cosa crediamo",comp_title:"Riutilizzare è anche costruire il <em>futuro</em>",
-    comp_nao_title:"Non demolire",comp_dem_title:"Demolire",
-    comp_nao_1:"Preserva valore urbano, economico e sociale",comp_nao_2:"Mantiene viva l'attività economica locale",comp_nao_3:"Promuove occupazione, imprese e progetti",comp_nao_4:"Permette la riqualificazione senza distruggere",
-    comp_dem_1:"Ha costi pubblici difficili da giustificare",comp_dem_2:"Elimina posti di lavoro e imprese attive",comp_dem_3:"Distrugge un ecosistema economico funzionante",comp_dem_4:"Smantella una comunità già esistente",
-    petition_title:"Firma per potenziare questo ecosistema",petition_body:"Crediamo in soluzioni che mantengano il valore e l'attività economica di un ecosistema già in funzionamento.",
-    petition_sign:"Firma per il riutilizzo",petition_wa:"Condividi su WhatsApp",
-    footer_about:"Il movimento Transparente Vivo è un'azione civica creata da membri della comunità dell'Edifício Transparente.",
-    footer_contact_label:"Contatto",footer_social_label:"Social"
-  },
-  es:{
-    menu_intro:"Introducción",menu_dados:"Datos",menu_comunidade:"Comunidad",menu_acreditamos:"En qué creemos",menu_ecossistema:"Ecosistema",menu_sign:"Firmar la petición",
-    hero_line1:"Una",hero_line2:"comunidad viva",hero_line3:"es patrimonio de la ciudad",
-    hero_sub:"Este espacio es hoy un lugar de trabajo, encuentro y creación. Antes de decidir su futuro, es esencial escuchar a quienes le dan vida cada día.",
-    hero_cta:"Apoya esta causa",
-    stats_question:"¿Sabías que el Edifício Transparente está <strong>lleno de vida</strong> por dentro?",
-    stat_pessoas_unit:"personas",stat_pessoas_desc:"trabajan aquí cada día",stat_empresas_unit:"empresas",stat_empresas_desc:"dependen de este ecosistema",stat_rest_unit:"restaurantes",stat_rest_desc:"viven de esta comunidad",stat_dias_unit:"días",stat_dias_desc:"de actividad real en Oporto",
-    tl_label_pre:"Cómo este lugar se convirtió en",tl_label_bold:"comunidad",tl_2001:"Construido para la cultura",tl_2007:"Apertura al público",tl_2021:"Creación del espacio de oficinas",tl_2025:"Edificio ocupado al 100%",tl_now_label:"Ahora",tl_now:"Demolición anunciada",
-    test_title_1:"Personas",test_title_2:"que trabajan",test_title_3:"aquí",test_title_4:"y hacen",test_title_5:"este lugar vivo",
-    cta_mid_btn:"Protege esta comunidad",cta_mid_label:"Tarda menos de 1 minuto",
-    eco_label:"Por qué funciona",eco_title:"Un ecosistema económico y social en Oporto",eco_sub:"Restaurantes, oficinas, cultura y deporte traen vida a una zona que, sin este espacio, sería estacional.",
-    eco_escritorios:"Oficinas",eco_restaurantes:"Restaurantes",eco_arte:"Arte y Cultura",eco_desporto:"Deporte",
-    comp_label:"En qué creemos",comp_title:"Reutilizar también es construir el <em>futuro</em>",
-    comp_nao_title:"No demoler",comp_dem_title:"Demoler",
-    comp_nao_1:"Preserva valor urbano, económico y social",comp_nao_2:"Mantiene viva la actividad económica local",comp_nao_3:"Promueve empleos, negocios y proyectos",comp_nao_4:"Permite la rehabilitación sin destruir",
-    comp_dem_1:"Tiene costes públicos difíciles de justificar",comp_dem_2:"Elimina puestos de trabajo y negocios activos",comp_dem_3:"Destruye un ecosistema económico que funciona",comp_dem_4:"Deshace una comunidad ya existente",
-    petition_title:"Firma para capacitar este ecosistema",petition_body:"Creemos en soluciones que mantengan el valor y la actividad económica de un ecosistema que ya está en funcionamiento.",
-    petition_sign:"Firma por la reutilización",petition_wa:"Compartir por WhatsApp",
-    footer_about:"El movimiento Transparente Vivo es una acción cívica creada por miembros de la comunidad del Edifício Transparente.",
-    footer_contact_label:"Contacto",footer_social_label:"Redes sociales"
+    petition_title_pre:"Sign to strengthen",petition_title_bold:"this ecosystem",
+    petition_sign:"Sign the petition",
+    footer_about:"<strong>Transparente Vivo</strong> is a civic movement created by members of the Edifício Transparente community to make visible the ecosystem that thrives in this space."
   }
 };
 
@@ -847,7 +625,7 @@ const LANGS = ['pt','en'];
 let currentLang = 'pt';
 
 function detectLang() {
-  const nav = (navigator.language || navigator.userLanguage || 'pt').slice(0,2).toLowerCase();
+  const nav = (navigator.language||'pt').slice(0,2).toLowerCase();
   return LANGS.includes(nav) ? nav : 'pt';
 }
 
@@ -856,109 +634,90 @@ function applyLang(lang) {
   window.__lang = lang;
   document.documentElement.lang = lang;
   document.getElementById('lang-label').textContent = lang.toUpperCase();
-  const chev = document.getElementById('lang-chevron'); if(chev) chev.style.transform='';
-  const t = T[lang] || T.pt;
+  const t = T[lang]||T.pt;
   document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (t[key] !== undefined) el.innerHTML = t[key];
+    const k = el.getAttribute('data-i18n');
+    if (t[k] !== undefined) el.innerHTML = t[k];
   });
-  // Update WhatsApp link
-  const waBtn = document.getElementById('wa-btn');
-  if (waBtn) {
-    const msgs = {pt:'Assina+a+petição+para+salvar+o+Edifício+Transparente+do+Porto!',en:'Sign+the+petition+to+save+Edifício+Transparente+in+Porto!',de:'Unterzeichne+die+Petition+zur+Rettung+des+Edifício+Transparente!',fr:'Signez+la+pétition+pour+sauver+l\'Edifício+Transparente+à+Porto!',it:'Firma+la+petizione+per+salvare+l\'Edifício+Transparente+a+Porto!',es:'Firma+la+petición+para+salvar+el+Edifício+Transparente+en+Oporto!'};
-    waBtn.href = `https://wa.me/?text=${msgs[lang]||msgs.pt}%20https%3A%2F%2Fpeticaopublica.com%2Fpsign.aspx%3Fpi%3DPT131237`;
-  }
-  renderTestimonials();
-  renderStatsQuestion(t);
+  renderStatsHeadline(t);
+  renderBannerTitle(t);
+  renderCompTitle(t);
   renderEcoTitle(t);
+  renderPetitionTitle(t);
   renderFooterAbout(t);
+  renderTestimonials(lang, t);
 }
 
-function renderFooterAbout(t) {
-  const el = document.getElementById('footer-about-text');
-  if (!el) return;
-  const txt = t.footer_about || '';
-  // Bold "Transparente Vivo" wherever it appears
-  el.innerHTML = txt.replace(/Transparente Vivo/g, '<strong>Transparente Vivo</strong>');
+function renderStatsHeadline(t) {
+  const el = document.getElementById('stats-headline');
+  if (el) el.innerHTML = t.stats_headline_pre + ' <strong>' + t.stats_headline_strong + '</strong> ' + t.stats_headline_post;
 }
-
-function renderStatsQuestion(t) {
-  const el = document.getElementById('stats-question');
-  if (!el) return;
-  const raw = t.stats_question || '';
-  el.innerHTML = raw.replace(/<strong>(.*?)<\/strong>/g, '<strong style="color:var(--blue-mid)">$1</strong>');
-  el.style.color = 'var(--blue-dark)';
+function renderBannerTitle(t) {
+  const el = document.getElementById('banner-title');
+  if (el) el.innerHTML = t.banner_pre + ' <strong>' + t.banner_bold + '</strong>';
 }
-
+function renderCompTitle(t) {
+  const el = document.getElementById('comp-title-el');
+  if (el) el.innerHTML = t.comp_title_pre + ' <strong>' + t.comp_title_bold + '</strong>';
+}
 function renderEcoTitle(t) {
   const el = document.getElementById('eco-title-el');
-  if (!el) return;
-  // Two-tone: "Um ecossistema" light/grey, "económico e social no Porto" dark bold
-  const raw = t.eco_title || '';
-  // Split at first space after "ecossistema" — words 1-2 light, rest bold dark
-  // Pattern: first ~2 words normal weight grey, rest bold dark
-  const words = raw.split(' ');
-  const split = 2; // "Um ecossistema" = 2 words
-  const light = words.slice(0, split).join(' ');
-  const bold = words.slice(split).join(' ');
-  el.innerHTML = `${light} <strong>${bold}</strong>`;
+  if (el) el.innerHTML = t.eco_title_pre + ' <strong>' + t.eco_title_bold + '</strong>';
+}
+function renderPetitionTitle(t) {
+  const el = document.getElementById('petition-title-el');
+  if (el) el.innerHTML = t.petition_title_pre + '<br><strong>' + t.petition_title_bold + '</strong>';
+}
+function renderFooterAbout(t) {
+  const el = document.getElementById('footer-about-text');
+  if (el) el.innerHTML = t.footer_about || '';
 }
 
-function cycleLang() {
-  const dd = document.getElementById('lang-dropdown');
-  if (dd) { dd.classList.toggle('open'); return; }
-}
-function selectLang(lang) {
-  applyLang(lang);
-  const dd = document.getElementById('lang-dropdown');
-  if (dd) dd.classList.remove('open');
-}
-// Close dropdown on outside click
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('.nav-lang-wrap')) {
-    const dd = document.getElementById('lang-dropdown');
-    if (dd) dd.classList.remove('open');
-  }
-});
-
-// ── Menu ──
-function openMenu() { document.getElementById('menu-overlay').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeMenu() { document.getElementById('menu-overlay').classList.remove('open'); document.body.style.overflow=''; }
-
-// ── Testimonials ──
 const TESTIMONIALS = [
   {name:"Mariana",role_pt:"Consultora",role_en:"Consultant",since:"2022",quote_pt:'"Se perder este espaço, perco a minha rede de contactos"',quote_en:'"If I lose this space, I lose my network"',photo:""},
   {name:"Ricardo",role_pt:"Empresário",role_en:"Business owner",since:"2022",quote_pt:'"Se perder este espaço, perco a minha rede de contactos"',quote_en:'"If I lose this space, I lose my network"',photo:""},
   {name:"Nome",role_pt:"Emprego",role_en:"Profession",since:"2022",quote_pt:'"Se perder este espaço, perco a minha rede de contactos"',quote_en:'"If I lose this space, I lose my network"',photo:""},
   {name:"Manuel",role_pt:"Segurança",role_en:"Security",since:"2022",quote_pt:'"Se perder este espaço, perco a minha rede de contactos"',quote_en:'"If I lose this space, I lose my network"',photo:""},
 ];
-
-function renderTestimonials() {
-  const lang = currentLang;
+function renderTestimonials(lang, t) {
   const carousel = document.getElementById('test-carousel');
   if (!carousel) return;
-  const sinceLabel = {pt:'AQUI DESDE',en:'HERE SINCE',de:'HIER SEIT',fr:'ICI DEPUIS',it:'QUI DAL',es:'AQUÍ DESDE'}[lang]||'HERE SINCE';
-  carousel.innerHTML = TESTIMONIALS.map(t => `
+  const sinceLabel = {pt:'AQUI DESDE',en:'HERE SINCE'}[lang]||'AQUI DESDE';
+  carousel.innerHTML = TESTIMONIALS.map(p => `
     <div class="test-card">
-      ${t.photo ? `<img class="test-photo" src="${t.photo}" alt="${t.name}" loading="lazy">` : `<div class="test-photo-placeholder"></div>`}
+      ${p.photo ? `<img class="test-photo" src="${p.photo}" alt="${p.name}" loading="lazy">` : `<div class="test-photo-placeholder"></div>`}
       <div class="test-body">
-        <p class="test-quote">${lang==='pt'?t.quote_pt:t.quote_en}</p>
-        <p class="test-name">${t.name}</p>
-        <p class="test-role"><span>${lang==='pt'?t.role_pt:t.role_en}</span><span class="test-since">${sinceLabel} ${t.since}</span></p>
+        <p class="test-quote">${lang==='pt'?p.quote_pt:p.quote_en}</p>
+        <p class="test-name">${p.name}</p>
+        <p class="test-role"><span>${lang==='pt'?p.role_pt:p.role_en}</span><span class="test-since">${sinceLabel} ${p.since}</span></p>
       </div>
     </div>
   `).join('');
 }
-
 function scrollTest(dir) {
   const c = document.getElementById('test-carousel');
-  if (c) c.scrollBy({left: dir * 300, behavior:'smooth'});
+  if (c) c.scrollBy({left:dir*300,behavior:'smooth'});
 }
 
-// ── Init ──
-document.addEventListener('DOMContentLoaded', () => {
-  applyLang(detectLang());
+function cycleLang() {
+  const dd = document.getElementById('lang-dropdown');
+  if (dd) dd.classList.toggle('open');
+}
+function selectLang(lang) {
+  applyLang(lang);
+  const dd = document.getElementById('lang-dropdown');
+  if (dd) dd.classList.remove('open');
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.nav-lang-wrap')) {
+    const dd = document.getElementById('lang-dropdown');
+    if (dd) dd.classList.remove('open');
+  }
 });
+function openMenu() { document.getElementById('menu-overlay').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeMenu() { document.getElementById('menu-overlay').classList.remove('open'); document.body.style.overflow=''; }
+
+document.addEventListener('DOMContentLoaded', () => applyLang(detectLang()));
 </script>
 </body>
 </html>
