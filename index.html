@@ -211,15 +211,18 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
 /* ── STICKY MOBILE CTA ── */
 .sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;padding:1rem;background:linear-gradient(to top,rgba(255,255,255,.97) 70%,transparent)}
 
-/* ── MEDIA: 960px ── */
+/* ── MEDIA: 960px (tablet) ── */
 @media(max-width:960px){
-  section{padding:4rem 4vw}
+  section{padding:4rem 5vw}
+  /* Hero */
   .hero{grid-template-columns:1fr;min-height:unset;padding-top:var(--nav-h)}
   .hero-image{position:relative;top:0;height:auto;order:-1;background:var(--cream);padding:0}
   .hero-img-desktop{display:none!important}
   .hero-img-mobile{display:block!important;width:100%;height:auto;object-fit:cover;border-radius:0}
-  .hero-text{padding:2rem 5vw 2.5rem}
+  .hero-text{padding:2.5rem 5vw 3rem}
+  /* Stats */
   .stats-grid{grid-template-columns:repeat(2,1fr);border-top:1px solid var(--border)}
+  /* Timeline */
   .timeline-items{grid-template-columns:1fr;gap:0}
   .timeline-track{padding-bottom:0}
   .timeline-line,.timeline-line-orange{display:none}
@@ -228,34 +231,106 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
   .timeline-item.dashed{border-left:3px dashed var(--blue-dark)}
   .timeline-dot{position:absolute;left:-12px;top:16px;flex-shrink:0;margin-bottom:0;outline-offset:0}
   .timeline-content{flex:1}
-  .test-card{flex:0 0 75vw;max-width:300px}
-  .ecosystem-inner{grid-template-columns:1fr}
-  .eco-circle{width:260px;height:260px}
-  .eco-bubble{width:64px;height:64px}
-  .eco-bubble svg{width:28px;height:28px}
-  .comparison-grid{grid-template-columns:1fr}
-  .footer-inner{grid-template-columns:1fr}
-}
-
-/* ── MEDIA: 600px ── */
-@media(max-width:600px){
-  :root{--nav-h:58px}
-  .nav-logo img{height:34px}
-  section{padding:3rem 5vw}
-  .hero-image{height:auto;padding:0}
-  .hero-title{font-size:clamp(2rem,9vw,3rem)}
-  .stats{padding:3rem 5vw}
-  .stats-grid{grid-template-columns:1fr 1fr;border-left:none}
-  .stat-item{border:none;border-bottom:1px solid var(--border);padding:1.2rem}
-  .timeline{padding:3rem 5vw}
-  .test-card{flex:0 0 78vw;max-width:300px}
+  /* Testimonials */
+  .test-card{flex:0 0 78vw;max-width:360px}
+  .test-nav{display:none}
+  /* CTA mid */
   .cta-mid{flex-direction:column;align-items:stretch}
   .cta-mid .btn-orange{width:100%;justify-content:space-between}
-  .comparison-grid{gap:1rem}
-  .petition-btns{max-width:100%}
+  .cta-mid-label{text-align:center;margin-top:.5rem}
+  /* Ecosystem */
+  .ecosystem-inner{grid-template-columns:1fr;gap:2rem}
+  .ecosystem-left{text-align:left}
+  .eco-circle{width:280px;height:280px;margin:0 auto}
+  .eco-bubble{width:68px;height:68px}
+  .eco-bubble svg{width:30px;height:30px}
+  /* Comparison */
+  .comparison-grid{grid-template-columns:1fr;gap:1rem}
+  /* Footer */
+  .footer-inner{grid-template-columns:1fr;gap:2.5rem}
+}
+
+/* ── MEDIA: 600px (mobile) ── */
+@media(max-width:600px){
+  :root{--nav-h:58px}
+  /* Nav */
+  .nav-logo img{height:34px}
+  /* Sections */
+  section{padding:2.5rem 5vw}
+  /* Hero */
+  .hero-text{padding:1.75rem 5vw 2.5rem}
+  .hero-title{font-size:clamp(1.9rem,8.5vw,2.8rem);line-height:1.08}
+  .hero-sub{font-size:.95rem;margin-bottom:1.75rem}
+  .btn-orange{font-size:.95rem;padding:.85rem 1.5rem}
+  /* Stats */
+  .stats{padding:2.5rem 5vw}
+  .stats-question{font-size:clamp(1.2rem,5.5vw,1.6rem);margin-bottom:2rem}
+  .stats-grid{grid-template-columns:1fr 1fr;border-left:none;border-top:none}
+  .stat-item{padding:1.25rem 1rem;border:none;border-bottom:1px solid var(--border)}
+  .stat-item:nth-child(1),.stat-item:nth-child(2){border-bottom:1px solid var(--border)}
+  .stat-item:nth-child(odd){border-right:1px solid var(--border)}
+  .stat-icon svg{width:26px;height:26px}
+  .stat-num{font-size:clamp(1.5rem,7vw,2rem)}
+  .stat-unit{font-size:clamp(.9rem,4vw,1.1rem)}
+  .stat-desc{font-size:.78rem}
+  /* Timeline */
+  .timeline{padding:2.5rem 5vw}
+  .timeline-label{font-size:1.3rem}
+  .timeline-year{font-size:.9rem}
+  .timeline-desc{font-size:.8rem}
+  /* Testimonials */
+  .testimonials{padding:2.5rem 0 2.5rem 5vw}
+  .testimonials-title{font-size:clamp(1.4rem,6.5vw,2rem);padding-right:5vw}
+  .test-card{flex:0 0 80vw;max-width:320px}
+  .test-quote{font-size:.85rem}
+  .test-name{font-size:.9rem}
+  /* CTA mid */
+  .cta-mid{padding:2rem 5vw}
+  .cta-mid .btn-orange{font-size:.95rem}
+  /* Ecosystem */
+  .ecosystem{padding:2.5rem 5vw}
+  .ecosystem-title{font-size:clamp(1.3rem,6vw,1.8rem)}
+  .ecosystem-sub{font-size:.9rem}
+  .eco-circle{width:260px;height:260px}
+  .eco-bubble{width:60px;height:60px}
+  .eco-bubble svg{width:26px;height:26px}
+  .eco-label-txt{font-size:.72rem}
+  /* Comparison */
+  .comparison{padding:2.5rem 5vw}
+  .comparison-label{font-size:.78rem}
+  .comparison-title{font-size:clamp(1.3rem,6vw,1.8rem);margin-bottom:1.5rem}
+  .comp-col{padding:1.5rem 1.25rem}
+  .comp-col-title{font-size:1rem}
+  .comp-item-text{font-size:.85rem}
+  .comp-check{width:18px;height:18px}
+  /* Gallery */
+  .gallery{padding:2.5rem 5vw}
+  .gallery-grid{gap:.75rem}
+  /* Petition */
+  .petition{padding:2.5rem 5vw 7rem}
+  .petition-title{font-size:clamp(1.5rem,6.5vw,2.2rem)}
+  .petition-body{font-size:.92rem}
+  .petition-btns{gap:.75rem}
+  .btn-wa{font-size:.9rem}
+  /* Footer */
+  footer{padding:3rem 5vw 5rem}
   .footer-inner{gap:2rem}
+  .footer-about p{font-size:.85rem}
+  .footer-contact p{font-size:.78rem}
+  .footer-bottom{font-size:.75rem}
+  .footer-vivo svg{max-height:140px}
+  /* Sticky CTA */
   .sticky-cta{display:block}
-  footer{padding-bottom:5rem}
+}
+
+/* ── MEDIA: 390px (iPhone standard) ── */
+@media(max-width:390px){
+  .hero-title{font-size:clamp(1.7rem,8vw,2.2rem)}
+  .stats-question{font-size:1.15rem}
+  .test-card{flex:0 0 85vw}
+  .eco-circle{width:230px;height:230px}
+  .eco-bubble{width:54px;height:54px}
+  .eco-bubble svg{width:22px;height:22px}
 }
 </style>
 </head>
