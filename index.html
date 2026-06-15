@@ -196,8 +196,9 @@ section{padding:5rem 5vw}
 
 /* ── FOOTER ── */
 footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;overflow:hidden}
-.footer-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;position:relative;z-index:1}
-.footer-about p{font-size:.88rem;color:var(--grey-dark);line-height:1.7;margin-top:.75rem}
+.footer-top-line{height:3px;background:var(--blue-mid);margin-bottom:3rem;border-radius:2px}
+.footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:3rem;position:relative;z-index:1;align-items:start}
+.footer-about p{font-size:.9rem;color:var(--grey-dark);line-height:1.8}
 .footer-col-title{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--grey);margin-bottom:.75rem}
 .footer-contact p{font-size:.8rem;color:var(--blue-dark);line-height:2;text-transform:uppercase;font-weight:500;letter-spacing:.03em}
 .footer-contact a{color:var(--blue-dark);text-decoration:none;font-weight:600}
@@ -205,8 +206,8 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
 .footer-social a{display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:var(--blue-dark);text-decoration:none;font-weight:700;letter-spacing:.06em}
 .footer-social a:hover{color:var(--blue-mid)}
 .footer-bottom{border-top:1px solid var(--border);padding-top:1.5rem;font-size:.8rem;color:var(--grey);position:relative;z-index:1}
-.footer-vivo{position:absolute;bottom:-20px;left:0;right:0;opacity:.4;pointer-events:none;z-index:0;overflow:hidden}
-.footer-vivo svg{width:100%;height:auto;max-height:180px}
+.footer-vivo{position:absolute;bottom:-30px;left:-2%;right:-2%;opacity:.5;pointer-events:none;z-index:0}
+.footer-vivo svg{width:104%;height:auto;max-height:220px}
 
 /* ── STICKY MOBILE CTA ── */
 .sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;padding:1rem;background:linear-gradient(to top,rgba(255,255,255,.97) 70%,transparent)}
@@ -638,19 +639,21 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
 
 <!-- FOOTER -->
 <footer>
+  <div class="footer-top-line"></div>
   <div class="footer-inner">
     <div class="footer-about">
-      <p data-i18n="footer_about"></p>
+      <p id="footer-about-text"></p>
     </div>
     <div class="footer-contact">
-      <p class="footer-col-title" data-i18n="footer_contact_label"></p>
-      <p>
-        <a href="mailto:ola@transparentevivo.pt">ola@transparentevivo.pt</a><br>
-        Via do Castelo do Queijo 395<br>4100–429 Porto
-      </p>
+      <p class="footer-col-title">CONTACTO</p>
+      <p><a href="mailto:ola@transparentevivo.pt">OLA@TRANSPARENTEVIVO.PT</a></p>
+    </div>
+    <div class="footer-contact">
+      <p class="footer-col-title">MORADA</p>
+      <p>VIA DO CASTELO DO QUEIJO 395<br>4100–429 PORTO</p>
     </div>
     <div>
-      <p class="footer-col-title" data-i18n="footer_social_label"></p>
+      <p class="footer-col-title">SOCIAL</p>
       <div class="footer-social">
         <a href="#" target="_blank" rel="noopener">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
@@ -667,15 +670,18 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
     <span>© 2026 · Transparente Vivo</span>
   </div>
   <div class="footer-vivo" aria-hidden="true">
-    <svg viewBox="0 0 1200 260" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-      <!-- V -->
-      <path d="M60 40L200 220L340 40" stroke="#89c8f8" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <!-- I -->
-      <line x1="420" y1="40" x2="420" y2="220" stroke="#89c8f8" stroke-width="28" stroke-linecap="round"/>
-      <!-- V -->
-      <path d="M500 40L640 220L780 40" stroke="#89c8f8" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <!-- O (circle arc) -->
-      <path d="M940 130 A120 110 0 1 1 940.01 130" stroke="#89c8f8" stroke-width="28" stroke-linecap="round" fill="none"/>
+    <svg viewBox="0 0 900 334" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <!-- First V (left) -->
+      <path d="M104 10C110 7.5 117 10 120 16L256 308C258 314 256 321 250 324C244 326 237 324 234 318L98 26C95.5 19.7 98 13 104 10Z" fill="#89c8f8"/>
+      <path d="M386 10C392 13 394 19.7 392 26L282 273C279 279 272 281 266 279C261 276 258 269 261 263L371 16C374 10 380 7.5 386 10Z" fill="#89c8f8"/>
+      <path d="M245 325C239 325 233 319 233 313V21C233 14 239 9 245 9C251 9 257 14 257 21V313C257 319 251 325 245 325Z" fill="#89c8f8"/>
+      <!-- Second V (right) -->
+      <path d="M454 10C460 7.5 467 10 470 16L606 308C608 314 606 321 600 324C594 326 587 324 584 318L448 26C445.5 19.7 448 13 454 10Z" fill="#89c8f8"/>
+      <path d="M636 10C642 13 644 19.7 642 26L532 273C529 279 522 281 516 279C511 276 508 269 511 263L621 16C624 10 630 7.5 636 10Z" fill="#89c8f8"/>
+      <path d="M495 325C489 325 483 319 483 313V21C483 14 489 9 495 9C501 9 507 14 507 21V313C507 319 501 325 495 325Z" fill="#89c8f8"/>
+      <!-- C circle (partial arc like the logo) -->
+      <path d="M682.6 169.5C682.6 111.067 712.946 59.7296 758.68 30.376C764.12 26.8859 771.36 28.4652 774.85 33.9033C778.34 39.3414 776.76 46.5793 771.32 50.0693C732.008 75.301 706 119.367 706 169.5C706 247.814 769.49 311.3 847.8 311.3C868.2 311.3 887.57 306.998 905.07 299.263C910.98 296.65 917.89 299.323 920.5 305.233C923.11 311.143 920.44 318.053 914.53 320.665C894.11 329.692 871.52 334.7 847.8 334.7C756.56 334.7 682.6 260.737 682.6 169.5Z" fill="#89c8f8"/>
+      <path d="M993.6 165.5C993.6 87.186 930.11 23.7 851.8 23.7C837.75 23.7 824.19 25.74 811.4 29.53C805.21 31.37 798.7 27.84 796.86 21.64C795.02 15.45 798.55 8.94 804.75 7.1C819.67 2.67 835.47 0.3 851.8 0.3C943.04 0.3 1017 74.26 1017 165.5C1017 216.553 993.83 262.205 957.47 292.49C952.5 296.626 945.13 295.953 940.99 290.988C936.85 286.023 937.53 278.645 942.49 274.51C973.74 248.48 993.6 209.315 993.6 165.5Z" fill="#89c8f8"/>
     </svg>
   </div>
 </footer>
@@ -853,6 +859,15 @@ function applyLang(lang) {
   renderTestimonials();
   renderStatsQuestion(t);
   renderEcoTitle(t);
+  renderFooterAbout(t);
+}
+
+function renderFooterAbout(t) {
+  const el = document.getElementById('footer-about-text');
+  if (!el) return;
+  const txt = t.footer_about || '';
+  // Bold "Transparente Vivo" wherever it appears
+  el.innerHTML = txt.replace(/Transparente Vivo/g, '<strong>Transparente Vivo</strong>');
 }
 
 function renderStatsQuestion(t) {
