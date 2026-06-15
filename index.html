@@ -73,7 +73,7 @@ p{line-height:1.7}
 .hero-title{font-size:clamp(2.2rem,4vw,4.5rem);line-height:1.05;margin-bottom:1.5rem;font-weight:700}
 .hero-title .light{color:var(--orange-light);font-weight:700}
 .hero-title .bold{color:var(--orange);font-weight:700}
-.hero-sub-box{background:#fde8de;border-radius:8px;padding:1.25rem 1.5rem;margin-bottom:2rem;font-size:.95rem;color:#3a3a4a;line-height:1.75}
+.hero-sub-box{background:#fde8de;border-radius:4px;padding:1.25rem 1.5rem;margin-bottom:2rem;font-size:.95rem;color:#3a3a4a;line-height:1.75}
 .hero-image{position:sticky;top:var(--nav-h);height:calc(100vh - var(--nav-h));overflow:hidden;background:#111}
 .hero-image img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block}
 .hero-img-mobile{display:none}
@@ -99,6 +99,7 @@ p{line-height:1.7}
 /* TESTIMONIALS */
 .testimonials{background:var(--white);padding:4rem 5vw}
 .testimonials-title{font-size:clamp(1.6rem,3vw,2.5rem);font-weight:700;color:var(--blue-dark);margin-bottom:2.5rem;line-height:1.15}
+.testimonials-title .t-dark{color:var(--blue-dark);font-weight:700}
 .testimonials-title .t-light{color:var(--grey);font-weight:700}
 .testimonials-title .t-mid{color:var(--blue-mid);font-weight:700}
 .test-carousel{display:flex;gap:1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:.5rem}
@@ -167,8 +168,11 @@ p{line-height:1.7}
 
 /* GALLERY */
 .gallery{background:var(--white);padding:0 5vw 4rem}
-.gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
-.gallery-placeholder{width:100%;aspect-ratio:4/3;border-radius:8px;background:var(--blue-light);display:block}
+.gallery-wrap{position:relative}
+.gallery-grid{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.gallery-grid::-webkit-scrollbar{display:none}
+.gallery-placeholder{flex:0 0 calc(50% - .5rem);aspect-ratio:4/3;border-radius:8px;background:var(--blue-light);display:block;scroll-snap-align:start}
+.gallery-nav{position:absolute;right:0;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:var(--orange);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;z-index:2;margin-right:-8px}
 
 /* PETITION */
 .petition{background:var(--cream);padding:5rem 5vw 8rem}
@@ -227,12 +231,12 @@ footer{background:var(--blue-light);padding:4rem 5vw 0;position:relative;overflo
   .stats{padding:2.5rem 5vw}
   .stats-headline{font-size:clamp(1.25rem,6vw,1.6rem)}
   .stats-grid{grid-template-columns:1fr 1fr;border-left:none}
-  .stat-item{padding:1.25rem 1rem;border-right:1px solid rgba(0,0,0,.08);border-bottom:1px solid rgba(0,0,0,.06)}
+  .stat-item{padding:1.25rem 1rem;border-right:1px solid rgba(0,0,0,.06);border-bottom:1px solid rgba(0,0,0,.06)}
   .stat-item:nth-child(even){border-right:none}
   .stat-icon svg{width:26px;height:26px}
   .testimonials{padding:2.5rem 0 2.5rem 5vw}
   .testimonials-title{padding-right:5vw}
-  .test-card{flex:0 0 80vw;max-width:320px}
+  .test-card{flex:0 0 72vw;max-width:300px}
   .test-nav{display:none}
   .cta-mid{padding:2rem 5vw;flex-direction:column;align-items:stretch}
   .cta-mid .btn-orange{width:100%;justify-content:space-between}
@@ -364,7 +368,8 @@ footer{background:var(--blue-light);padding:4rem 5vw 0;position:relative;overflo
 <section class="testimonials" id="testimonials">
   <h2 class="testimonials-title">
     <span class="t-dark" data-i18n="test_t1"></span> <span class="t-mid" data-i18n="test_t2"></span><br>
-    <span class="t-dark" data-i18n="test_t3"></span> <span class="t-light" data-i18n="test_t4"></span> <span class="t-dark" data-i18n="test_t5"></span>
+    <span class="t-dark" data-i18n="test_t3"></span> <span class="t-light" data-i18n="test_t4"></span><br>
+    <span class="t-dark" data-i18n="test_t5"></span> <span class="t-mid" data-i18n="test_t6"></span>
   </h2>
   <div class="test-carousel" id="test-carousel"></div>
   <div class="test-nav">
@@ -480,9 +485,14 @@ footer{background:var(--blue-light);padding:4rem 5vw 0;position:relative;overflo
 
 <!-- GALLERY -->
 <section class="gallery" id="gallery">
-  <div class="gallery-grid">
-    <div class="gallery-placeholder"></div>
-    <div class="gallery-placeholder"></div>
+  <div class="gallery-wrap">
+    <div class="gallery-grid" id="gallery-grid">
+      <div class="gallery-placeholder"></div>
+      <div class="gallery-placeholder"></div>
+    </div>
+    <button class="gallery-nav" onclick="document.getElementById('gallery-grid').scrollBy({left:300,behavior:'smooth'})" aria-label="Seguinte">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
   </div>
 </section>
 
@@ -566,7 +576,7 @@ const T = {
     stat_empresas_unit:"empresas",stat_empresas_desc:"dependem deste ecossistema",
     stat_rest_unit:"restaurantes",stat_rest_desc:"vivem desta comunidade",
     stat_dias_unit:"dias",stat_dias_desc:"de atividade real no Porto",
-    test_t1:"Pessoas",test_t2:"que aqui",test_t3:"trabalham",test_t4:"e tornam",test_t5:"este lugar vivo",
+    test_t1:"Pessoas",test_t2:"que aqui",test_t3:"trabalham",test_t4:"e tornam",test_t5:"este lugar",test_t6:"vivo",
     cta_mid_btn:"Protege esta comunidade",cta_mid_label:"LEVA MENOS DE 1 MINUTO",
     banner_label:"Não somos contra a mudança",
     banner_pre:"Somos a favor da",banner_bold:"reutilização",
@@ -600,7 +610,7 @@ const T = {
     stat_empresas_unit:"companies",stat_empresas_desc:"depend on this ecosystem",
     stat_rest_unit:"restaurants",stat_rest_desc:"live from this community",
     stat_dias_unit:"days",stat_dias_desc:"of real activity in Porto",
-    test_t1:"People",test_t2:"who work",test_t3:"here",test_t4:"and make",test_t5:"this place alive",
+    test_t1:"People",test_t2:"who work",test_t3:"here",test_t4:"and make",test_t5:"this place",test_t6:"alive",
     cta_mid_btn:"Defend this community",cta_mid_label:"TAKES LESS THAN 1 MINUTE",
     banner_label:"We are not against change",
     banner_pre:"We are for",banner_bold:"rehabilitation",
