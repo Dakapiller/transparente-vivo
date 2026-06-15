@@ -113,8 +113,8 @@ section{padding:5rem 5vw}
 .timeline-line-orange{position:absolute;top:10px;right:0;width:20%;height:3px;background:var(--orange);z-index:1}
 .timeline-items{display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:2}
 .timeline-item{padding-top:0}
-.timeline-dot{width:20px;height:20px;border-radius:50%;background:var(--blue-dark);border:3px solid var(--white);box-shadow:0 0 0 2px var(--blue-dark);margin-bottom:1rem}
-.timeline-item:last-child .timeline-dot{background:var(--orange);box-shadow:0 0 0 2px var(--orange)}
+.timeline-dot{width:22px;height:22px;border-radius:50%;background:var(--blue-dark);border:3px solid var(--white);outline:2px solid var(--blue-dark);margin-bottom:1rem}
+.timeline-item:last-child .timeline-dot{background:var(--orange);outline-color:var(--orange)}
 .timeline-year{font-size:.95rem;font-weight:700;color:var(--blue-dark);margin-bottom:.3rem}
 .timeline-item:last-child .timeline-year{color:var(--orange)}
 .timeline-desc{font-size:.82rem;color:var(--grey-dark);line-height:1.5;padding-right:1rem}
@@ -126,7 +126,7 @@ section{padding:5rem 5vw}
 .test-carousel-wrap{position:relative}
 .test-carousel{display:flex;gap:1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:1rem}
 .test-carousel::-webkit-scrollbar{display:none}
-.test-card{flex:0 0 280px;scroll-snap-align:start;border:2px solid var(--blue-light2);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,100,200,.06);padding:10px}
+.test-card{flex:0 0 280px;scroll-snap-align:start;border:2px solid var(--blue-light2);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,100,200,.06);padding:8px}
 .test-photo{width:100%;aspect-ratio:3/2.5;object-fit:cover;object-position:top center;background:var(--blue-light);display:block;border-radius:8px;border:2px solid var(--blue-light2)}
 .test-photo-placeholder{width:100%;aspect-ratio:3/2.5;background:var(--blue-light);display:flex;align-items:center;justify-content:center;border-radius:8px;border:2px solid var(--blue-light2)}
 .test-body{padding:.9rem .3rem .3rem}
@@ -134,7 +134,7 @@ section{padding:5rem 5vw}
 .test-since{font-size:.65rem;color:var(--grey);text-transform:uppercase;letter-spacing:.06em}
 .test-name{font-size:.95rem;font-weight:700;color:var(--blue-dark);clear:both}
 .test-role{font-size:.7rem;color:var(--grey);text-transform:uppercase;letter-spacing:.06em;display:flex;justify-content:space-between;align-items:center;margin-top:.25rem}
-.test-nav{display:flex;gap:.75rem;margin-top:1.5rem}
+.test-nav{display:flex;gap:.75rem;margin-top:1.5rem;padding-left:5vw}
 .test-nav button{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--blue-dark);transition:all .2s}
 .test-nav button:hover{background:var(--blue-dark);color:#fff;border-color:var(--blue-dark)}
 
@@ -146,10 +146,11 @@ section{padding:5rem 5vw}
 .ecosystem{background:var(--blue-light);padding:5rem 5vw}
 .ecosystem-inner{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
 .ecosystem-left .eco-label{font-size:.85rem;color:var(--grey);font-weight:500;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.05em}
-.ecosystem-title{font-size:clamp(1.4rem,2.5vw,2rem);font-weight:700;color:var(--blue-dark);line-height:1.25;margin-bottom:1rem}
+.ecosystem-title{font-size:clamp(1.4rem,2.5vw,2rem);font-weight:400;color:var(--grey);line-height:1.25;margin-bottom:1rem}
+.ecosystem-title strong{font-weight:700;color:var(--blue-dark)}
 .ecosystem-sub{font-size:.95rem;color:var(--blue-mid);line-height:1.7;max-width:400px;border-left:4px solid var(--blue-mid);padding-left:1rem;font-weight:500}
 .eco-circle{position:relative;width:320px;height:320px;flex-shrink:0}
-.eco-arcs{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.eco-arcs{position:absolute;inset:0;width:100%;height:100%;z-index:0;overflow:visible}
 .eco-node{position:absolute;display:flex;flex-direction:column;align-items:center;gap:.4rem;z-index:1}
 .eco-top{top:0;left:50%;transform:translateX(-50%)}
 .eco-right{right:0;top:50%;transform:translateY(-50%)}
@@ -183,10 +184,10 @@ section{padding:5rem 5vw}
 /* ── GALLERY ── */
 .gallery{background:var(--white);padding:4rem 5vw}
 .gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:2rem}
-.gallery-grid img,.gallery-placeholder{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;background:var(--blue-light);display:block}
+.gallery-grid img,.gallery-placeholder{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;background:var(--blue-light);display:block;min-height:0}
 
 /* ── PETITION ── */
-.petition{background:var(--blue-light);padding:5rem 5vw}
+.petition{background:var(--blue-light);padding:5rem 5vw 8rem}
 .petition-inner{max-width:600px}
 .petition-title{font-size:clamp(1.8rem,3.5vw,3rem);font-weight:700;color:var(--blue-dark);line-height:1.1;margin-bottom:1.5rem}
 .petition-title em{font-style:normal;color:var(--orange)}
@@ -201,11 +202,11 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
 .footer-contact p{font-size:.8rem;color:var(--blue-dark);line-height:2;text-transform:uppercase;font-weight:500;letter-spacing:.03em}
 .footer-contact a{color:var(--blue-dark);text-decoration:none;font-weight:600}
 .footer-social{display:flex;flex-direction:column;gap:.75rem}
-.footer-social a{display:flex;align-items:center;gap:.6rem;font-size:.9rem;color:var(--blue-dark);text-decoration:none;font-weight:500}
+.footer-social a{display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:var(--blue-dark);text-decoration:none;font-weight:700;letter-spacing:.06em}
 .footer-social a:hover{color:var(--blue-mid)}
 .footer-bottom{border-top:1px solid var(--border);padding-top:1.5rem;font-size:.8rem;color:var(--grey);position:relative;z-index:1}
-.footer-vivo{position:absolute;bottom:-40px;right:-40px;opacity:.35;pointer-events:none;z-index:0}
-.footer-vivo svg{width:clamp(300px,50vw,600px);height:auto}
+.footer-vivo{position:absolute;bottom:-20px;left:0;right:0;opacity:.4;pointer-events:none;z-index:0;overflow:hidden}
+.footer-vivo svg{width:100%;height:auto;max-height:180px}
 
 /* ── STICKY MOBILE CTA ── */
 .sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;padding:1rem;background:linear-gradient(to top,rgba(255,255,255,.97) 70%,transparent)}
@@ -214,18 +215,18 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
 @media(max-width:960px){
   section{padding:4rem 4vw}
   .hero{grid-template-columns:1fr;min-height:unset;padding-top:var(--nav-h)}
-  .hero-image{position:relative;top:0;height:auto;order:-1;background:var(--cream);padding:1.25rem 1.25rem 0}
+  .hero-image{position:relative;top:0;height:auto;order:-1;background:var(--cream);padding:0}
   .hero-img-desktop{display:none!important}
-  .hero-img-mobile{display:block!important;width:100%;height:auto;object-fit:cover;border-radius:16px}
-  .hero-text{padding:2.5rem 4vw}
-  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-img-mobile{display:block!important;width:100%;height:auto;object-fit:cover;border-radius:0}
+  .hero-text{padding:2rem 5vw 2.5rem}
+  .stats-grid{grid-template-columns:repeat(2,1fr);border-top:1px solid var(--border)}
   .timeline-items{grid-template-columns:1fr;gap:0}
   .timeline-track{padding-bottom:0}
   .timeline-line,.timeline-line-orange{display:none}
   .timeline-item{display:flex;gap:1rem;align-items:flex-start;padding:.75rem 0;border-left:3px solid var(--blue-dark);padding-left:1.5rem;margin-left:9px;position:relative}
   .timeline-item:last-child{border-left-color:var(--orange)}
   .timeline-item.dashed{border-left:3px dashed var(--blue-dark)}
-  .timeline-dot{position:absolute;left:-11px;top:16px;flex-shrink:0;margin-bottom:0}
+  .timeline-dot{position:absolute;left:-12px;top:16px;flex-shrink:0;margin-bottom:0;outline-offset:0}
   .timeline-content{flex:1}
   .test-card{flex:0 0 75vw;max-width:300px}
   .ecosystem-inner{grid-template-columns:1fr}
@@ -241,14 +242,15 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
   :root{--nav-h:58px}
   .nav-logo img{height:34px}
   section{padding:3rem 5vw}
-  .hero-image{height:auto;padding:1rem 1rem 0}
+  .hero-image{height:auto;padding:0}
   .hero-title{font-size:clamp(2rem,9vw,3rem)}
   .stats{padding:3rem 5vw}
   .stats-grid{grid-template-columns:1fr 1fr;border-left:none}
   .stat-item{border:none;border-bottom:1px solid var(--border);padding:1.2rem}
   .timeline{padding:3rem 5vw}
-  .test-card{flex:0 0 82vw;max-width:320px}
-  .cta-mid{flex-direction:column;align-items:flex-start}
+  .test-card{flex:0 0 78vw;max-width:300px}
+  .cta-mid{flex-direction:column;align-items:stretch}
+  .cta-mid .btn-orange{width:100%;justify-content:space-between}
   .comparison-grid{gap:1rem}
   .petition-btns{max-width:100%}
   .footer-inner{gap:2rem}
@@ -336,7 +338,7 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
       <div class="stat-icon">
         <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       </div>
-      <div><span class="stat-num">100</span></div>
+      <div><span class="stat-num">100~</span></div>
       <div class="stat-unit" data-i18n="stat_empresas_unit"></div>
       <div class="stat-desc" data-i18n="stat_empresas_desc"></div>
     </div>
@@ -440,7 +442,7 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
   <div class="ecosystem-inner">
     <div class="ecosystem-left">
       <p class="eco-label" data-i18n="eco_label"></p>
-      <h2 class="ecosystem-title" data-i18n="eco_title"></h2>
+      <h2 class="ecosystem-title" id="eco-title-el"></h2>
       <p class="ecosystem-sub" data-i18n="eco_sub"></p>
     </div>
     <div style="display:flex;justify-content:center;align-items:center"><div class="eco-circle">
@@ -573,11 +575,11 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
       <div class="footer-social">
         <a href="#" target="_blank" rel="noopener">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-          Instagram
+          INSTAGRAM
         </a>
         <a href="#" target="_blank" rel="noopener">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-          Facebook
+          FACEBOOK
         </a>
       </div>
     </div>
@@ -586,13 +588,15 @@ footer{background:var(--blue-light);padding:4rem 5vw 2rem;position:relative;over
     <span>© 2026 · Transparente Vivo</span>
   </div>
   <div class="footer-vivo" aria-hidden="true">
-    <svg viewBox="0 0 700 334" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M104 10C110 7.5 117 10 120 16L256 308C258 314 256 321 250 324C244 326 237 324 234 318L98 26C95.5 19.7 98 13 104 10Z" fill="#89c8f8"/>
-      <path d="M386 10C392 13 394 19.7 392 26L282 273C279 279 272 281 266 279C261 276 258 269 261 263L371 16C374 10 380 7.5 386 10Z" fill="#89c8f8"/>
-      <path d="M245 325C239 325 233 319 233 313V21C233 14 239 9 245 9C251 9 257 14 257 21V313C257 319 251 325 245 325Z" fill="#89c8f8"/>
-      <path d="M454 10C460 7.5 467 10 470 16L606 308C608 314 606 321 600 324C594 326 587 324 584 318L448 26C445.5 19.7 448 13 454 10Z" fill="#89c8f8"/>
-      <path d="M636 10C642 13 644 19.7 642 26L532 273C529 279 522 281 516 279C511 276 508 269 511 263L621 16C624 10 630 7.5 636 10Z" fill="#89c8f8"/>
-      <path d="M495 325C489 325 483 319 483 313V21C483 14 489 9 495 9C501 9 507 14 507 21V313C507 319 501 325 495 325Z" fill="#89c8f8"/>
+    <svg viewBox="0 0 1200 260" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <!-- V -->
+      <path d="M60 40L200 220L340 40" stroke="#89c8f8" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <!-- I -->
+      <line x1="420" y1="40" x2="420" y2="220" stroke="#89c8f8" stroke-width="28" stroke-linecap="round"/>
+      <!-- V -->
+      <path d="M500 40L640 220L780 40" stroke="#89c8f8" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <!-- O (circle arc) -->
+      <path d="M940 130 A120 110 0 1 1 940.01 130" stroke="#89c8f8" stroke-width="28" stroke-linecap="round" fill="none"/>
     </svg>
   </div>
 </footer>
@@ -769,15 +773,29 @@ function applyLang(lang) {
   }
   renderTestimonials();
   renderStatsQuestion(t);
+  renderEcoTitle(t);
 }
 
 function renderStatsQuestion(t) {
   const el = document.getElementById('stats-question');
   if (!el) return;
-  // The question has two tones: most text in blue-dark, key phrase in blue-mid
   const raw = t.stats_question || '';
   el.innerHTML = raw.replace(/<strong>(.*?)<\/strong>/g, '<strong style="color:var(--blue-mid)">$1</strong>');
   el.style.color = 'var(--blue-dark)';
+}
+
+function renderEcoTitle(t) {
+  const el = document.getElementById('eco-title-el');
+  if (!el) return;
+  // Two-tone: "Um ecossistema" light/grey, "económico e social no Porto" dark bold
+  const raw = t.eco_title || '';
+  // Split at first space after "ecossistema" — words 1-2 light, rest bold dark
+  // Pattern: first ~2 words normal weight grey, rest bold dark
+  const words = raw.split(' ');
+  const split = 2; // "Um ecossistema" = 2 words
+  const light = words.slice(0, split).join(' ');
+  const bold = words.slice(split).join(' ');
+  el.innerHTML = `${light} <strong>${bold}</strong>`;
 }
 
 function cycleLang() {
