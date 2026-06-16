@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<title>Visual QA — Transparente Vivo</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,sans-serif;background:#f0f2f5;color:#1a1a2e;padding:32px}
+  h1{font-size:1.5rem;margin-bottom:6px}
+  .meta{color:#888;font-size:.82rem;margin-bottom:22px}
+  .summary{display:flex;gap:10px;margin-bottom:26px;flex-wrap:wrap;align-items:center}
+  .badge{padding:5px 14px;border-radius:16px;font-weight:600;font-size:.82rem}
+  .badge.pass{background:#d4edda;color:#155724}
+  .badge.fail{background:#f8d7da;color:#721c24}
+  .badge.info{background:#e8f4fd;color:#0c5460;font-weight:400}
+  table{border-collapse:collapse;width:100%;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+  th{background:#1a1a2e;color:#fff;padding:10px 14px;font-size:.75rem;text-align:left;text-transform:uppercase;letter-spacing:.04em}
+  td{border-bottom:1px solid #eef0f3;padding:12px 14px;vertical-align:top;font-size:.82rem}
+  tr:last-child td{border-bottom:none}
+  tr.row-fail{background:#fff8f8}
+  tr.row-pass{background:#fafffd}
+  td img{max-width:220px;height:auto;border:1px solid #dde3ed;border-radius:5px;display:block}
+  .pct{font-size:1.4rem;font-weight:700;margin:8px 0 4px}
+  .interp{font-size:.79rem;line-height:1.5;color:#333;margin-bottom:6px}
+  small{color:#999;font-size:.72rem;line-height:1.7;display:block}
+</style>
+</head>
+<body>
+<h1>Visual QA — Transparente Vivo</h1>
+<p class="meta">Gerado: 16/06/2026, 15:05:03 · 7 testes · Mapa de diferenças: branco = idêntico · vermelho = diferente</p>
+<div class="summary">
+  <span class="badge pass">✅ 3 aprovados</span>
+  <span class="badge fail">❌ 4 reprovados</span>
+  <span class="badge info">ℹ️ Limiar página inteira: 25% · Menu: 10% · Secção/Card: 8%</span>
+</div>
+<table>
+  <thead>
+    <tr><th>Teste</th><th>Referência (PDF)</th><th>Site atual</th><th>Mapa de diferenças</th><th>Resultado</th></tr>
+  </thead>
+  <tbody>
+      <tr class="row-pass">
+        <td>
+          <strong>Desktop · Página inteira</strong><br>
+          <small>Limiar: 25%</small><br>
+          <small>Ref: 1440×7847</small><br>
+          <small>Site: 1440×5113</small><br>
+          <small>Comparado: 1440×5113</small>
+        </td>
+        <td><img src="/home/user/transparente-vivo/design_reference/desktop_full.png" loading="lazy"></td>
+        <td><img src="/home/user/transparente-vivo/visual_qa/screenshots/desktop_full.png" loading="lazy"></td>
+        <td><img src="/home/user/transparente-vivo/visual_qa/reports/diff_desktop_full.png" loading="lazy"></td>
+        <td>
+          <span class="badge pass">✅ PASS</span>
+          <div class="pct">18.11%</div>
+          <div class="interp">✅ Dentro do limiar aceite (18.1%). Diferenças menores de espaçamento ou font rendering entre PDF e browser.</div>
+          <small>1,333,115 / 7,362,720 px diferentes</small>
+        </td>
+      </tr>
+      <tr class="row-fail">
+        <td>
+          <strong>Desktop · Secção de testemunhos</strong><br>
+          <small>Limiar: 8%</small><br>
+          <small>Ref: 1440×980</small><br>
+          <small>Site: 1440×789</small><br>
+          <small>Comparado: 1440×789</small>
+        </td>
+        <td><img src="/home/user/transparente-vivo/design_reference/desktop_testimonials_section.png" loading="lazy"></td>
+        <td><img src="/home/user/transparente-vivo/visual_qa/screenshots/desktop_testimonials_section.png" loading="lazy"></td>
+        <td><img src="/home/user/transparente-vivo/visual_qa/reports/diff_desktop_testimonials_section.png" loading="lazy"></td>
+        <td>
+          <span class="badge fail">❌ FAIL</span>
+          <div class="pct">30.45%</div>
+          <div class="interp">❌ Diferença moderada (30.5%). Prováveis problemas de layout, proporções, cores ou conteúdo em falta (ex: fotos).</div>
+          <small>345,984 / 1,136,160 px diferentes</small>
+        </td>
+      </tr>
+      <tr class="row-fail">
+        <td>
+          <strong>Desktop · Card individual</strong><br>
+          <small>Limiar: 8%</small><br>
+          <small>Ref: 310×750</small><br>
+          <small>Site: 260×475</small><br>
+          <small>Comparado: 260×475</small>
+        </td>
+        <td><img src="/home/user/transparente-vivo/design_reference/desktop_card_single.png" loading="lazy"></td>
+        <td><img src="/home/user/transparente-vivo/visual_qa/screenshots/desktop_card_single.png" loading="lazy"></td>
+        <td><img src="/home/user/transparente-vivo/visual_qa/reports/diff_desktop_card_single.png" loading="lazy"></td>
+        <td>
+          <span class="badge fail">❌ FAIL</span>
+          <div class="pct">49.77%</div>
+          <div class="interp">❌ Diferença alta (49.8%). Layout estruturalmente diferente do PDF — verificar estrutura HTML, CSS e dados.</div>
+          <small>61,467 / 123,500 px diferentes</small>
+        </td>
+      </tr>
+      <tr class="row-pass">
+        <td>
+          <strong>Desktop · Menu aberto</strong><br>
+          <small>Limiar: 10%</small><br>
+          <small>Ref: 1440×968</small><br>
+          <small>Site: 1440×900</small><br>
+          <small>Comparado: 1440×900</small>
+        </td>
+        <td><img src="/home/user/transparente-vivo/design_reference/desktop_menu.png" loading="lazy"></td>
+        <td><img src="/home/user/transparente-vivo/visual_qa/screenshots/desktop_menu.png" loading="lazy"></td>
+        <td><img src="/home/user/transparente-vivo/visual_qa/reports/diff_desktop_menu.png" loading="lazy"></td>
+        <td>
+          <span class="badge pass">✅ PASS</span>
+          <div class="pct">9.84%</div>
+          <div class="interp">✅ Dentro do limiar aceite (9.8%). Diferenças menores de espaçamento ou font rendering entre PDF e browser.</div>
+          <small>127,550 / 1,296,000 px diferentes</small>
+        </td>
+      </tr>
+      <tr class="row-pass">
+        <td>
+          <strong>Mobile · Página inteira</strong><br>
+          <small>Limiar: 25%</small><br>
+          <small>Ref: 390×7774</small><br>
+          <small>Site: 390×5268</small><br>
+          <small>Comparado: 390×5268</small>
+        </td>
+        <td><img src="/home/user/transparente-vivo/design_reference/mobile_full.png" loading="lazy"></td>
+        <td><img src="/home/user/transparente-vivo/visual_qa/screenshots/mobile_full.png" loading="lazy"></td>
+        <td><img src="/home/user/transparente-vivo/visual_qa/reports/diff_mobile_full.png" loading="lazy"></td>
+        <td>
+          <span class="badge pass">✅ PASS</span>
+          <div class="pct">22.57%</div>
+          <div class="interp">✅ Dentro do limiar aceite (22.6%). Diferenças menores de espaçamento ou font rendering entre PDF e browser.</div>
+          <small>463,732 / 2,054,520 px diferentes</small>
+        </td>
+      </tr>
+      <tr class="row-fail">
+        <td>
+          <strong>Mobile · Secção de testemunhos</strong><br>
+          <small>Limiar: 8%</small><br>
+          <small>Ref: 390×800</small><br>
+          <small>Site: 390×606</small><br>
+          <small>Comparado: 390×606</small>
+        </td>
+        <td><img src="/home/user/transparente-vivo/design_reference/mobile_testimonials_section.png" loading="lazy"></td>
+        <td><img src="/home/user/transparente-vivo/visual_qa/screenshots/mobile_testimonials_section.png" loading="lazy"></td>
+        <td><img src="/home/user/transparente-vivo/visual_qa/reports/diff_mobile_testimonials_section.png" loading="lazy"></td>
+        <td>
+          <span class="badge fail">❌ FAIL</span>
+          <div class="pct">35.37%</div>
+          <div class="interp">❌ Diferença alta (35.4%). Layout estruturalmente diferente do PDF — verificar estrutura HTML, CSS e dados.</div>
+          <small>83,604 / 236,340 px diferentes</small>
+        </td>
+      </tr>
+      <tr class="row-fail">
+        <td>
+          <strong>Mobile · Card individual</strong><br>
+          <small>Limiar: 8%</small><br>
+          <small>Ref: 195×510</small><br>
+          <small>Site: 180×390</small><br>
+          <small>Comparado: 180×390</small>
+        </td>
+        <td><img src="/home/user/transparente-vivo/design_reference/mobile_card_single.png" loading="lazy"></td>
+        <td><img src="/home/user/transparente-vivo/visual_qa/screenshots/mobile_card_single.png" loading="lazy"></td>
+        <td><img src="/home/user/transparente-vivo/visual_qa/reports/diff_mobile_card_single.png" loading="lazy"></td>
+        <td>
+          <span class="badge fail">❌ FAIL</span>
+          <div class="pct">49.85%</div>
+          <div class="interp">❌ Diferença alta (49.8%). Layout estruturalmente diferente do PDF — verificar estrutura HTML, CSS e dados.</div>
+          <small>34,994 / 70,200 px diferentes</small>
+        </td>
+      </tr></tbody>
+</table>
+</body>
+</html>
