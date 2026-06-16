@@ -136,19 +136,25 @@ p{line-height:1.7}
 .testimonials-title .t-dark{color:var(--blue-dark);font-weight:700}
 .testimonials-title .t-light{color:var(--blue-mid);font-weight:400}
 .testimonials-title .t-mid{color:var(--blue-mid);font-weight:400}
-.test-carousel{display:flex;gap:1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:.5rem}
+.test-carousel-wrap{position:relative}
+.test-carousel{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:.5rem}
 .test-carousel::-webkit-scrollbar{display:none}
-.test-card{flex:0 0 280px;scroll-snap-align:start;border:2px solid var(--blue-light);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,100,200,.06);padding:8px}
-.test-photo{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top center;background:var(--blue-light);display:block;border-radius:8px;border:2px solid var(--blue-light)}
-.test-photo-placeholder{width:100%;aspect-ratio:4/3;background:var(--blue-light);display:flex;align-items:center;justify-content:center;border-radius:8px;border:2px solid var(--blue-light)}
-.test-body{padding:.9rem .3rem .3rem}
-.test-quote{font-size:.88rem;color:var(--blue-mid);font-weight:600;line-height:1.5;margin-bottom:.6rem}
+.test-card{flex:0 0 260px;scroll-snap-align:start;border:1px solid rgba(0,100,200,.12);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+/* Photo frame: blue-light bg acts as top padding (visible above photo), blue-mid strip at bottom */
+.test-photo-frame{background:var(--blue-light);padding:10px 8px 0;position:relative}
+.test-photo-frame::after{content:'';display:block;height:10px;background:var(--blue-mid)}
+.test-photo{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top center;display:block}
+.test-photo-placeholder{width:100%;aspect-ratio:3/4;background:var(--blue-light);display:flex;align-items:center;justify-content:center}
+.test-body{padding:.9rem .75rem .75rem}
+.test-quote{font-size:.9rem;color:var(--blue-mid);font-weight:600;line-height:1.55;margin-bottom:.65rem}
 .test-name{font-size:.95rem;font-weight:700;color:var(--blue-dark)}
-.test-role{font-size:.7rem;color:var(--grey);text-transform:uppercase;letter-spacing:.06em;display:flex;justify-content:space-between;align-items:center;margin-top:.2rem}
-.test-since{font-size:.65rem;color:var(--grey);text-transform:uppercase;letter-spacing:.06em}
-.test-nav{display:flex;gap:.75rem;margin-top:1.5rem}
-.test-nav button{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--blue-dark)}
-.test-nav button:hover{background:var(--blue-dark);color:#fff;border-color:var(--blue-dark)}
+.test-role{font-size:.7rem;color:var(--grey);text-transform:uppercase;letter-spacing:.06em;display:flex;justify-content:space-between;align-items:center;margin-top:.2rem;gap:.5rem}
+.test-since{font-size:.65rem;color:var(--grey);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+/* Carousel arrows — absolute overlay on left/right sides, hidden on mobile */
+.test-arrow{position:absolute;top:30%;transform:translateY(-50%);z-index:10;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:rgba(255,255,255,.92);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--blue-dark);box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.test-arrow:hover{background:var(--blue-dark);color:#fff;border-color:var(--blue-dark)}
+.test-arrow-prev{left:-18px}
+.test-arrow-next{right:-18px}
 
 /* CTA MID */
 .cta-mid{padding:2.5rem 5vw;display:flex;flex-direction:column;align-items:flex-start;gap:.75rem}
@@ -255,8 +261,9 @@ footer{background:var(--blue-light);padding:4rem 5vw 0;position:relative;overflo
   /* Testimonials */
   .testimonials{padding:2.5rem 0 2.5rem 5vw}
   .testimonials-title{padding-right:5vw}
-  .test-card{flex:0 0 72vw;max-width:300px}
-  .test-nav{display:none}
+  .test-card{flex:0 0 calc(50vw - 1rem);max-width:none}
+  .test-carousel{gap:.5rem}
+  .test-arrow{display:none}
   /* CTA mid */
   .cta-mid{padding:2rem 5vw}
   .cta-mid .btn-orange{width:100%;justify-content:space-between}
@@ -463,12 +470,12 @@ footer{background:var(--blue-light);padding:4rem 5vw 0;position:relative;overflo
     <span class="t-dark" data-i18n="test_t3"></span> <span class="t-light" data-i18n="test_t4"></span><br>
     <span class="t-dark" data-i18n="test_t5"></span> <span class="t-mid" data-i18n="test_t6"></span>
   </h2>
-  <div class="test-carousel" id="test-carousel"></div>
-  <div class="test-nav">
-    <button onclick="scrollTest(-1)" aria-label="Anterior">
+  <div class="test-carousel-wrap">
+    <button class="test-arrow test-arrow-prev" onclick="scrollTest(-1)" aria-label="Anterior">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
     </button>
-    <button onclick="scrollTest(1)" aria-label="Seguinte">
+    <div class="test-carousel" id="test-carousel"></div>
+    <button class="test-arrow test-arrow-next" onclick="scrollTest(1)" aria-label="Seguinte">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </button>
   </div>
@@ -785,7 +792,9 @@ function renderTestimonials(lang, t) {
   const sinceLabel = {pt:'AQUI DESDE',en:'HERE SINCE'}[lang]||'AQUI DESDE';
   carousel.innerHTML = TESTIMONIALS.map(p => `
     <div class="test-card">
-      ${p.photo ? `<img class="test-photo" src="${p.photo}" alt="${p.name}" loading="lazy">` : `<div class="test-photo-placeholder"></div>`}
+      <div class="test-photo-frame">
+        ${p.photo ? `<img class="test-photo" src="${p.photo}" alt="${p.name}" loading="lazy">` : `<div class="test-photo-placeholder"></div>`}
+      </div>
       <div class="test-body">
         <p class="test-quote">${lang==='pt'?p.quote_pt:p.quote_en}</p>
         <p class="test-name">${p.name}</p>
