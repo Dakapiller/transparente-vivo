@@ -40,3 +40,10 @@ test('gallery next arrow moves beside the stage on 4k viewports', () => {
     /@media \(min-width: 2200px\) \{[\s\S]*?\.gallery-next \{[\s\S]*?left: calc\(100% \+ 20px\);[\s\S]*?right: auto;[\s\S]*?\}/,
   )
 })
+
+test('gallery keeps the previous arrow inside the 1024px viewport', () => {
+  assert.match(
+    css,
+    /@media \(max-width: 1100px\) \{[\s\S]*?\.gallery-prev \{[\s\S]*?left: calc\(-1 \* var\(--side\) \+ 24px\);[\s\S]*?\}/,
+  )
+})

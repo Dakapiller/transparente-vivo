@@ -92,3 +92,10 @@ test('people carousel expands the full card run and moves next arrow beside it o
     /@media \(min-width: 2200px\) \{[\s\S]*?\.people-viewport \{[\s\S]*?width: 1545px;[\s\S]*?\}[\s\S]*?\.people-next \{[\s\S]*?left: calc\(100% \+ 20px\);[\s\S]*?right: auto;[\s\S]*?\}/,
   )
 })
+
+test('people carousel keeps the previous arrow inside the 1024px viewport', () => {
+  assert.match(
+    css,
+    /@media \(max-width: 1100px\) \{[\s\S]*?\.people-prev,\n {2}\.gallery-prev \{[\s\S]*?left: calc\(-1 \* var\(--side\) \+ 24px\);[\s\S]*?\}/,
+  )
+})

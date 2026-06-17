@@ -1388,6 +1388,10 @@ select {
 }
 
 @media (min-width: 2200px) {
+  .hero-image {
+    right: -31px;
+  }
+
   .people-viewport {
     width: 1545px;
   }
@@ -1416,6 +1420,11 @@ select {
   .people-viewport,
   .gallery-wrap {
     width: calc(100vw - var(--side));
+  }
+
+  .people-prev,
+  .gallery-prev {
+    left: calc(-1 * var(--side) + 24px);
   }
 
   .ecosystem-orbit {

@@ -21,3 +21,10 @@ test('desktop hero image reaches the viewport right edge from inside the wrapper
   assert.match(heroImage, /right: calc\(-1 \* var\(--side\) - 31px\);/)
   assert.match(heroImage, /width: 741px;/)
 })
+
+test('4k hero image keeps the Figma content offset instead of reaching the viewport edge', () => {
+  assert.match(
+    css,
+    /@media \(min-width: 2200px\) \{[\s\S]*?\.hero-image \{[\s\S]*?right: -31px;[\s\S]*?\}/,
+  )
+})
