@@ -305,6 +305,12 @@ select {
   color: #ffffff;
 }
 
+.campaign-button--primary:hover,
+.campaign-button--primary:focus-visible {
+  background: var(--blue-dark);
+  color: #ffffff;
+}
+
 .campaign-button--outline {
   border: 1px solid var(--muted);
   color: var(--muted);

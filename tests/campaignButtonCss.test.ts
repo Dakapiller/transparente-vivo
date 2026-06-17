@@ -48,3 +48,13 @@ test('campaign buttons use the Figma vector arrow instead of a text glyph', () =
   assert.match(arrowImage, /max-width: none;/)
   assert.match(arrowImage, /width: 100%;/)
 })
+
+test('primary campaign buttons use the Figma dark-blue hover state', () => {
+  const primary = blockFor('.campaign-button--primary')
+  const hover = blockFor('.campaign-button--primary:hover,\n.campaign-button--primary:focus-visible')
+
+  assert.match(primary, /background: var\(--orange\);/)
+  assert.match(primary, /color: #ffffff;/)
+  assert.match(hover, /background: var\(--blue-dark\);/)
+  assert.match(hover, /color: #ffffff;/)
+})
