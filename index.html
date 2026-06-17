@@ -86,11 +86,11 @@ p{line-height:1.7}
 .hero-cta-btn{align-self:flex-start}
 
 /* STATS — inside hero on desktop */
-.stats{background:var(--blue-light);padding:3rem 5vw 4rem}
+.stats{background:linear-gradient(to bottom,var(--blue-light) 80%,var(--white) 100%);padding:3rem 5vw 4rem}
 .stats-headline{font-size:clamp(1.6rem,3.5vw,3rem);font-weight:700;color:var(--blue-mid);margin-bottom:2.5rem;line-height:1.15}
 .stats-headline strong{color:var(--blue-dark)}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-left:1px solid rgba(0,0,0,.1)}
-.stat-item{padding:1.5rem 2rem;border-right:1px solid rgba(0,0,0,.1)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-left:2px solid var(--blue-dark)}
+.stat-item{padding:1.5rem 2rem;border-right:2px solid var(--blue-dark)}
 .stat-icon{margin-bottom:.75rem}
 .stat-icon svg{width:32px;height:32px;stroke:var(--blue-mid);stroke-width:1.5;fill:none}
 .stat-num{font-size:clamp(1.8rem,2.5vw,2.5rem);font-weight:700;color:var(--blue-mid);line-height:1}
@@ -121,7 +121,7 @@ p{line-height:1.7}
 /* Desktop: horizontal timeline */
 @media(min-width:961px){
   .timeline-track{flex-direction:row;position:relative;gap:0}
-  .timeline-track::before{content:'';position:absolute;top:6px;left:7px;right:7px;height:2px;background:var(--blue-dark);z-index:0}
+  .timeline-track::before{content:'';position:absolute;top:6px;left:7px;right:7px;height:3px;background:linear-gradient(to right,var(--blue-dark) 82%,var(--orange) 82%);z-index:0}
   .tl-item{flex:1;flex-direction:column;gap:0;position:relative}
   .tl-item::before{display:none}
   .tl-dot{margin-bottom:.75rem;position:relative;z-index:1}
@@ -422,7 +422,7 @@ footer{background:var(--blue-light);padding:4rem 5vw 0;padding-bottom:28vw;posit
 
 <div class="timeline" id="timeline">
   <h2 class="timeline-title">
-    <span class="tl-light" data-i18n="tl_title_pre"></span> <span class="tl-mid" data-i18n="tl_title_mid"></span> <span class="tl-dark" data-i18n="tl_title_end"></span>
+    <span class="tl-light" data-i18n="tl_title_pre"></span><br><span class="tl-mid" data-i18n="tl_title_mid"></span><br><span class="tl-dark" data-i18n="tl_title_end"></span>
   </h2>
   <div class="timeline-track">
     <div class="tl-item">
@@ -660,12 +660,12 @@ const T = {
     hero_line1:"Uma",hero_line2:"comunidade",hero_line3:"viva é",hero_line4:"património",hero_line5:"da cidade",
     hero_sub:"Este espaço é hoje um lugar de trabalho, encontro e criação. Antes de decidir o seu futuro, é essencial ouvir quem lhe dá vida todos os dias.",
     hero_cta:"Apoia esta causa",
-    stats_headline_pre:"Sabias que o Edifício Transparente está",stats_headline_strong:"cheio de vida",stats_headline_post:"por dentro?",
+    stats_headline_pre:"Sabias que o Edifício",stats_headline_pre2:"Transparente está",stats_headline_strong:"cheio",stats_headline_post:"de vida por dentro?",
     stat_pessoas_unit:"pessoas",stat_pessoas_desc:"trabalham aqui todos os dias",
     stat_empresas_unit:"empresas",stat_empresas_desc:"dependem deste ecossistema",
     stat_rest_unit:"restaurantes",stat_rest_desc:"vivem desta comunidade",
     stat_dias_unit:"dias",stat_dias_desc:"de atividade real no Porto",
-    tl_title_pre:"Como este lugar se",tl_title_mid:"tornou",tl_title_end:"comunidade",
+    tl_title_pre:"Como este",tl_title_mid:"lugar se tornou",tl_title_end:"comunidade",
     tl_2001:"Construído para a cultura",
     tl_2007:"Abertura ao público",
     tl_2021:"Criação do espaço de escritórios",
@@ -698,12 +698,12 @@ const T = {
     hero_line1:"A",hero_line2:"community",hero_line3:"alive is",hero_line4:"the city's",hero_line5:"heritage",
     hero_sub:"This space is a place of work, encounter and creation. Before deciding its future, those who bring it to life every day must be heard.",
     hero_cta:"Support this cause",
-    stats_headline_pre:"Did you know the Edifício Transparente is",stats_headline_strong:"full of life",stats_headline_post:"inside?",
+    stats_headline_pre:"Did you know the",stats_headline_pre2:"Edifício Transparente is",stats_headline_strong:"full",stats_headline_post:"of life inside?",
     stat_pessoas_unit:"people",stat_pessoas_desc:"work here every day",
     stat_empresas_unit:"companies",stat_empresas_desc:"depend on this ecosystem",
     stat_rest_unit:"restaurants",stat_rest_desc:"live from this community",
     stat_dias_unit:"days",stat_dias_desc:"of real activity in Porto",
-    tl_title_pre:"How this place",tl_title_mid:"became",tl_title_end:"a community",
+    tl_title_pre:"How this",tl_title_mid:"place became",tl_title_end:"a community",
     tl_2001:"Built for culture",
     tl_2007:"Opened to the public",
     tl_2021:"Office spaces created",
@@ -761,7 +761,7 @@ function applyLang(lang) {
 
 function renderStatsHeadline(t) {
   const el = document.getElementById('stats-headline');
-  if (el) el.innerHTML = t.stats_headline_pre + ' <strong>' + t.stats_headline_strong + '</strong> ' + t.stats_headline_post;
+  if (el) el.innerHTML = t.stats_headline_pre + '<br>' + t.stats_headline_pre2 + ' <strong>' + t.stats_headline_strong + '</strong><br>' + t.stats_headline_post;
 }
 function renderCompTitle(t) {
   const el = document.getElementById('comp-title-el');
