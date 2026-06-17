@@ -12,6 +12,11 @@ type Person = {
   quote: string
 }
 
+type RichTextPart = {
+  text: string
+  emphasis?: boolean
+}
+
 type LocaleContent = {
   nav: {
     menu: string
@@ -52,6 +57,7 @@ type LocaleContent = {
   people: Person[]
   peopleSection: {
     title: string
+    titleParts: RichTextPart[]
     cta: string
     helper: string
   }
@@ -161,6 +167,13 @@ export const content = {
     },
     peopleSection: {
       title: 'Pessoas que aqui trabalham e tornam este lugar vivo',
+      titleParts: [
+        { text: 'Pessoas', emphasis: true },
+        { text: ' que aqui ' },
+        { text: 'trabalham', emphasis: true },
+        { text: ' e tornam este lugar ' },
+        { text: 'vivo', emphasis: true },
+      ],
       cta: 'Protege esta comunidade',
       helper: 'leva menos de 1 minuto',
     },
@@ -313,6 +326,13 @@ export const content = {
     },
     peopleSection: {
       title: 'People who work here and make this place alive',
+      titleParts: [
+        { text: 'People', emphasis: true },
+        { text: ' who ' },
+        { text: 'work', emphasis: true },
+        { text: ' here and make this place ' },
+        { text: 'alive', emphasis: true },
+      ],
       cta: 'Protect this community',
       helper: 'takes less than 1 minute',
     },

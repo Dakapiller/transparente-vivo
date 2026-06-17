@@ -25,6 +25,24 @@ test('campaign content covers the visible Figma sections', () => {
   }
 })
 
+test('people heading preserves Figma color emphasis segments', () => {
+  assert.deepEqual(content.pt.peopleSection.titleParts, [
+    { text: 'Pessoas', emphasis: true },
+    { text: ' que aqui ' },
+    { text: 'trabalham', emphasis: true },
+    { text: ' e tornam este lugar ' },
+    { text: 'vivo', emphasis: true },
+  ])
+
+  assert.deepEqual(content.en.peopleSection.titleParts, [
+    { text: 'People', emphasis: true },
+    { text: ' who ' },
+    { text: 'work', emphasis: true },
+    { text: ' here and make this place ' },
+    { text: 'alive', emphasis: true },
+  ])
+})
+
 test('desktop menu content matches the Figma menu structure', () => {
   assert.deepEqual(content.pt.nav.menuItems.map((item) => item.label), [
     'Introdução',

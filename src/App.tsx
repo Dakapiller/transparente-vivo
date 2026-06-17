@@ -1,9 +1,11 @@
-import { useEffect, useMemo, useState } from 'react'
+import { type CSSProperties, useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
 
 import heroImage from './assets/figma/hero-optimized.jpeg'
 import galleryOne from './assets/figma/photo-08.jpeg'
 import galleryTwo from './assets/figma/photo-05.jpeg'
+import galleryArrowNext from './assets/figma/vectors/gallery-arrow-next.svg'
+import galleryArrowPrev from './assets/figma/vectors/gallery-arrow-prev.svg'
 import personAna from './assets/figma/photo-11.jpeg'
 import personManuel from './assets/figma/photo-07.jpeg'
 import personMariana from './assets/figma/photo-09.jpeg'
@@ -11,10 +13,16 @@ import personNome from './assets/figma/photo-13.jpeg'
 import personRicardo from './assets/figma/photo-02.jpeg'
 import arrowNext from './assets/figma/vectors/arrow-next.svg'
 import arrowPrev from './assets/figma/vectors/arrow-prev.svg'
+import campaignArrow from './assets/figma/vectors/campaign-arrow.svg'
 import checkIcon from './assets/figma/vectors/check.svg'
-import ecoCulture from './assets/figma/vectors/eco-culture.svg'
+import ecoCultureBookLeft from './assets/figma/vectors/eco-culture-book-left.svg'
+import ecoCultureBookRight from './assets/figma/vectors/eco-culture-book-right.svg'
 import ecoOffice from './assets/figma/vectors/eco-office.svg'
+import ecoConnectorBottomRight from './assets/figma/vectors/eco-orbit-connector-bottom-right.svg'
+import ecoConnectorRight from './assets/figma/vectors/eco-orbit-connector-right.svg'
+import ecoConnectorSmall from './assets/figma/vectors/eco-orbit-connector-small.svg'
 import ecoRestaurant from './assets/figma/vectors/eco-restaurant.svg'
+import ecoRing from './assets/figma/vectors/eco-ring.svg'
 import ecoSport from './assets/figma/vectors/eco-sport.svg'
 import facebookIcon from './assets/figma/vectors/facebook.svg'
 import footerMark from './assets/figma/vectors/footer-mark.svg'
@@ -22,13 +30,29 @@ import hamburgerIcon from './assets/figma/vectors/hamburger.svg'
 import instagramIcon from './assets/figma/vectors/instagram.svg'
 import logo from './assets/figma/vectors/logo.svg'
 import menuCloseIcon from './assets/figma/vectors/menu-close.svg'
+import menuSeparator from './assets/figma/vectors/menu-separator.svg'
+import personCardFrame from './assets/figma/vectors/person-card-frame.svg'
 import statBuilding from './assets/figma/vectors/stat-building.svg'
 import statCalendar from './assets/figma/vectors/stat-calendar.svg'
 import statPeople from './assets/figma/vectors/stat-people.svg'
 import statRestaurant from './assets/figma/vectors/stat-restaurant.svg'
+import whatsappIcon from './assets/figma/vectors/whatsapp.svg'
 import xIcon from './assets/figma/vectors/x.svg'
 import { content, type LanguageCode, languages } from './content'
 import { lockDocumentScroll, restoreDocumentScroll } from './scrollLock'
+import { timelineMilestones, timelineSegments, toTimelinePercent } from './timelineLayout'
+
+type TimelineMilestoneStyle = CSSProperties &
+  Record<'--timeline-dot-left' | '--timeline-text-left' | '--timeline-text-width', string>
+
+type TimelineSegmentStyle = CSSProperties &
+  Record<'--timeline-segment-left' | '--timeline-segment-width', string>
+
+type PeopleImageStyle = CSSProperties &
+  Record<
+    '--portrait-image-height' | '--portrait-image-left' | '--portrait-image-top' | '--portrait-image-width',
+    string
+  >
 
 const peopleImages = [
   personMariana,
@@ -38,17 +62,53 @@ const peopleImages = [
   personAna,
 ] as const
 
+const peopleImageLayouts = [
+  { left: -32.816, top: -65.632, width: 270.994, height: 406.292 },
+  { left: -3.128, top: -49.128, width: 254, height: 380 },
+  { left: -0.128, top: -71.128, width: 260, height: 390 },
+  { left: -2.128, top: -46.128, width: 250, height: 376 },
+  { left: -32.816, top: -65.632, width: 270.994, height: 406.292 },
+] as const
+
 const statIcons = [statPeople, statBuilding, statRestaurant, statCalendar] as const
-const ecosystemIcons = [ecoOffice, ecoRestaurant, ecoSport, ecoCulture] as const
+const ecosystemConnectors = [
+  { className: 'orbit-link-tl', src: ecoConnectorSmall },
+  { className: 'orbit-link-tr', src: ecoConnectorRight },
+  { className: 'orbit-link-bl', src: ecoConnectorSmall },
+  { className: 'orbit-link-br', src: ecoConnectorBottomRight },
+] as const
 const galleryImages = [galleryOne, galleryTwo] as const
+
+function EcosystemIcon({ index }: { index: number }) {
+  if (index === 0) {
+    return <img alt="" aria-hidden="true" className="orbit-icon" src={ecoOffice} />
+  }
+
+  if (index === 1) {
+    return <img alt="" aria-hidden="true" className="orbit-icon" src={ecoRestaurant} />
+  }
+
+  if (index === 2) {
+    return <img alt="" aria-hidden="true" className="orbit-icon" src={ecoSport} />
+  }
+
+  return (
+    <span aria-hidden="true" className="orbit-culture-icon">
+      <img alt="" src={ecoCultureBookLeft} />
+      <img alt="" src={ecoCultureBookRight} />
+    </span>
+  )
+}
 
 function ArrowButton({
   direction,
+  iconSrc,
   label,
   onClick,
   className = '',
 }: {
   direction: 'prev' | 'next'
+  iconSrc?: string
   label: string
   onClick: () => void
   className?: string
@@ -60,7 +120,7 @@ function ArrowButton({
       type="button"
       onClick={onClick}
     >
-      <img alt="" src={direction === 'next' ? arrowNext : arrowPrev} />
+      <img alt="" src={iconSrc ?? (direction === 'next' ? arrowNext : arrowPrev)} />
     </button>
   )
 }
@@ -78,9 +138,82 @@ function CampaignButton({
     <a className={`campaign-button campaign-button--${variant}`} href={href}>
       <span>{children}</span>
       <span aria-hidden="true" className="button-arrow">
-        →
+        <img alt="" src={campaignArrow} />
       </span>
     </a>
+  )
+}
+
+function LanguageDropdown({
+  locale,
+  onLocaleChange,
+}: {
+  locale: LanguageCode
+  onLocaleChange: (locale: LanguageCode) => void
+}) {
+  const [open, setOpen] = useState(false)
+  const controlRef = useRef<HTMLDivElement>(null)
+  const activeLanguage = languages.find((language) => language.code === locale) ?? languages[0]
+
+  useEffect(() => {
+    if (!open) {
+      return
+    }
+
+    const closeOnOutsidePointer = (event: PointerEvent) => {
+      if (!controlRef.current?.contains(event.target as Node)) {
+        setOpen(false)
+      }
+    }
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpen(false)
+      }
+    }
+
+    document.addEventListener('pointerdown', closeOnOutsidePointer)
+    document.addEventListener('keydown', closeOnEscape)
+
+    return () => {
+      document.removeEventListener('pointerdown', closeOnOutsidePointer)
+      document.removeEventListener('keydown', closeOnEscape)
+    }
+  }, [open])
+
+  return (
+    <div className="language-control" ref={controlRef}>
+      <button
+        aria-expanded={open}
+        aria-haspopup="listbox"
+        aria-label="Language"
+        className="language-toggle"
+        type="button"
+        onClick={() => setOpen((value) => !value)}
+      >
+        <span>{activeLanguage.label}</span>
+      </button>
+      {open && (
+        <div aria-label="Language" className="language-menu" role="listbox">
+          {languages.map((language) => (
+            <button
+              aria-selected={language.code === locale}
+              className="language-option"
+              key={language.code}
+              role="option"
+              type="button"
+              onClick={() => {
+                onLocaleChange(language.code)
+                setOpen(false)
+              }}
+            >
+              <span>{language.label}</span>
+              <span className="language-option-name">{language.name}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -102,20 +235,7 @@ function DesktopMenuOverlay({
           <img alt="" src={logo} />
         </a>
         <div className="header-actions">
-          <label className="language-control">
-            <span className="sr-only">Language</span>
-            <select
-              aria-label="Language"
-              value={locale}
-              onChange={(event) => onLocaleChange(event.target.value as LanguageCode)}
-            >
-              {languages.map((language) => (
-                <option key={language.code} value={language.code}>
-                  {language.label}
-                </option>
-              ))}
-            </select>
-          </label>
+          <LanguageDropdown locale={locale} onLocaleChange={onLocaleChange} />
           <button aria-label={copy.nav.close} className="menu-close-button" type="button" onClick={onClose}>
             <img alt="" src={menuCloseIcon} />
           </button>
@@ -124,14 +244,16 @@ function DesktopMenuOverlay({
       <div className="desktop-menu-content">
         <nav className="desktop-menu-list" aria-label={copy.nav.menu}>
           {copy.nav.menuItems.map((item) => (
-            <a
-              className={item.active ? 'active' : ''}
-              href={item.href}
-              key={item.label}
-              onClick={onClose}
-            >
-              {item.label}
-            </a>
+            <div className="desktop-menu-item" key={item.label}>
+              <a
+                className={item.active ? 'active' : ''}
+                href={item.href}
+                onClick={onClose}
+              >
+                {item.label}
+              </a>
+              <img alt="" aria-hidden="true" className="desktop-menu-separator" src={menuSeparator} />
+            </div>
           ))}
         </nav>
         <CampaignButton href="#sign">{copy.nav.petition}</CampaignButton>
@@ -146,6 +268,8 @@ function App() {
   const [peopleIndex, setPeopleIndex] = useState(0)
   const [galleryIndex, setGalleryIndex] = useState(0)
   const copy = content[locale]
+  const footerAboutBrand = 'Transparente Vivo'
+  const [footerAboutPrefix, footerAboutSuffix = ''] = copy.footer.about.split(footerAboutBrand)
 
   const shareUrl = useMemo(() => {
     const text = encodeURIComponent(copy.cta.shareMessage)
@@ -189,20 +313,7 @@ function App() {
           <img alt="" src={logo} />
         </a>
         <div className="header-actions">
-          <label className="language-control">
-            <span className="sr-only">Language</span>
-            <select
-              aria-label="Language"
-              value={locale}
-              onChange={(event) => setLocale(event.target.value as LanguageCode)}
-            >
-              {languages.map((language) => (
-                <option key={language.code} value={language.code}>
-                  {language.label}
-                </option>
-              ))}
-            </select>
-          </label>
+          <LanguageDropdown locale={locale} onLocaleChange={setLocale} />
           <button
             aria-expanded={menuOpen}
             aria-label={menuOpen ? copy.nav.close : copy.nav.menu}
@@ -266,20 +377,55 @@ function App() {
               {copy.history.titleStart} <strong>{copy.history.titleEmphasis}</strong>
             </h2>
             <div className="timeline">
-              {copy.history.timeline.map((item) => (
-                <article className={item.active ? 'active' : ''} key={item.year}>
+              {timelineSegments.map((segment, index) => (
+                <span
+                  aria-hidden="true"
+                  className={`timeline-segment timeline-segment--${segment.variant}`}
+                  key={`${segment.variant}-${index}`}
+                  style={
+                    {
+                      '--timeline-segment-left': toTimelinePercent(segment.left),
+                      '--timeline-segment-width': toTimelinePercent(segment.width),
+                    } as TimelineSegmentStyle
+                  }
+                />
+              ))}
+              {copy.history.timeline.map((item, index) => {
+                const milestone = timelineMilestones[index]
+
+                return (
+                  <article
+                    className={item.active ? 'active' : ''}
+                    key={item.year}
+                    style={
+                      {
+                        '--timeline-dot-left': toTimelinePercent(milestone.dotLeft),
+                        '--timeline-text-left': toTimelinePercent(milestone.textLeft),
+                        '--timeline-text-width': toTimelinePercent(milestone.textWidth),
+                      } as TimelineMilestoneStyle
+                    }
+                  >
                   <span className="timeline-dot" />
                   <h3>{item.year}</h3>
                   <p>{item.label}</p>
-                </article>
-              ))}
+                  </article>
+                )
+              })}
             </div>
           </div>
         </section>
 
         <section className="people-section" id="people">
           <div className="wrap people-wrap">
-            <h2 className="people-title">{copy.peopleSection.title}</h2>
+            <h2 className="people-title">
+              {copy.peopleSection.titleParts.map((part, index) =>
+                part.emphasis ? (
+                  <strong key={`${part.text}-${index}`}>{part.text}</strong>
+                ) : (
+                  <span key={`${part.text}-${index}`}>{part.text}</span>
+                ),
+              )}
+            </h2>
             <div className="people-viewport">
               <div
                 className="people-track"
@@ -288,7 +434,22 @@ function App() {
                 {copy.people.map((person, index) => (
                   <article className="person-card" key={`${person.name}-${person.role}`}>
                     <div className="portrait-frame">
-                      <img alt="" src={peopleImages[index]} />
+                      <img alt="" aria-hidden="true" className="portrait-frame-lines" src={personCardFrame} />
+                      <div className="portrait-mask">
+                        <img
+                          alt=""
+                          className="portrait-image"
+                          src={peopleImages[index]}
+                          style={
+                            {
+                              '--portrait-image-height': `${peopleImageLayouts[index].height}px`,
+                              '--portrait-image-left': `${peopleImageLayouts[index].left}px`,
+                              '--portrait-image-top': `${peopleImageLayouts[index].top}px`,
+                              '--portrait-image-width': `${peopleImageLayouts[index].width}px`,
+                            } as PeopleImageStyle
+                          }
+                        />
+                      </div>
                     </div>
                     <blockquote>“{person.quote}”</blockquote>
                     <div className="person-meta">
@@ -299,6 +460,7 @@ function App() {
                   </article>
                 ))}
               </div>
+              <div aria-hidden="true" className="people-fade" />
               <ArrowButton
                 className="people-prev"
                 direction="prev"
@@ -332,10 +494,20 @@ function App() {
               </p>
             </div>
             <div className="ecosystem-orbit" aria-label={copy.ecosystem.kicker}>
+              {ecosystemConnectors.map((connector) => (
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  className={`orbit-link ${connector.className}`}
+                  key={connector.className}
+                  src={connector.src}
+                />
+              ))}
               {copy.ecosystem.nodes.map((node, index) => (
                 <article className={`orbit-node orbit-node-${index}`} key={node}>
-                  <img alt="" src={ecosystemIcons[index]} />
-                  <span>{node}</span>
+                  <img alt="" aria-hidden="true" className="orbit-ring" src={ecoRing} />
+                  <EcosystemIcon index={index} />
+                  <span className="orbit-label">{node}</span>
                 </article>
               ))}
             </div>
@@ -352,10 +524,13 @@ function App() {
               <article className="belief-card belief-card--preserve">
                 <h3>{copy.beliefs.preserve.title}</h3>
                 <ul>
-                  {copy.beliefs.preserve.items.map((item) => (
+                  {copy.beliefs.preserve.items.map((item, index) => (
                     <li key={item}>
                       <img alt="" src={checkIcon} />
                       <span>{item}</span>
+                      {index < copy.beliefs.preserve.items.length - 1 && (
+                        <span aria-hidden="true" className="belief-separator" />
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -363,10 +538,13 @@ function App() {
               <article className="belief-card belief-card--demolish">
                 <h3>{copy.beliefs.demolish.title}</h3>
                 <ul>
-                  {copy.beliefs.demolish.items.map((item) => (
+                  {copy.beliefs.demolish.items.map((item, index) => (
                     <li key={item}>
                       <img alt="" src={xIcon} />
                       <span>{item}</span>
+                      {index < copy.beliefs.demolish.items.length - 1 && (
+                        <span aria-hidden="true" className="belief-separator" />
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -385,12 +563,14 @@ function App() {
             <ArrowButton
               className="gallery-prev"
               direction="prev"
+              iconSrc={galleryArrowPrev}
               label="Previous image"
               onClick={() => rotateGallery('prev')}
             />
             <ArrowButton
               className="gallery-next"
               direction="next"
+              iconSrc={galleryArrowNext}
               label="Next image"
               onClick={() => rotateGallery('next')}
             />
@@ -404,22 +584,26 @@ function App() {
               {copy.cta.titleEnd}
             </h2>
             <p>{copy.cta.body}</p>
-            <CampaignButton href="https://www.transparentevivo.pt/" variant="primary">
-              {copy.cta.primary}
-            </CampaignButton>
-            <a className="campaign-button campaign-button--whatsapp" href={shareUrl}>
-              <span>{copy.cta.whatsapp}</span>
-              <span aria-hidden="true" className="whatsapp-dot">
-                ◉
-              </span>
-            </a>
+            <div className="sign-actions">
+              <CampaignButton href="https://www.transparentevivo.pt/" variant="primary">
+                {copy.cta.primary}
+              </CampaignButton>
+              <a className="campaign-button campaign-button--whatsapp" href={shareUrl}>
+                <span>{copy.cta.whatsapp}</span>
+                <img alt="" src={whatsappIcon} />
+              </a>
+            </div>
           </div>
         </section>
       </main>
 
       <footer className="site-footer">
         <div className="wrap footer-layout">
-          <p className="footer-about">{copy.footer.about}</p>
+          <p className="footer-about">
+            {footerAboutPrefix}
+            <strong className="footer-about-brand">{footerAboutBrand}</strong>
+            {footerAboutSuffix}
+          </p>
           <address>
             <p>
               <strong>{copy.footer.contactLabel}</strong>
