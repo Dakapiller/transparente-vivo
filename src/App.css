@@ -982,7 +982,7 @@ select {
 }
 
 .callout-copy {
-  border-left: 3px solid var(--blue);
+  border-left: 3px solid var(--blue-dark);
   color: var(--blue);
   font-size: 23px;
   font-weight: 500;
@@ -1005,10 +1005,21 @@ select {
   width: 602.788px;
 }
 
+.orbit-lines-mobile {
+  display: none;
+}
+
 .orbit-link {
   display: block;
   position: absolute;
   z-index: 0;
+}
+
+.orbit-link-image {
+  display: block;
+  height: 100%;
+  max-width: none;
+  width: 100%;
 }
 
 .orbit-link-tl {
@@ -1556,13 +1567,58 @@ select {
 }
 
 @media (max-width: 760px) {
+  :root {
+    --mobile-page: min(100vw, 390px);
+    --mobile-gutter: 20px;
+    --mobile-content: calc(var(--mobile-page) - 40px);
+    --wrap: 390px;
+  }
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .wrap {
+    max-width: 390px;
+    width: 100%;
+  }
+
   .site-header {
-    height: 92px;
+    height: 80px;
+    padding: 0 20px;
   }
 
   .wordmark {
-    height: 42px;
-    width: 170px;
+    height: 44.371px;
+    width: 180px;
+  }
+
+  .header-actions {
+    gap: 24px;
+  }
+
+  .language-toggle {
+    height: 19px;
+    min-width: 41px;
+    padding-right: 20px;
+  }
+
+  .language-toggle::after {
+    height: 10.6px;
+    right: 0;
+    top: 1px;
+    width: 10.6px;
+  }
+
+  .menu-button {
+    height: 25px;
+    width: 25px;
+  }
+
+  .menu-button img {
+    height: 19px;
+    width: 25px;
   }
 
   .desktop-menu-overlay {
@@ -1570,18 +1626,20 @@ select {
   }
 
   .menu-overlay-nav {
-    height: 92px;
+    height: 80px;
+    padding: 0 20px;
   }
 
   .desktop-menu-content {
     height: auto;
-    min-height: calc(100vh - 92px);
+    min-height: calc(100vh - 80px);
     padding-bottom: 72px;
+    width: calc(100% - 40px);
   }
 
   .desktop-menu-list {
     position: relative;
-    top: 72px;
+    top: 58px;
     width: 100%;
   }
 
@@ -1601,100 +1659,179 @@ select {
     top: auto;
   }
 
-  .hero-section,
-  .stats-section,
-  .history-section,
-  .people-section,
-  .ecosystem-section,
-  .beliefs-section,
-  .gallery-section,
-  .sign-section,
-  .site-footer {
-    height: auto;
-    min-height: 0;
-    padding: 72px 0;
-  }
-
-  .hero-copy,
-  .stats-title,
-  .history-title,
-  .people-title,
-  .ecosystem-copy,
-  .ecosystem-orbit,
-  .people-viewport,
-  .people-section .campaign-button,
-  .helper-copy,
-  .gallery-wrap {
-    left: auto;
-    position: relative;
-    right: auto;
-    top: auto;
+  .hero-section {
+    background: var(--cream);
+    height: 792px;
+    padding: 0;
   }
 
   .hero-layout {
-    display: grid;
-    gap: 36px;
-    height: auto;
-  }
-
-  .hero-copy,
-  .hero-copy p,
-  .stats-title,
-  .history-title,
-  .people-title,
-  .ecosystem-copy,
-  .ecosystem-copy h2,
-  .callout-copy,
-  .beliefs-title,
-  .sign-title,
-  .sign-layout p {
-    width: 100%;
-  }
-
-  .hero-copy h1 {
-    font-size: 56px;
-  }
-
-  .blue-title,
-  .muted-title,
-  .people-title,
-  .belief-card h3 {
-    font-size: 40px;
+    height: 100%;
   }
 
   .hero-image {
-    height: auto;
+    height: 350px;
+    left: 20px;
+    object-fit: cover;
+    object-position: center top;
     opacity: 1;
-    position: relative;
+    position: absolute;
     right: auto;
-    top: auto;
-    width: 100%;
+    top: 21px;
+    width: 350px;
+  }
+
+  .hero-copy {
+    left: 20px;
+    position: absolute;
+    top: 387px;
+    width: 345px;
+  }
+
+  .hero-copy h1,
+  .blue-title,
+  .muted-title,
+  .people-title,
+  .belief-card h3,
+  .sign-title {
+    font-size: 35px;
+    line-height: 1.15;
+  }
+
+  .hero-copy h1 {
+    line-height: 1.1;
+    width: 345px;
+  }
+
+  .hero-copy p {
+    font-size: 20px;
+    line-height: 1.35;
+    margin: 16px 0 34px;
+    width: 339px;
+  }
+
+  .campaign-button {
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    height: 55px;
+    line-height: 25.84px;
+    max-width: calc(100vw - 40px);
+    padding: 0 20px;
+    width: 350px;
+  }
+
+  .button-arrow {
+    height: 30.6px;
+    right: 19px;
+    top: 12px;
+    width: 51.08px;
+  }
+
+  .stats-section {
+    background: var(--sky);
+    height: 841px;
+    padding: 0;
+  }
+
+  .stats-title {
+    left: 25px;
+    position: absolute;
+    top: 48px;
+    width: 345px;
   }
 
   .stats-grid {
-    grid-template-columns: 1fr;
-    height: auto;
-    margin-top: 54px;
-    position: relative;
-    top: auto;
+    background:
+      linear-gradient(rgba(112, 120, 153, 0.42), rgba(112, 120, 153, 0.42)) center top / 2px 220px no-repeat,
+      linear-gradient(rgba(112, 120, 153, 0.42), rgba(112, 120, 153, 0.42)) center bottom / 2px 216px no-repeat,
+      linear-gradient(90deg, rgba(112, 120, 153, 0.42), rgba(112, 120, 153, 0.42)) center 249px / 340px 2px no-repeat;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 247px 247px;
+    height: 494px;
+    left: 23px;
+    position: absolute;
+    top: 361px;
+    width: 342px;
   }
 
   .stat-card {
-    border-left: 2px solid rgba(112, 120, 153, 0.65);
-    border-right: 0 !important;
-    margin-bottom: 42px;
+    border: 0;
+    margin: 0;
+    padding: 6px 0 0 4px;
+  }
+
+  .stat-card:nth-child(even) {
+    padding-left: 24px;
+  }
+
+  .stat-card:last-child {
+    border-right: 0;
+  }
+
+  .stat-card img {
+    height: 44px;
+    margin-bottom: 21px;
+    width: 44px;
+  }
+
+  .stat-card h3 {
+    font-size: 30px;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .stat-card:nth-child(n + 3) h3 {
+    font-size: 26px;
+  }
+
+  .stat-card p {
+    font-size: 18px;
+    line-height: 1.2;
+    max-width: 125px;
+  }
+
+  .history-section {
+    background: linear-gradient(180deg, rgba(229, 243, 255, 0) 0%, #ffffff 100%);
+    height: 928px;
+    padding: 0;
+  }
+
+  .history-layout {
+    height: 100%;
+  }
+
+  .history-title {
+    left: 26px;
+    position: absolute;
+    top: 210px;
+    width: 330px;
   }
 
   .timeline {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 28px;
-    height: auto;
-    left: auto;
-    margin-top: 54px;
-    position: relative;
-    top: auto;
-    width: 100%;
+    display: block;
+    height: 455px;
+    left: 23px;
+    margin: 0;
+    position: absolute;
+    top: 359px;
+    width: 346px;
+  }
+
+  .timeline::before {
+    background:
+      linear-gradient(var(--blue-dark), var(--blue-dark)) 28px 10px / 4px 94px no-repeat,
+      repeating-linear-gradient(
+        180deg,
+        var(--blue-dark) 0 8px,
+        transparent 8px 16px
+      ) 28px 105px / 4px 80px no-repeat,
+      linear-gradient(var(--blue-dark), var(--blue-dark)) 28px 192px / 4px 87px no-repeat,
+      linear-gradient(var(--orange), var(--orange)) 28px 284px / 4px 86px no-repeat;
+    content: "";
+    inset: 0;
+    position: absolute;
   }
 
   .timeline-segment {
@@ -1702,74 +1839,252 @@ select {
   }
 
   .timeline article {
-    height: auto;
-    position: relative;
+    height: 74px;
+    left: 0;
+    position: absolute;
     width: 100%;
   }
 
+  .timeline article:nth-of-type(1) {
+    top: 0;
+  }
+
+  .timeline article:nth-of-type(2) {
+    top: 90px;
+  }
+
+  .timeline article:nth-of-type(3) {
+    top: 180px;
+  }
+
+  .timeline article:nth-of-type(4) {
+    top: 270px;
+  }
+
+  .timeline article:nth-of-type(5) {
+    top: 360px;
+  }
+
   .timeline-dot {
-    left: auto;
-    margin-bottom: 17px;
-    position: relative;
-    top: auto;
+    height: 20px;
+    left: 20px;
+    position: absolute;
+    top: 0;
+    width: 20px;
   }
 
   .timeline h3,
   .timeline p {
-    left: auto;
-    position: relative;
-    top: auto;
-    width: min(var(--timeline-text-width), 100%);
+    font-size: 20px;
+    font-weight: 600;
+    left: 50px;
+    line-height: 1.2;
+    margin: 0;
+    position: absolute;
+    width: 296px;
+  }
+
+  .timeline h3 {
+    top: 0;
+  }
+
+  .timeline p {
+    top: 28px;
+  }
+
+  .people-section {
+    height: 958px;
+    padding: 0;
+  }
+
+  .people-wrap {
+    height: 100%;
+  }
+
+  .people-title {
+    left: 25px;
+    position: absolute;
+    top: 0;
+    width: 338px;
   }
 
   .people-viewport {
-    margin-top: 54px;
+    height: 437px;
+    left: 22px;
+    margin: 0;
     overflow: hidden;
+    position: absolute;
+    top: 183px;
+    width: 518px;
+  }
+
+  .people-track {
+    gap: 15px;
+  }
+
+  .person-card {
+    border-radius: 8px;
+    flex-basis: 250px;
+    height: 437px;
+  }
+
+  .portrait-frame {
+    height: 270.851px;
+    left: 9.885px;
+    top: 9.447px;
+    width: 229.881px;
+  }
+
+  .portrait-frame-lines {
+    height: 270.851px;
+    width: 229.881px;
+  }
+
+  .portrait-mask {
+    height: 240px;
+    left: 24px;
+    top: 24px;
+    width: 203px;
+  }
+
+  .portrait-image {
+    height: 100%;
+    left: 0;
+    object-fit: cover;
+    top: 0;
     width: 100%;
+  }
+
+  .person-card blockquote {
+    font-size: 20px;
+    height: 73px;
+    left: 24px;
+    line-height: 1.2;
+    text-indent: -9px;
+    top: 291px;
+    width: 206px;
+  }
+
+  .person-meta {
+    height: 43px;
+    left: 24px;
+    top: 381px;
+    width: 210px;
+  }
+
+  .person-meta h3 {
+    font-size: 20px;
+    width: 206px;
+  }
+
+  .person-meta span {
+    font-size: 9px;
+    letter-spacing: 0.45px;
+    top: 29px;
+  }
+
+  .person-meta span:last-child {
+    left: 125px;
+    width: 88px;
+  }
+
+  .people-fade {
+    display: block;
+    height: 437px;
+    right: 0;
+    top: 0;
+    width: 110px;
   }
 
   .people-prev,
   .people-next {
-    bottom: 0;
-    top: auto;
-  }
-
-  .people-prev {
-    left: 0;
-  }
-
-  .people-next {
-    right: 0;
+    display: none;
   }
 
   .people-section .campaign-button {
-    margin-top: 36px;
+    left: 22px;
+    position: absolute;
+    top: 695px;
+    width: 350px;
   }
 
   .helper-copy {
-    margin-top: 14px;
+    font-size: 10px;
+    left: 126px;
+    letter-spacing: 0.5px;
+    position: absolute;
+    top: 765px;
   }
 
-  .ecosystem-layout,
-  .belief-cards,
-  .footer-layout {
-    display: grid;
-    gap: 42px;
+  .ecosystem-section {
+    background: linear-gradient(180deg, #ffffff 0%, rgba(229, 243, 255, 0.62) 35%, #ffffff 86%);
+    height: 899px;
+    padding: 0;
   }
 
-  .ecosystem-copy,
-  .ecosystem-copy h2 {
+  .ecosystem-layout {
+    height: 100%;
+  }
+
+  .ecosystem-copy {
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 390px;
+  }
+
+  .kicker {
+    font-size: 20px;
+    line-height: 25.84px;
     margin: 0;
   }
 
+  .ecosystem-copy .kicker {
+    left: 30px;
+    position: absolute;
+    top: 0;
+    width: 228px;
+  }
+
+  .ecosystem-copy h2 {
+    left: 30px;
+    margin: 0;
+    position: absolute;
+    top: 36px;
+    width: 344px;
+  }
+
+  .callout-copy {
+    border-left: 3px solid var(--blue-dark);
+    font-size: 20px;
+    left: 26px;
+    line-height: 1.4;
+    margin: 0;
+    padding-left: 19px;
+    position: absolute;
+    top: 659px;
+    width: 348px;
+  }
+
   .ecosystem-orbit {
-    display: grid;
-    gap: 16px;
-    grid-template-columns: repeat(2, 1fr);
-    height: auto;
-    justify-items: center;
+    display: block;
+    height: 357px;
+    left: 18px;
     opacity: 1;
-    width: 100%;
+    position: absolute;
+    top: 224px;
+    width: 356px;
+  }
+
+  .orbit-lines-mobile {
+    display: block;
+    height: 360px;
+    left: 0;
+    max-width: none;
+    position: absolute;
+    top: 0;
+    width: 359px;
+    z-index: 0;
   }
 
   .orbit-link {
@@ -1777,138 +2092,293 @@ select {
   }
 
   .orbit-node {
-    height: 150px;
-    left: auto;
-    position: relative;
-    top: auto;
-    width: 150px;
+    font-size: 12px;
+    height: 113px;
+    position: absolute;
+    width: 114px;
   }
 
   .orbit-ring {
-    height: 152px;
-    left: -1px;
-    top: -2px;
-    width: 153px;
+    display: none;
   }
 
-  .orbit-node .orbit-icon {
-    left: 50%;
-    top: 34px;
-    transform: translateX(-50%);
+  .orbit-node-0 {
+    left: 119px;
+    top: 0;
+  }
+
+  .orbit-node-1 {
+    left: 242px;
+    top: 121px;
+  }
+
+  .orbit-node-2 {
+    left: 119px;
+    top: 244px;
+  }
+
+  .orbit-node-3 {
+    left: 0;
+    top: 119px;
   }
 
   .orbit-node-0 .orbit-icon {
-    height: 55px;
-    width: 47px;
+    height: 42px;
+    left: 41px;
+    top: 25px;
+    width: 36px;
   }
 
   .orbit-node-1 .orbit-icon,
   .orbit-node-2 .orbit-icon {
-    height: 54px;
-    width: 54px;
-  }
-
-  .orbit-node .orbit-label {
-    left: 50%;
-    top: 105px;
-    transform: translateX(-50%);
-    width: auto;
+    height: 40px;
+    left: 39px;
+    top: 27px;
+    width: 40px;
   }
 
   .orbit-node-3 .orbit-culture-icon {
-    height: 54px;
-    left: 50%;
-    top: 34px;
-    transform: translateX(-50%);
-    width: 54px;
+    height: 41px;
+    left: 36px;
+    top: 25px;
+    width: 41px;
   }
 
   .orbit-culture-icon img {
-    height: 54px;
-    width: 27px;
+    height: 41px;
+    width: 20.5px;
   }
 
   .orbit-culture-icon img:last-child {
-    left: 27px;
+    left: 20.5px;
+  }
+
+  .orbit-node .orbit-label {
+    font-size: 12px;
+    left: 50%;
+    top: 75px;
+    transform: translateX(-50%);
+    width: auto;
+    z-index: 2;
+  }
+
+  .orbit-node .orbit-icon,
+  .orbit-node .orbit-culture-icon {
+    z-index: 2;
+  }
+
+  .beliefs-section {
+    height: 1345px;
+    padding: 0;
+    position: relative;
+  }
+
+  .beliefs-kicker {
+    color: var(--muted);
+    left: 22px;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 228px;
+  }
+
+  .beliefs-title {
+    left: 25px;
+    margin: 0;
+    position: absolute;
+    top: 45px;
+    width: 337px;
   }
 
   .belief-cards {
-    grid-template-columns: 1fr;
+    display: block;
   }
 
   .belief-card {
-    height: auto;
+    border-radius: 10px;
+    height: 466px;
+    left: 25px;
+    padding: 17px 20px 0;
+    position: absolute;
+    width: 340px;
+  }
+
+  .belief-card--preserve {
+    top: 191px;
+    --belief-icon-column: 26px;
+    --belief-row-gap: 23px;
+    --belief-separator-left: 72px;
+    --belief-separator-width: 246px;
+  }
+
+  .belief-card--demolish {
+    top: 727px;
+    --belief-icon-column: 20px;
+    --belief-row-gap: 29px;
+    --belief-separator-left: 72px;
+    --belief-separator-width: 246px;
+  }
+
+  .belief-card h3 {
+    border-bottom-width: 1.3px;
+    font-size: 32.651px;
+    line-height: 1.05;
+    padding-bottom: 20px;
+  }
+
+  .belief-card ul {
+    padding-top: 1px;
+  }
+
+  .belief-card li {
+    font-size: 20px;
+    line-height: 1.4;
+    min-height: 96px;
+  }
+
+  .belief-card li img {
+    max-height: 31px;
+    width: 26px;
+  }
+
+  .belief-card--demolish li img {
+    width: 20px;
+  }
+
+  .belief-separator {
+    height: 1.3px;
+    top: 95px;
+  }
+
+  .gallery-section {
+    background: linear-gradient(180deg, #ffffff 0%, #ffffff 12%, var(--sky) 100%);
+    height: 521px;
+    padding: 0;
   }
 
   .gallery-wrap {
-    height: auto;
-    width: 100%;
+    height: 349px;
+    left: 29px;
+    position: absolute;
+    top: 46px;
+    width: 592px;
   }
 
   .gallery-track {
-    height: auto;
-    width: 100%;
+    gap: 22px;
+    height: 349px;
+    overflow: hidden;
+    width: 592px;
   }
 
   .gallery-track img,
   .gallery-track img:first-child,
   .gallery-track img:nth-child(2) {
-    height: 320px;
-    width: calc(100vw - 48px);
+    border-radius: 10px;
+    height: 349px;
+    object-fit: cover;
   }
 
-  .people-fade,
-  .gallery-fade {
+  .gallery-track img:first-child {
+    width: 284px;
+  }
+
+  .gallery-track img:nth-child(2) {
+    width: 286px;
+  }
+
+  .gallery-fade,
+  .gallery-prev,
+  .gallery-next {
     display: none;
   }
 
-  .gallery-prev,
-  .gallery-next {
-    top: 128px;
-  }
-
-  .gallery-next {
-    right: 0;
+  .sign-section {
+    background: var(--sky);
+    height: 582px;
+    padding: 0;
   }
 
   .sign-layout {
+    height: 100%;
     padding-top: 0;
   }
 
-  .sign-title,
-  .sign-layout p,
-  .sign-actions {
-    left: auto;
-    position: static;
-    top: auto;
+  .sign-title {
+    left: 25px;
+    position: absolute;
+    top: 0;
+    width: 330px;
   }
 
   .sign-layout p {
-    margin-top: 32px;
-    width: 100%;
+    font-size: 20px;
+    left: 25px;
+    line-height: 1.5;
+    margin: 0;
+    position: absolute;
+    top: 156px;
+    width: 319px;
   }
 
   .sign-actions {
-    margin-top: 32px;
-    width: 100%;
+    gap: 14px;
+    left: 22px;
+    position: absolute;
+    top: 326px;
+    width: 350px;
   }
 
-  .campaign-button {
-    max-width: 100%;
+  .campaign-button--whatsapp {
+    height: 55px;
+    width: 347px;
+  }
+
+  .campaign-button--whatsapp img {
+    height: 29.5px;
+    width: 29.5px;
+  }
+
+  .site-footer {
+    height: 784px;
+    padding: 0;
   }
 
   .footer-layout {
+    display: block;
+    height: 100%;
     padding-top: 0;
   }
 
+  .footer-about {
+    left: 21px;
+    padding-top: 0;
+    position: absolute;
+    top: 47px;
+    width: 323px;
+  }
+
+  .footer-about::before {
+    left: -1px;
+    top: -24px;
+    width: 349.881px;
+  }
+
   .site-footer address {
+    gap: 30px;
+    left: 21px;
     margin: 0;
+    position: absolute;
+    top: 301px;
+    width: 208px;
   }
 
   .footer-mark {
-    bottom: -40px;
-    height: auto;
-    opacity: 0.75;
-    width: 900px;
+    bottom: 44px;
+    height: 123px;
+    left: -20px;
+    opacity: 1;
+    transform: none;
+    width: 429px;
   }
 }

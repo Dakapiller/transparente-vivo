@@ -21,6 +21,7 @@ import ecoOffice from './assets/figma/vectors/eco-office.svg'
 import ecoConnectorBottomRight from './assets/figma/vectors/eco-orbit-connector-bottom-right.svg'
 import ecoConnectorRight from './assets/figma/vectors/eco-orbit-connector-right.svg'
 import ecoConnectorSmall from './assets/figma/vectors/eco-orbit-connector-small.svg'
+import ecoOrbitMobileLines from './assets/figma/vectors/ecosystem-orbit-mobile-lines.svg'
 import ecoRestaurant from './assets/figma/vectors/eco-restaurant.svg'
 import ecoRing from './assets/figma/vectors/eco-ring.svg'
 import ecoSport from './assets/figma/vectors/eco-sport.svg'
@@ -494,14 +495,20 @@ function App() {
               </p>
             </div>
             <div className="ecosystem-orbit" aria-label={copy.ecosystem.kicker}>
+              <img
+                alt=""
+                aria-hidden="true"
+                className="orbit-lines-mobile"
+                src={ecoOrbitMobileLines}
+              />
               {ecosystemConnectors.map((connector) => (
-                <img
-                  alt=""
+                <span
                   aria-hidden="true"
                   className={`orbit-link ${connector.className}`}
                   key={connector.className}
-                  src={connector.src}
-                />
+                >
+                  <img alt="" className="orbit-link-image" src={connector.src} />
+                </span>
               ))}
               {copy.ecosystem.nodes.map((node, index) => (
                 <article className={`orbit-node orbit-node-${index}`} key={node}>
