@@ -81,7 +81,19 @@ select {
 .wordmark {
   display: block;
   height: 66.865px;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
   width: 271.25px;
+}
+
+.wordmark:hover,
+.wordmark:focus-visible {
+  opacity: 0.82;
+}
+
+.wordmark:active {
+  transform: scale(0.985);
 }
 
 .wordmark img {
@@ -120,6 +132,9 @@ select {
   padding: 0 21px 0 0;
   position: relative;
   text-transform: uppercase;
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
 }
 
 .language-toggle::after {
@@ -139,6 +154,20 @@ select {
 .language-toggle[aria-expanded='true']::after {
   top: 7px;
   transform: rotate(225deg);
+}
+
+.language-toggle:hover,
+.language-toggle:focus-visible {
+  color: var(--blue);
+}
+
+.language-toggle:hover::after,
+.language-toggle:focus-visible::after {
+  border-color: var(--blue);
+}
+
+.language-toggle:active {
+  transform: translateY(1px);
 }
 
 .language-menu {
@@ -186,6 +215,9 @@ select {
   position: relative;
   text-align: left;
   text-transform: uppercase;
+  transition:
+    background 160ms ease,
+    color 160ms ease;
   width: 100%;
   z-index: 1;
 }
@@ -198,6 +230,10 @@ select {
 .language-option[aria-selected='true'] {
   background: var(--sky);
   border-radius: 6px;
+}
+
+.language-option:active {
+  background: var(--sky);
 }
 
 .language-option-name {
@@ -217,7 +253,22 @@ select {
   height: 36px;
   justify-content: center;
   padding: 0;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
   width: 42px;
+}
+
+.menu-button:hover,
+.menu-button:focus-visible,
+.menu-close-button:hover,
+.menu-close-button:focus-visible {
+  opacity: 0.72;
+}
+
+.menu-button:active,
+.menu-close-button:active {
+  transform: scale(0.94);
 }
 
 .menu-button img {
@@ -300,6 +351,10 @@ select {
   transform: translateY(-1px);
 }
 
+.campaign-button:active {
+  transform: translateY(1px);
+}
+
 .campaign-button--primary {
   background: var(--orange);
   color: #ffffff;
@@ -321,6 +376,19 @@ select {
   border: 1px solid var(--muted);
   color: var(--muted);
   height: 64px;
+}
+
+.campaign-button--outline:hover,
+.campaign-button--outline:focus-visible,
+.campaign-button--whatsapp:hover,
+.campaign-button--whatsapp:focus-visible {
+  border-color: var(--blue-dark);
+  color: var(--blue-dark);
+}
+
+.campaign-button--outline:active,
+.campaign-button--whatsapp:active {
+  background: var(--sky);
 }
 
 .campaign-button--whatsapp img {
@@ -362,6 +430,9 @@ select {
   height: 36px;
   justify-content: center;
   padding: 0;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
   width: 42px;
 }
 
@@ -403,11 +474,23 @@ select {
   line-height: 1;
   padding: 0;
   text-decoration: none;
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
   width: 726px;
 }
 
 .desktop-menu-item a.active {
   color: var(--blue-dark);
+}
+
+.desktop-menu-item a:hover,
+.desktop-menu-item a:focus-visible {
+  color: var(--blue-dark);
+}
+
+.desktop-menu-item a:active {
+  transform: translateX(4px);
 }
 
 .desktop-menu-separator {
@@ -804,8 +887,21 @@ select {
   justify-content: center;
   padding: 0;
   position: absolute;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
   width: 64px;
   z-index: 4;
+}
+
+.round-arrow:hover,
+.round-arrow:focus-visible {
+  opacity: 0.86;
+  transform: scale(1.04);
+}
+
+.round-arrow:active {
+  transform: scale(0.94);
 }
 
 .round-arrow img {
@@ -1370,6 +1466,23 @@ select {
   line-height: 1.7;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+.site-footer a {
+  display: inline-flex;
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
+  width: fit-content;
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  color: var(--blue-dark);
+}
+
+.site-footer a:active {
+  transform: translateY(1px);
 }
 
 .social-links a {
