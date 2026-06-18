@@ -51,8 +51,20 @@ select {
 .site-shell {
   background: #ffffff;
   min-height: 100vh;
-  overflow: hidden;
+  /* clip (not hidden) keeps the bleed contained while still allowing position: sticky */
+  overflow-x: clip;
   width: 100%;
+}
+
+/* Keep anchored sections clear of the sticky header */
+#top,
+#community,
+#history,
+#people,
+#ecosystem,
+#beliefs,
+#sign {
+  scroll-margin-top: 132px;
 }
 
 .wrap {
@@ -72,10 +84,18 @@ select {
   justify-content: space-between;
   left: 0;
   padding: 0 var(--side);
-  position: relative;
+  position: sticky;
   top: 0;
+  transition:
+    background 280ms ease,
+    box-shadow 280ms ease;
   width: 100%;
   z-index: 20;
+}
+
+.site-header.is-condensed {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 30px rgba(22, 54, 201, 0.1);
 }
 
 .wordmark {
@@ -94,6 +114,11 @@ select {
 
 .wordmark:active {
   transform: scale(0.985);
+}
+
+.site-header.is-condensed .wordmark {
+  transform: scale(0.92);
+  transform-origin: left center;
 }
 
 .wordmark img {
@@ -326,6 +351,7 @@ select {
   right: calc(-1 * var(--side) - 31px);
   top: -27px;
   width: 741px;
+  will-change: transform;
 }
 
 .campaign-button {
@@ -337,6 +363,7 @@ select {
   height: 64px;
   justify-content: space-between;
   line-height: 30px;
+  overflow: hidden;
   padding: 0 19px 0 23px;
   position: relative;
   text-decoration: none;
@@ -345,6 +372,13 @@ select {
     color 160ms ease,
     transform 160ms ease;
   width: 400px;
+}
+
+/* Keep the label above the fill sweep. Flex items honour z-index without
+   position, so we must NOT set position here — the arrow span is also a direct
+   child and relies on its own position: absolute. */
+.campaign-button > span {
+  z-index: 1;
 }
 
 .campaign-button:hover {
@@ -360,10 +394,20 @@ select {
   color: #ffffff;
 }
 
-.campaign-button--primary:hover,
-.campaign-button--primary:focus-visible {
+/* Directional fill sweep instead of a flat recolor */
+.campaign-button--primary::before {
   background: var(--blue-dark);
-  color: #ffffff;
+  content: '';
+  inset: 0;
+  position: absolute;
+  transform: translateX(-101%);
+  transition: transform 360ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  z-index: 0;
+}
+
+.campaign-button--primary:hover::before,
+.campaign-button--primary:focus-visible::before {
+  transform: translateX(0);
 }
 
 .campaign-button--outline {
@@ -516,7 +560,9 @@ select {
   position: absolute;
   right: 23px;
   top: 14px;
+  transition: transform 280ms cubic-bezier(0.22, 0.61, 0.36, 1);
   width: 60px;
+  z-index: 1;
 }
 
 .button-arrow img {
@@ -524,6 +570,11 @@ select {
   height: 100%;
   max-width: none;
   width: 100%;
+}
+
+.campaign-button:hover .button-arrow,
+.campaign-button:focus-visible .button-arrow {
+  transform: translateX(5px);
 }
 
 .stats-section {
@@ -752,7 +803,7 @@ select {
 .people-track {
   display: flex;
   gap: 20px;
-  transition: transform 260ms ease;
+  will-change: transform;
 }
 
 .people-fade {
@@ -775,6 +826,14 @@ select {
   overflow: hidden;
   padding: 0;
   position: relative;
+  transition:
+    transform 320ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 320ms ease;
+}
+
+.person-card:hover {
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+  transform: translateY(-6px);
 }
 
 .portrait-frame {
@@ -815,7 +874,12 @@ select {
   pointer-events: none;
   position: absolute;
   top: var(--portrait-image-top);
+  transition: transform 600ms cubic-bezier(0.22, 0.61, 0.36, 1);
   width: var(--portrait-image-width);
+}
+
+.person-card:hover .portrait-image {
+  transform: scale(1.06);
 }
 
 .person-card blockquote {
@@ -1063,6 +1127,7 @@ select {
   position: absolute;
   text-align: center;
   width: 193.788px;
+  will-change: transform;
   z-index: 1;
 }
 
@@ -1480,8 +1545,13 @@ select {
 }
 
 .site-footer a {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1.5px;
   display: inline-flex;
   transition:
+    background-size 300ms cubic-bezier(0.22, 0.61, 0.36, 1),
     color 160ms ease,
     transform 160ms ease;
   width: fit-content;
@@ -1489,6 +1559,7 @@ select {
 
 .site-footer a:hover,
 .site-footer a:focus-visible {
+  background-size: 100% 1.5px;
   color: var(--blue-dark);
 }
 

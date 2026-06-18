@@ -49,12 +49,17 @@ test('campaign buttons use the Figma vector arrow instead of a text glyph', () =
   assert.match(arrowImage, /width: 100%;/)
 })
 
-test('primary campaign buttons use the Figma dark-blue hover state', () => {
+test('primary campaign buttons reveal the Figma dark-blue via an animated fill sweep', () => {
   const primary = blockFor('.campaign-button--primary')
-  const hover = blockFor('.campaign-button--primary:hover,\n.campaign-button--primary:focus-visible')
+  const sweep = blockFor('.campaign-button--primary::before')
+  const sweepHover = blockFor(
+    '.campaign-button--primary:hover::before,\n.campaign-button--primary:focus-visible::before',
+  )
 
   assert.match(primary, /background: var\(--orange\);/)
   assert.match(primary, /color: #ffffff;/)
-  assert.match(hover, /background: var\(--blue-dark\);/)
-  assert.match(hover, /color: #ffffff;/)
+  // The dark-blue hover state is now delivered by a directional fill sweep.
+  assert.match(sweep, /background: var\(--blue-dark\);/)
+  assert.match(sweep, /transform: translateX\(-101%\);/)
+  assert.match(sweepHover, /transform: translateX\(0\);/)
 })

@@ -40,6 +40,18 @@ import statRestaurant from './assets/figma/vectors/stat-restaurant.svg'
 import whatsappIcon from './assets/figma/vectors/whatsapp.svg'
 import xIcon from './assets/figma/vectors/x.svg'
 import { content, type LanguageCode, languages } from './content'
+import {
+  countUp,
+  countUpTween,
+  dur,
+  ease,
+  gsap,
+  Observer,
+  prefersReduced,
+  ScrollTrigger,
+  SplitText,
+  useGSAP,
+} from './motion/gsap'
 import { lockDocumentScroll, restoreDocumentScroll } from './scrollLock'
 import { timelineMilestones, timelineSegments, toTimelinePercent } from './timelineLayout'
 
@@ -130,13 +142,15 @@ function CampaignButton({
   children,
   href,
   variant = 'primary',
+  onClick,
 }: {
   children: string
   href: string
   variant?: 'primary' | 'outline'
+  onClick?: () => void
 }) {
   return (
-    <a className={`campaign-button campaign-button--${variant}`} href={href}>
+    <a className={`campaign-button campaign-button--${variant}`} href={href} onClick={onClick}>
       <span>{children}</span>
       <span aria-hidden="true" className="button-arrow">
         <img alt="" src={campaignArrow} />
@@ -223,21 +237,79 @@ function DesktopMenuOverlay({
   locale,
   onClose,
   onLocaleChange,
+  onNavigate,
 }: {
   copy: (typeof content)[LanguageCode]
   locale: LanguageCode
   onClose: () => void
   onLocaleChange: (locale: LanguageCode) => void
+  onNavigate: (href: string) => void
 }) {
+  const overlayRef = useRef<HTMLDivElement>(null)
+  const timelineRef = useRef<ReturnType<typeof gsap.timeline> | null>(null)
+
+  const { contextSafe } = useGSAP(
+    () => {
+      if (prefersReduced()) {
+        return
+      }
+
+      // The overlay's top bar sits exactly on top of the (identical) sticky header,
+      // so it must NOT move — only fade with the backdrop — or the two logos visibly
+      // converge and the logo appears to jump. Animate only the menu content.
+      const tl = gsap.timeline({ defaults: { ease: ease.arrival } })
+      tl.from(overlayRef.current, { autoAlpha: 0, duration: 0.3, ease: 'power2.out' })
+        .from('.desktop-menu-item', { y: 32, autoAlpha: 0, stagger: 0.07, duration: 0.5 }, 0.15)
+        .from(
+          '.desktop-menu-content > .campaign-button',
+          { y: 24, autoAlpha: 0, duration: 0.45 },
+          '-=0.2',
+        )
+      timelineRef.current = tl
+    },
+    { scope: overlayRef },
+  )
+
+  // contextSafe defers this to a click handler — the ref is read at click time, not render.
+  // eslint-disable-next-line react-hooks/refs
+  const handleClose = contextSafe(() => {
+    const tl = timelineRef.current
+    if (!tl) {
+      onClose()
+      return
+    }
+
+    tl.eventCallback('onReverseComplete', onClose)
+    tl.timeScale(1.9).reverse()
+  })
+
+  // Record the requested section, then animate the menu closed. App scrolls to it
+  // once the overlay has unmounted and document scroll is unlocked again.
+  const handleNavigate = (href: string) => {
+    onNavigate(href)
+    handleClose()
+  }
+
   return (
-    <div className="desktop-menu-overlay" role="dialog" aria-modal="true" aria-label={copy.nav.menu}>
+    <div
+      className="desktop-menu-overlay"
+      ref={overlayRef}
+      role="dialog"
+      aria-modal="true"
+      aria-label={copy.nav.menu}
+    >
       <div className="menu-overlay-nav">
-        <a aria-label="Transparente Vivo" className="wordmark" href="#top" onClick={onClose}>
+        <a
+          aria-label="Transparente Vivo"
+          className="wordmark"
+          href="#top"
+          onClick={() => handleNavigate('#top')}
+        >
           <img alt="" src={logo} />
         </a>
         <div className="header-actions">
           <LanguageDropdown locale={locale} onLocaleChange={onLocaleChange} />
-          <button aria-label={copy.nav.close} className="menu-close-button" type="button" onClick={onClose}>
+          <button aria-label={copy.nav.close} className="menu-close-button" type="button" onClick={handleClose}>
             <img alt="" src={menuCloseIcon} />
           </button>
         </div>
@@ -249,7 +321,7 @@ function DesktopMenuOverlay({
               <a
                 className={item.active ? 'active' : ''}
                 href={item.href}
-                onClick={onClose}
+                onClick={() => handleNavigate(item.href)}
               >
                 {item.label}
               </a>
@@ -257,7 +329,9 @@ function DesktopMenuOverlay({
             </div>
           ))}
         </nav>
-        <CampaignButton href="#sign">{copy.nav.petition}</CampaignButton>
+        <CampaignButton href="#sign" onClick={() => handleNavigate('#sign')}>
+          {copy.nav.petition}
+        </CampaignButton>
       </div>
     </div>
   )
@@ -268,6 +342,9 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [peopleIndex, setPeopleIndex] = useState(0)
   const [galleryIndex, setGalleryIndex] = useState(0)
+  const shellRef = useRef<HTMLDivElement>(null)
+  const galleryReady = useRef(false)
+  const pendingScrollRef = useRef<string | null>(null)
   const copy = content[locale]
   const footerAboutBrand = 'Transparente Vivo'
   const [footerAboutPrefix, footerAboutSuffix = ''] = copy.footer.about.split(footerAboutBrand)
@@ -289,6 +366,24 @@ function App() {
     }
   }, [menuOpen])
 
+  // After the menu closes (and scroll lock is released), perform any in-page
+  // navigation that was requested from inside the overlay.
+  useEffect(() => {
+    if (menuOpen) {
+      return
+    }
+
+    const target = pendingScrollRef.current
+    if (!target) {
+      return
+    }
+
+    pendingScrollRef.current = null
+    requestAnimationFrame(() => {
+      document.querySelector(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    })
+  }, [menuOpen])
+
   const rotatePeople = (direction: 'prev' | 'next') => {
     setPeopleIndex((current) => {
       if (direction === 'prev') {
@@ -307,8 +402,459 @@ function App() {
     )
   }
 
+  // Main motion system: page-load hero sequence, scroll reveals, the timeline draw,
+  // the orbit coming alive, count-ups, and the sticky-header condense. Re-runs on
+  // locale change so SplitText + count-ups rebuild against the new copy.
+  useGSAP(
+    () => {
+      const shell = shellRef.current
+      if (!shell) {
+        return
+      }
+
+      // Sticky-header elevation — independent of motion preference (it's a state, not motion).
+      const header = shell.querySelector('.site-header')
+      const headerTrigger = ScrollTrigger.create({
+        start: 140,
+        end: 'max',
+        onToggle: (self) => header?.classList.toggle('is-condensed', self.isActive),
+      })
+
+      // Swipe affordance for the people carousel (touch + pointer).
+      const peopleViewport = shell.querySelector('.people-viewport')
+      const observer = peopleViewport
+        ? Observer.create({
+            target: peopleViewport,
+            type: 'touch,pointer',
+            tolerance: 40,
+            onLeft: () => rotatePeople('next'),
+            onRight: () => rotatePeople('prev'),
+          })
+        : null
+
+      const mm = gsap.matchMedia()
+
+      // Shared on-enter reveals (all viewports): hero, people, beliefs, gallery,
+      // sign, footer, ecosystem copy. Stats / timeline / orbit get size-specific
+      // treatments registered after this block.
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        // ---- Hero load sequence ----
+        const split = SplitText.create('.hero-copy h1', { type: 'words', mask: 'words', aria: 'auto' })
+        gsap.set(split.words, { yPercent: 110 })
+
+        const heroTl = gsap.timeline({ defaults: { ease: ease.arrival } })
+        heroTl
+          .from('.site-header .wordmark, .site-header .header-actions', {
+            y: -16,
+            autoAlpha: 0,
+            duration: dur.medium,
+            stagger: 0.08,
+          })
+          .to(split.words, { yPercent: 0, duration: dur.expressive, stagger: 0.08 }, 0.1)
+          .from('.hero-copy h1 strong', { color: '#ffaf8e', duration: dur.expressive }, 0.2)
+          .from(
+            '.hero-image',
+            { autoAlpha: 0, scale: 1.08, clipPath: 'inset(0% 0% 100% 0%)', duration: 0.9 },
+            0.1,
+          )
+          .from('.hero-copy p', { y: 16, autoAlpha: 0, duration: dur.medium }, 0.5)
+          .from(
+            '.hero-copy .campaign-button',
+            { y: 20, autoAlpha: 0, duration: dur.medium, clearProps: 'transform' },
+            0.62,
+          )
+
+        // ---- People: title + cards reveal ----
+        gsap.from('.people-title', {
+          y: 40,
+          autoAlpha: 0,
+          duration: dur.medium,
+          ease: ease.arrival,
+          scrollTrigger: { trigger: '.people-section', start: 'top 70%', once: true },
+        })
+        gsap.from('.person-card', {
+          y: 50,
+          autoAlpha: 0,
+          duration: dur.medium,
+          stagger: 0.08,
+          ease: ease.arrival,
+          clearProps: 'transform',
+          scrollTrigger: { trigger: '.people-viewport', start: 'top 82%', once: true },
+        })
+        gsap.from('.people-section .campaign-button, .helper-copy', {
+          y: 24,
+          autoAlpha: 0,
+          duration: dur.medium,
+          stagger: 0.1,
+          ease: ease.arrival,
+          clearProps: 'transform',
+          scrollTrigger: { trigger: '.people-section .campaign-button', start: 'top 92%', once: true },
+        })
+
+        // ---- Ecosystem: copy slides in, orbit blooms, then floats forever ----
+        gsap.from('.ecosystem-copy .kicker, .ecosystem-copy h2, .callout-copy', {
+          x: -40,
+          autoAlpha: 0,
+          duration: dur.medium,
+          stagger: 0.1,
+          ease: ease.arrival,
+          clearProps: 'transform',
+          scrollTrigger: { trigger: '.ecosystem-section', start: 'top 70%', once: true },
+        })
+        // ---- Gallery reveal ----
+        gsap.from('.gallery-track img', {
+          autoAlpha: 0,
+          scale: 1.06,
+          duration: dur.medium,
+          stagger: 0.1,
+          ease: ease.arrival,
+          clearProps: 'transform',
+          scrollTrigger: { trigger: '.gallery-section', start: 'top 78%', once: true },
+        })
+
+        // ---- Sign / CTA ----
+        gsap.from('.sign-title, .sign-layout > p, .sign-actions', {
+          y: 36,
+          autoAlpha: 0,
+          duration: dur.medium,
+          stagger: 0.12,
+          ease: ease.arrival,
+          clearProps: 'transform',
+          scrollTrigger: { trigger: '.sign-section', start: 'top 74%', once: true },
+        })
+
+        // ---- Footer reveal + watermark parallax ----
+        gsap.from('.footer-about, .site-footer address', {
+          y: 40,
+          autoAlpha: 0,
+          duration: dur.medium,
+          stagger: 0.12,
+          ease: ease.arrival,
+          clearProps: 'transform',
+          scrollTrigger: { trigger: '.site-footer', start: 'top 82%', once: true },
+        })
+        gsap.to('.footer-mark', {
+          yPercent: -12,
+          ease: 'none',
+          scrollTrigger: { trigger: '.site-footer', start: 'top bottom', end: 'bottom bottom', scrub: 1 },
+        })
+      })
+
+      // ---- Desktop: pinned step-through. Each section locks and reveals one item
+      // per scroll, snapping to each. ----
+      mm.add('(min-width: 1101px) and (prefers-reduced-motion: no-preference)', () => {
+        const STEP = 320
+        const snap = {
+          snapTo: 'labels' as const,
+          duration: { min: 0.2, max: 0.6 },
+          delay: 0.04,
+          ease: 'power1.inOut',
+        }
+
+        // Stats — title, then each counter reveals + counts up per scroll step.
+        const statCards = gsap.utils.toArray<HTMLElement>('.stat-card')
+        const statsTl = gsap.timeline({
+          defaults: { duration: 1, ease: ease.arrival },
+          scrollTrigger: {
+            trigger: '.stats-section',
+            start: 'top 120px',
+            end: `+=${STEP * (statCards.length + 1)}`,
+            pin: true,
+            anticipatePin: 1,
+            scrub: 1,
+            snap,
+          },
+        })
+        statsTl.from('.stats-title', { y: 40, autoAlpha: 0 }).addLabel('s0')
+        statCards.forEach((card, index) => {
+          statsTl.from(card, { y: 48, autoAlpha: 0, scale: 0.97 }, '>')
+          const value = card.querySelector<HTMLElement>('.stat-value')
+          if (value) {
+            statsTl.add(countUpTween(value), '<')
+          }
+          statsTl.addLabel(`s${index + 1}`)
+        })
+
+        // History — each milestone draws its segment + dot + label per scroll step.
+        const milestones = gsap.utils.toArray<HTMLElement>('.timeline article')
+        const segments = gsap.utils.toArray<HTMLElement>('.timeline-segment')
+        gsap.set(segments, { transformOrigin: 'left center' })
+        const historyTl = gsap.timeline({
+          defaults: { duration: 1, ease: ease.arrival },
+          scrollTrigger: {
+            trigger: '.history-section',
+            start: 'top 120px',
+            end: `+=${STEP * (milestones.length + 1)}`,
+            pin: true,
+            anticipatePin: 1,
+            scrub: 1,
+            snap,
+          },
+        })
+        historyTl.from('.history-title', { y: 40, autoAlpha: 0 }).addLabel('h0')
+        milestones.forEach((milestone, index) => {
+          const segment = segments[index - 1]
+          if (segment) {
+            historyTl.from(segment, { scaleX: 0, ease: 'none' }, '>')
+          }
+          historyTl.from(
+            milestone.querySelector('.timeline-dot'),
+            { scale: 0, transformOrigin: 'center', duration: 0.6, ease: ease.snap },
+            segment ? '<0.25' : '>',
+          )
+          historyTl.from(
+            milestone.querySelectorAll('h3, p'),
+            { y: 14, autoAlpha: 0, stagger: 0.06, duration: 0.6 },
+            '<',
+          )
+          historyTl.addLabel(`h${index + 1}`)
+        })
+
+        // Ecosystem — each node blooms one per step; after all four, the connectors
+        // appear as one step, then the whole orbit starts rotating.
+        const nodes = gsap.utils.toArray<HTMLElement>('.orbit-node')
+        const links = gsap.utils.toArray<HTMLElement>('.orbit-link')
+        // Fade only — the connectors carry CSS flips (scaleX/scaleY/rotate) to fit
+        // each gap, so animating their transform here would clobber those flips.
+        gsap.set(links, { autoAlpha: 0 })
+
+        let rotationStarted = false
+        const startOrbitRotation = () => {
+          if (rotationStarted) {
+            return
+          }
+          rotationStarted = true
+          const spin = 42
+          // Spin the orbit; counter-rotate each node by the same amount about its own
+          // centre. The net effect translates each node (ring + icon + label) rigidly
+          // to its orbited position with zero rotation — so icons/labels stay centred
+          // in their rings and upright, while connectors stay attached.
+          gsap.to('.ecosystem-orbit', {
+            rotation: 360,
+            transformOrigin: '50% 50%',
+            duration: spin,
+            ease: 'none',
+            repeat: -1,
+          })
+          gsap.to('.orbit-node', {
+            rotation: -360,
+            transformOrigin: '50% 50%',
+            duration: spin,
+            ease: 'none',
+            repeat: -1,
+          })
+        }
+
+        const orbitTl = gsap.timeline({
+          defaults: { duration: 1, ease: ease.snap },
+          scrollTrigger: {
+            trigger: '.ecosystem-section',
+            start: 'top 120px',
+            end: `+=${STEP * (nodes.length + 2)}`,
+            pin: true,
+            anticipatePin: 1,
+            scrub: 1,
+            snap,
+            onLeave: startOrbitRotation,
+          },
+        })
+        orbitTl.addLabel('o0')
+        nodes.forEach((node, index) => {
+          orbitTl.from(node, { scale: 0.5, autoAlpha: 0, transformOrigin: 'center' }, '>')
+          orbitTl.addLabel(`o${index + 1}`)
+        })
+        // Final step: the connectors appear once every node is present (fade only).
+        orbitTl.to(links, { autoAlpha: 1, stagger: 0.1, ease: ease.arrival }, '>')
+        orbitTl.addLabel(`o${nodes.length + 1}`)
+
+        // Beliefs — each pro/con row (preserve + demolish together) reveals per step.
+        const preserveItems = gsap.utils.toArray<HTMLElement>('.belief-card--preserve li')
+        const demolishItems = gsap.utils.toArray<HTMLElement>('.belief-card--demolish li')
+        const beliefRows = Math.max(preserveItems.length, demolishItems.length)
+        gsap.set([...preserveItems, ...demolishItems], { autoAlpha: 0, x: -20 })
+        gsap.set('.belief-card li img', { scale: 0, transformOrigin: 'center' })
+        const beliefsTl = gsap.timeline({
+          defaults: { duration: 1, ease: ease.arrival },
+          scrollTrigger: {
+            trigger: '.beliefs-section',
+            start: 'top top',
+            end: `+=${STEP * (beliefRows + 1)}`,
+            pin: true,
+            anticipatePin: 1,
+            scrub: 1,
+            snap,
+          },
+        })
+        beliefsTl
+          .from('.beliefs-kicker, .beliefs-title', { y: 30, autoAlpha: 0, stagger: 0.08 })
+          .from('.belief-card', { y: 56, autoAlpha: 0, stagger: 0.12 }, '<0.1')
+          .addLabel('b0')
+        for (let row = 0; row < beliefRows; row += 1) {
+          const items = [preserveItems[row], demolishItems[row]].filter(Boolean)
+          const icons = items
+            .map((item) => item.querySelector('img'))
+            .filter((icon): icon is HTMLImageElement => Boolean(icon))
+          beliefsTl.to(items, { autoAlpha: 1, x: 0, duration: 1, ease: ease.arrival }, '>')
+          if (icons.length) {
+            beliefsTl.to(icons, { scale: 1, duration: 0.6, ease: ease.snap }, '<')
+          }
+          beliefsTl.addLabel(`b${row + 1}`)
+        }
+      })
+
+      // ---- Tablet / mobile: on-enter reveals (sections are taller than the viewport,
+      // so pinning isn't appropriate). ----
+      mm.add('(max-width: 1100px) and (prefers-reduced-motion: no-preference)', () => {
+        let floatStarted = false
+        const startOrbitFloat = () => {
+          if (floatStarted) {
+            return
+          }
+          floatStarted = true
+          gsap.utils.toArray<HTMLElement>('.orbit-node').forEach((node, index) => {
+            gsap.to(node, {
+              y: -8,
+              duration: gsap.utils.random(2.6, 3.8),
+              ease: 'sine.inOut',
+              yoyo: true,
+              repeat: -1,
+              delay: index * 0.35,
+            })
+          })
+        }
+
+        gsap.from('.stats-title', {
+          y: 40,
+          autoAlpha: 0,
+          duration: dur.medium,
+          ease: ease.arrival,
+          scrollTrigger: { trigger: '.stats-section', start: 'top 75%', once: true },
+        })
+        gsap.from('.stat-card', {
+          y: 48,
+          autoAlpha: 0,
+          scale: 0.97,
+          duration: dur.medium,
+          stagger: 0.1,
+          ease: ease.arrival,
+          clearProps: 'transform',
+          scrollTrigger: { trigger: '.stats-grid', start: 'top 80%', once: true },
+        })
+        shell.querySelectorAll<HTMLElement>('.stat-value').forEach((el) => countUp(el, '.stats-grid'))
+
+        const historyTl = gsap.timeline({
+          scrollTrigger: { trigger: '.timeline', start: 'top 85%', once: true },
+        })
+        historyTl
+          .from('.history-title', { y: 40, autoAlpha: 0, duration: dur.medium, ease: ease.arrival }, 0)
+          .set('.timeline-segment', { transformOrigin: 'left center' }, 0)
+          .from('.timeline-segment', { scaleX: 0, duration: dur.medium, stagger: 0.12, ease: 'power2.out' }, 0.1)
+          .from(
+            '.timeline-dot',
+            { scale: 0, transformOrigin: 'center', duration: dur.short, stagger: 0.12, ease: ease.snap },
+            0.2,
+          )
+          .from('.timeline h3, .timeline p', { y: 12, autoAlpha: 0, duration: dur.short, stagger: 0.05 }, 0.35)
+
+        const orbitTl = gsap.timeline({
+          scrollTrigger: { trigger: '.ecosystem-orbit', start: 'top 80%', once: true },
+          onComplete: startOrbitFloat,
+        })
+        orbitTl
+          .from('.orbit-node', {
+            scale: 0.5,
+            autoAlpha: 0,
+            transformOrigin: 'center',
+            duration: dur.expressive,
+            stagger: 0.12,
+            ease: ease.snap,
+          })
+          .from(
+            '.orbit-link, .orbit-lines-mobile',
+            { autoAlpha: 0, duration: dur.medium, stagger: 0.08 },
+            '-=0.35',
+          )
+
+        gsap.from('.beliefs-kicker, .beliefs-title', {
+          y: 30,
+          autoAlpha: 0,
+          duration: dur.medium,
+          stagger: 0.08,
+          ease: ease.arrival,
+          scrollTrigger: { trigger: '.beliefs-section', start: 'top 72%', once: true },
+        })
+        gsap.from('.belief-card', {
+          y: 56,
+          autoAlpha: 0,
+          duration: dur.medium,
+          stagger: 0.12,
+          ease: ease.arrival,
+          clearProps: 'transform',
+          scrollTrigger: { trigger: '.belief-cards', start: 'top 80%', once: true },
+        })
+        shell.querySelectorAll('.belief-card').forEach((card) => {
+          const trigger = { trigger: card, start: 'top 78%', once: true }
+          gsap.from(card.querySelectorAll('li'), {
+            x: -20,
+            autoAlpha: 0,
+            duration: dur.short,
+            stagger: 0.08,
+            ease: ease.arrival,
+            scrollTrigger: trigger,
+          })
+          gsap.from(card.querySelectorAll('li img'), {
+            scale: 0,
+            transformOrigin: 'center',
+            duration: dur.short,
+            stagger: 0.08,
+            ease: ease.snap,
+            scrollTrigger: trigger,
+          })
+        })
+      })
+
+      return () => {
+        headerTrigger.kill()
+        observer?.kill()
+        mm.revert()
+      }
+    },
+    { scope: shellRef, dependencies: [locale], revertOnUpdate: true },
+  )
+
+  // People carousel track — GSAP-eased slide driven by the active index.
+  useGSAP(
+    () => {
+      gsap.to('.people-track', {
+        x: -peopleIndex * 313,
+        duration: prefersReduced() ? 0 : 0.6,
+        ease: ease.glide,
+      })
+    },
+    { scope: shellRef, dependencies: [peopleIndex] },
+  )
+
+  // Gallery — crossfade + scale-settle on swap instead of the old hard cut.
+  useGSAP(
+    () => {
+      if (!galleryReady.current) {
+        galleryReady.current = true
+        return
+      }
+      if (prefersReduced()) {
+        return
+      }
+      gsap.fromTo(
+        '.gallery-track img',
+        { autoAlpha: 0.3, scale: 1.04 },
+        { autoAlpha: 1, scale: 1, duration: dur.medium, stagger: 0.06, ease: 'power2.out', clearProps: 'transform' },
+      )
+    },
+    { scope: shellRef, dependencies: [galleryIndex] },
+  )
+
   return (
-    <div className="site-shell">
+    <div className="site-shell" ref={shellRef}>
       <header className="site-header">
         <a aria-label="Transparente Vivo" className="wordmark" href="#top">
           <img alt="" src={logo} />
@@ -331,6 +877,9 @@ function App() {
             locale={locale}
             onClose={() => setMenuOpen(false)}
             onLocaleChange={setLocale}
+            onNavigate={(href) => {
+              pendingScrollRef.current = href
+            }}
           />
         )}
       </header>
@@ -362,7 +911,7 @@ function App() {
                 <article className="stat-card" key={stat.emphasis}>
                   <img alt="" src={statIcons[index]} />
                   <h3>
-                    <span>{stat.value}</span>
+                    <span className="stat-value">{stat.value}</span>
                     <strong>{stat.emphasis}</strong>
                   </h3>
                   <p>{stat.label}</p>
@@ -428,10 +977,7 @@ function App() {
               )}
             </h2>
             <div className="people-viewport">
-              <div
-                className="people-track"
-                style={{ transform: `translateX(${-peopleIndex * 313}px)` }}
-              >
+              <div className="people-track">
                 {copy.people.map((person, index) => (
                   <article className="person-card" key={`${person.name}-${person.role}`}>
                     <div className="portrait-frame">
