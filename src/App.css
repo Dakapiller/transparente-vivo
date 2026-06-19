@@ -1083,7 +1083,7 @@ select {
   width: 602.788px;
 }
 
-.orbit-lines-mobile {
+.orbit-connectors-mobile {
   display: none;
 }
 
@@ -1622,36 +1622,10 @@ select {
   }
 }
 
+/* Mobile + tablet share one natural-flow treatment, matching the mobile JS
+   breakpoint (max-width: 1100px) so the pinned step-through always pairs with the
+   flow layout. Above 1100px the desktop layout + desktop pinned timelines take over. */
 @media (max-width: 1100px) {
-  :root {
-    --wrap: 890px;
-  }
-
-  .hero-image {
-    opacity: 0.35;
-    right: -180px;
-  }
-
-  .people-viewport,
-  .gallery-wrap {
-    width: calc(100vw - var(--side));
-  }
-
-  .people-prev,
-  .gallery-prev {
-    left: calc(-1 * var(--side) + 24px);
-  }
-
-  .ecosystem-orbit {
-    right: -160px;
-  }
-
-  .belief-card li {
-    font-size: 18px;
-  }
-}
-
-@media (max-width: 760px) {
   :root {
     --mobile-page: min(100vw, 390px);
     --mobile-gutter: 20px;
@@ -1661,7 +1635,10 @@ select {
 
   html,
   body {
-    overflow-x: hidden;
+    /* clip (not hidden): hidden promotes html/body to a scroll container on
+       mobile, which breaks ScrollTrigger (it tracks the window scroller) and
+       position: sticky — so every scroll reveal stops firing below 760px. */
+    overflow-x: clip;
   }
 
   .wrap {
@@ -1746,31 +1723,32 @@ select {
 
   .hero-section {
     background: var(--cream);
-    height: 792px;
-    padding: 0;
+    height: auto;
+    padding: 21px 20px 56px;
   }
 
   .hero-layout {
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: auto;
   }
 
   .hero-image {
-    height: 350px;
-    left: 20px;
+    aspect-ratio: 1 / 1;
+    height: auto;
     object-fit: cover;
     object-position: center top;
     opacity: 1;
-    position: absolute;
-    right: auto;
-    top: 21px;
-    width: 350px;
+    /* DOM order is copy then image; the Figma mobile shows the image first. */
+    order: -1;
+    position: static;
+    width: 100%;
   }
 
   .hero-copy {
-    left: 20px;
-    position: absolute;
-    top: 387px;
-    width: 345px;
+    position: static;
+    width: 100%;
   }
 
   .hero-copy h1,
@@ -1785,14 +1763,14 @@ select {
 
   .hero-copy h1 {
     line-height: 1.1;
-    width: 345px;
+    width: 100%;
   }
 
   .hero-copy p {
     font-size: 20px;
     line-height: 1.35;
     margin: 16px 0 34px;
-    width: 339px;
+    width: 100%;
   }
 
   .campaign-button {
@@ -1801,9 +1779,9 @@ select {
     font-weight: 700;
     height: 55px;
     line-height: 25.84px;
-    max-width: calc(100vw - 40px);
+    max-width: 100%;
     padding: 0 20px;
-    width: 350px;
+    width: 100%;
   }
 
   .button-arrow {
@@ -1815,42 +1793,45 @@ select {
 
   .stats-section {
     background: var(--sky);
-    height: 841px;
-    padding: 0;
+    height: auto;
+    padding: 48px 20px 56px;
   }
 
   .stats-title {
-    left: 25px;
-    position: absolute;
-    top: 48px;
-    width: 345px;
+    margin: 0 0 32px;
+    position: static;
+    width: 100%;
   }
 
   .stats-grid {
-    background:
-      linear-gradient(rgba(112, 120, 153, 0.42), rgba(112, 120, 153, 0.42)) center top / 2px 220px no-repeat,
-      linear-gradient(rgba(112, 120, 153, 0.42), rgba(112, 120, 153, 0.42)) center bottom / 2px 216px no-repeat,
-      linear-gradient(90deg, rgba(112, 120, 153, 0.42), rgba(112, 120, 153, 0.42)) center 249px / 340px 2px no-repeat;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 247px 247px;
-    height: 494px;
-    left: 23px;
-    position: absolute;
-    top: 361px;
-    width: 342px;
+    grid-template-columns: 1fr 1fr;
+    height: auto;
+    left: auto;
+    position: static;
+    top: auto;
+    width: 100%;
   }
 
   .stat-card {
     border: 0;
     margin: 0;
-    padding: 6px 0 0 4px;
+    padding: 24px 16px;
   }
 
-  .stat-card:nth-child(even) {
-    padding-left: 24px;
+  /* Rebuild the 2x2 divider lines (were fixed-px background gradients) as cell
+     borders so they track the flow layout: left column gets a right edge, the
+     top row gets a bottom edge. */
+  .stat-card:nth-child(odd) {
+    border-right: 2px solid rgba(112, 120, 153, 0.42);
   }
 
+  .stat-card:nth-child(-n + 2) {
+    border-bottom: 2px solid rgba(112, 120, 153, 0.42);
+  }
+
+  /* The desktop base adds a right border to the last card; the mobile 2x2 grid
+     only wants the centre divider, so clear it. */
   .stat-card:last-child {
     border-right: 0;
   }
@@ -1879,44 +1860,36 @@ select {
 
   .history-section {
     background: linear-gradient(180deg, rgba(229, 243, 255, 0) 0%, #ffffff 100%);
-    height: 928px;
-    padding: 0;
+    height: auto;
+    padding: 56px 20px;
+    position: relative;
   }
 
   .history-layout {
-    height: 100%;
+    height: auto;
   }
 
   .history-title {
-    left: 26px;
-    position: absolute;
-    top: 210px;
-    width: 330px;
+    left: auto;
+    margin: 0 0 36px;
+    position: static;
+    top: auto;
+    width: 100%;
   }
 
   .timeline {
     display: block;
-    height: 455px;
-    left: 23px;
+    height: auto;
+    left: auto;
     margin: 0;
-    position: absolute;
-    top: 359px;
-    width: 346px;
+    position: relative;
+    top: auto;
+    width: 100%;
   }
 
+  /* The old fixed-px gradient rail is replaced by per-item connector lines. */
   .timeline::before {
-    background:
-      linear-gradient(var(--blue-dark), var(--blue-dark)) 28px 10px / 4px 94px no-repeat,
-      repeating-linear-gradient(
-        180deg,
-        var(--blue-dark) 0 8px,
-        transparent 8px 16px
-      ) 28px 105px / 4px 80px no-repeat,
-      linear-gradient(var(--blue-dark), var(--blue-dark)) 28px 192px / 4px 87px no-repeat,
-      linear-gradient(var(--orange), var(--orange)) 28px 284px / 4px 86px no-repeat;
-    content: "";
-    inset: 0;
-    position: absolute;
+    content: none;
   }
 
   .timeline-segment {
@@ -1924,37 +1897,53 @@ select {
   }
 
   .timeline article {
-    height: 74px;
-    left: 0;
-    position: absolute;
+    height: auto;
+    left: auto;
+    min-height: 48px;
+    padding: 0 0 30px 40px;
+    position: relative;
+    top: auto;
     width: 100%;
+    /* Drawn by GSAP (0 -> 1) so the connector line scales in per step like the
+       desktop segments; defaults to 1 (fully drawn) when motion is off. */
+    --line-scale: 1;
   }
 
-  .timeline article:nth-of-type(1) {
-    top: 0;
+  /* Connector line: from each dot down to the next. Segments mirror the desktop
+     rhythm — solid, dashed, solid, orange — via nth-of-type. */
+  .timeline article::before {
+    background: var(--blue-dark);
+    bottom: 0;
+    content: "";
+    left: 8px;
+    position: absolute;
+    top: 22px;
+    transform: scaleY(var(--line-scale));
+    transform-origin: top center;
+    width: 4px;
   }
 
-  .timeline article:nth-of-type(2) {
-    top: 90px;
+  .timeline article:last-of-type::before {
+    display: none;
   }
 
-  .timeline article:nth-of-type(3) {
-    top: 180px;
+  .timeline article:nth-of-type(2)::before {
+    background: repeating-linear-gradient(
+      180deg,
+      var(--blue-dark) 0 8px,
+      transparent 8px 16px
+    );
   }
 
-  .timeline article:nth-of-type(4) {
-    top: 270px;
-  }
-
-  .timeline article:nth-of-type(5) {
-    top: 360px;
+  .timeline article:nth-of-type(4)::before {
+    background: var(--orange);
   }
 
   .timeline-dot {
     height: 20px;
-    left: 20px;
+    left: 0;
     position: absolute;
-    top: 0;
+    top: 2px;
     width: 20px;
   }
 
@@ -1962,45 +1951,47 @@ select {
   .timeline p {
     font-size: 20px;
     font-weight: 600;
-    left: 50px;
+    left: auto;
     line-height: 1.2;
     margin: 0;
-    position: absolute;
-    width: 296px;
+    position: static;
+    width: 100%;
   }
 
   .timeline h3 {
-    top: 0;
+    top: auto;
   }
 
   .timeline p {
-    top: 28px;
+    margin-top: 4px;
+    top: auto;
   }
 
   .people-section {
-    height: 958px;
-    padding: 0;
+    height: auto;
+    padding: 56px 20px;
   }
 
   .people-wrap {
-    height: 100%;
+    height: auto;
   }
 
   .people-title {
-    left: 25px;
-    position: absolute;
-    top: 0;
-    width: 338px;
+    left: auto;
+    margin: 0 0 28px;
+    position: static;
+    top: auto;
+    width: 100%;
   }
 
   .people-viewport {
     height: 437px;
-    left: 22px;
-    margin: 0;
+    left: auto;
+    margin: 0 0 28px;
     overflow: hidden;
-    position: absolute;
-    top: 183px;
-    width: 518px;
+    position: static;
+    top: auto;
+    width: 100%;
   }
 
   .people-track {
@@ -2091,35 +2082,40 @@ select {
   }
 
   .people-section .campaign-button {
-    left: 22px;
-    position: absolute;
-    top: 695px;
-    width: 350px;
+    left: auto;
+    margin: 0 auto;
+    position: relative;
+    top: auto;
+    width: 100%;
   }
 
   .helper-copy {
     font-size: 10px;
-    left: 126px;
+    left: auto;
     letter-spacing: 0.5px;
-    position: absolute;
-    top: 765px;
+    margin: 16px 0 0;
+    position: static;
+    text-align: center;
+    top: auto;
   }
 
   .ecosystem-section {
     background: linear-gradient(180deg, #ffffff 0%, rgba(229, 243, 255, 0.62) 35%, #ffffff 86%);
-    height: 899px;
-    padding: 0;
+    height: auto;
+    padding: 56px 17px;
   }
 
   .ecosystem-layout {
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    height: auto;
   }
 
+  /* display:contents lets kicker/h2/callout become flex items of the layout so
+     `order` can place the orbit between the heading and the callout — the DOM
+     has callout before the orbit, but the design shows it after. */
   .ecosystem-copy {
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 390px;
+    display: contents;
   }
 
   .kicker {
@@ -2129,43 +2125,47 @@ select {
   }
 
   .ecosystem-copy .kicker {
-    left: 30px;
-    position: absolute;
-    top: 0;
-    width: 228px;
+    left: auto;
+    position: static;
+    top: auto;
+    width: 100%;
   }
 
   .ecosystem-copy h2 {
-    left: 30px;
-    margin: 0;
-    position: absolute;
-    top: 36px;
-    width: 344px;
+    left: auto;
+    margin: 12px 0 0;
+    position: static;
+    top: auto;
+    width: 100%;
   }
 
   .callout-copy {
     border-left: 3px solid var(--blue-dark);
     font-size: 20px;
-    left: 26px;
+    left: auto;
     line-height: 1.4;
-    margin: 0;
+    margin: 36px 0 0;
+    order: 2;
     padding-left: 19px;
-    position: absolute;
-    top: 659px;
-    width: 348px;
+    position: static;
+    top: auto;
+    width: 100%;
   }
 
   .ecosystem-orbit {
     display: block;
     height: 357px;
-    left: 18px;
+    left: auto;
+    margin: 40px auto;
     opacity: 1;
-    position: absolute;
-    top: 224px;
+    order: 1;
+    position: relative;
+    right: auto;
+    top: auto;
     width: 356px;
   }
 
-  .orbit-lines-mobile {
+  .orbit-connectors-mobile {
     display: block;
     height: 360px;
     left: 0;
@@ -2187,8 +2187,16 @@ select {
     width: 114px;
   }
 
+  /* Per-node ring (matches the connector colour) so it blooms together with the
+     node's icon + label — never a bare ring, exactly like desktop. */
   .orbit-ring {
-    display: none;
+    display: block;
+    height: 100%;
+    left: 0;
+    max-width: none;
+    top: 0;
+    width: 100%;
+    z-index: 0;
   }
 
   .orbit-node-0 {
@@ -2257,43 +2265,46 @@ select {
   }
 
   .beliefs-section {
-    height: 1345px;
-    padding: 0;
+    height: auto;
+    padding: 56px 20px;
     position: relative;
   }
 
   .beliefs-kicker {
     color: var(--muted);
-    left: 22px;
+    left: auto;
     padding: 0;
-    position: absolute;
-    top: 0;
-    width: 228px;
+    position: static;
+    top: auto;
+    width: 100%;
   }
 
   .beliefs-title {
-    left: 25px;
-    margin: 0;
-    position: absolute;
-    top: 45px;
-    width: 337px;
+    left: auto;
+    margin: 8px 0 28px;
+    position: static;
+    top: auto;
+    width: 100%;
   }
 
   .belief-cards {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
   }
 
   .belief-card {
     border-radius: 10px;
-    height: 466px;
-    left: 25px;
-    padding: 17px 20px 0;
-    position: absolute;
-    width: 340px;
+    height: auto;
+    left: auto;
+    padding: 17px 20px 28px;
+    position: relative;
+    top: auto;
+    width: 100%;
   }
 
   .belief-card--preserve {
-    top: 191px;
+    top: auto;
     --belief-icon-column: 26px;
     --belief-row-gap: 23px;
     --belief-separator-left: 72px;
@@ -2301,7 +2312,7 @@ select {
   }
 
   .belief-card--demolish {
-    top: 727px;
+    top: auto;
     --belief-icon-column: 20px;
     --belief-row-gap: 29px;
     --belief-separator-left: 72px;
@@ -2341,16 +2352,17 @@ select {
 
   .gallery-section {
     background: linear-gradient(180deg, #ffffff 0%, #ffffff 12%, var(--sky) 100%);
-    height: 521px;
-    padding: 0;
+    height: auto;
+    padding: 46px 20px;
   }
 
   .gallery-wrap {
     height: 349px;
-    left: 29px;
-    position: absolute;
-    top: 46px;
-    width: 592px;
+    left: auto;
+    margin: 0;
+    position: static;
+    top: auto;
+    width: 100%;
   }
 
   .gallery-track {
@@ -2384,43 +2396,44 @@ select {
 
   .sign-section {
     background: var(--sky);
-    height: 582px;
-    padding: 0;
+    height: auto;
+    padding: 56px 20px;
   }
 
   .sign-layout {
-    height: 100%;
+    height: auto;
     padding-top: 0;
   }
 
   .sign-title {
-    left: 25px;
-    position: absolute;
-    top: 0;
-    width: 330px;
+    left: auto;
+    position: static;
+    top: auto;
+    width: 100%;
   }
 
   .sign-layout p {
     font-size: 20px;
-    left: 25px;
+    left: auto;
     line-height: 1.5;
-    margin: 0;
-    position: absolute;
-    top: 156px;
-    width: 319px;
+    margin: 24px 0 0;
+    position: static;
+    top: auto;
+    width: 100%;
   }
 
   .sign-actions {
     gap: 14px;
-    left: 22px;
-    position: absolute;
-    top: 326px;
-    width: 350px;
+    left: auto;
+    margin: 32px 0 0;
+    position: static;
+    top: auto;
+    width: 100%;
   }
 
   .campaign-button--whatsapp {
     height: 55px;
-    width: 347px;
+    width: 100%;
   }
 
   .campaign-button--whatsapp img {
@@ -2429,37 +2442,38 @@ select {
   }
 
   .site-footer {
-    height: 784px;
-    padding: 0;
+    height: auto;
+    padding: 56px 20px 180px;
+    position: relative;
   }
 
   .footer-layout {
     display: block;
-    height: 100%;
+    height: auto;
     padding-top: 0;
   }
 
   .footer-about {
-    left: 21px;
-    padding-top: 0;
-    position: absolute;
-    top: 47px;
-    width: 323px;
+    left: auto;
+    padding-top: 24px;
+    position: static;
+    top: auto;
+    width: 100%;
   }
 
   .footer-about::before {
-    left: -1px;
-    top: -24px;
-    width: 349.881px;
+    left: 0;
+    top: 0;
+    width: 100%;
   }
 
   .site-footer address {
     gap: 30px;
-    left: 21px;
-    margin: 0;
-    position: absolute;
-    top: 301px;
-    width: 208px;
+    left: auto;
+    margin: 36px 0 0;
+    position: static;
+    top: auto;
+    width: 100%;
   }
 
   .footer-mark {
@@ -2469,5 +2483,22 @@ select {
     opacity: 1;
     transform: none;
     width: 429px;
+  }
+}
+
+/* The orbit ring is laid out at a fixed 356px. On phones narrower than that
+   (after the section's side padding) scale the whole ring down so it stays fully
+   on screen and centered, without reflowing the fixed node coordinates. GSAP's
+   spin reads and preserves this scale while animating rotation. */
+@media (max-width: 400px) {
+  .ecosystem-orbit {
+    transform: scale(0.9);
+    transform-origin: top center;
+  }
+}
+
+@media (max-width: 340px) {
+  .ecosystem-orbit {
+    transform: scale(0.78);
   }
 }

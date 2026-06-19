@@ -21,7 +21,7 @@ import ecoOffice from './assets/figma/vectors/eco-office.svg'
 import ecoConnectorBottomRight from './assets/figma/vectors/eco-orbit-connector-bottom-right.svg'
 import ecoConnectorRight from './assets/figma/vectors/eco-orbit-connector-right.svg'
 import ecoConnectorSmall from './assets/figma/vectors/eco-orbit-connector-small.svg'
-import ecoOrbitMobileLines from './assets/figma/vectors/ecosystem-orbit-mobile-lines.svg'
+import ecoOrbitMobileConnectors from './assets/figma/vectors/ecosystem-orbit-mobile-connectors.svg'
 import ecoRestaurant from './assets/figma/vectors/eco-restaurant.svg'
 import ecoRing from './assets/figma/vectors/eco-ring.svg'
 import ecoSport from './assets/figma/vectors/eco-sport.svg'
@@ -41,7 +41,6 @@ import whatsappIcon from './assets/figma/vectors/whatsapp.svg'
 import xIcon from './assets/figma/vectors/x.svg'
 import { content, type LanguageCode, languages } from './content'
 import {
-  countUp,
   countUpTween,
   dur,
   ease,
@@ -233,12 +232,14 @@ function LanguageDropdown({
 }
 
 function DesktopMenuOverlay({
+  activeHref,
   copy,
   locale,
   onClose,
   onLocaleChange,
   onNavigate,
 }: {
+  activeHref: string
   copy: (typeof content)[LanguageCode]
   locale: LanguageCode
   onClose: () => void
@@ -254,11 +255,13 @@ function DesktopMenuOverlay({
         return
       }
 
-      // The overlay's top bar sits exactly on top of the (identical) sticky header,
-      // so it must NOT move — only fade with the backdrop — or the two logos visibly
-      // converge and the logo appears to jump. Animate only the menu content.
+      // The overlay's top bar is identical to the sticky header sitting behind it.
+      // We must NOT fade the overlay's opacity — that would cross-fade the two
+      // logos and make the header blink. Keep the overlay (and its top bar) fully
+      // opaque, and fade only the backdrop COLOUR + the menu content.
+      gsap.set(overlayRef.current, { autoAlpha: 1 })
       const tl = gsap.timeline({ defaults: { ease: ease.arrival } })
-      tl.from(overlayRef.current, { autoAlpha: 0, duration: 0.3, ease: 'power2.out' })
+      tl.from(overlayRef.current, { backgroundColor: 'rgba(229, 243, 255, 0)', duration: 0.3, ease: 'power2.out' })
         .from('.desktop-menu-item', { y: 32, autoAlpha: 0, stagger: 0.07, duration: 0.5 }, 0.15)
         .from(
           '.desktop-menu-content > .campaign-button',
@@ -319,7 +322,7 @@ function DesktopMenuOverlay({
           {copy.nav.menuItems.map((item) => (
             <div className="desktop-menu-item" key={item.label}>
               <a
-                className={item.active ? 'active' : ''}
+                className={item.href === activeHref ? 'active' : ''}
                 href={item.href}
                 onClick={() => handleNavigate(item.href)}
               >
@@ -340,11 +343,16 @@ function DesktopMenuOverlay({
 function App() {
   const [locale, setLocale] = useState<LanguageCode>('pt')
   const [menuOpen, setMenuOpen] = useState(false)
+  const [activeHref, setActiveHref] = useState('#top')
   const [peopleIndex, setPeopleIndex] = useState(0)
   const [galleryIndex, setGalleryIndex] = useState(0)
   const shellRef = useRef<HTMLDivElement>(null)
   const galleryReady = useRef(false)
   const pendingScrollRef = useRef<string | null>(null)
+  // True while the burger menu is open. The scroll lock momentarily reports
+  // scrollY as 0, which would otherwise flip the sticky header's condensed state
+  // (and flash on close). The header trigger reads this to stay frozen meanwhile.
+  const menuOpenRef = useRef(false)
   const copy = content[locale]
   const footerAboutBrand = 'Transparente Vivo'
   const [footerAboutPrefix, footerAboutSuffix = ''] = copy.footer.about.split(footerAboutBrand)
@@ -359,9 +367,11 @@ function App() {
       return
     }
 
+    menuOpenRef.current = true
     const snapshot = lockDocumentScroll(document, window.scrollY)
 
     return () => {
+      menuOpenRef.current = false
       restoreDocumentScroll(document, snapshot, (scrollY) => window.scrollTo(0, scrollY))
     }
   }, [menuOpen])
@@ -383,6 +393,36 @@ function App() {
       document.querySelector(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     })
   }, [menuOpen])
+
+  // Scroll-spy: the active menu item follows the section currently in view, rather
+  // than a hardcoded flag. The active section is the last one whose top has scrolled
+  // above a header-height threshold.
+  useEffect(() => {
+    const hrefs = copy.nav.menuItems.map((item) => item.href)
+    const onScroll = () => {
+      const threshold = 140
+      // Pick the section whose top is closest to the threshold from above — i.e.
+      // the one we're currently inside. Menu order differs from page order
+      // (ecosystem precedes beliefs on the page), so we compare positions, not order.
+      let current = hrefs[0]
+      let bestTop = -Infinity
+      for (const href of hrefs) {
+        const el = document.querySelector(href)
+        if (!el) {
+          continue
+        }
+        const top = el.getBoundingClientRect().top
+        if (top <= threshold && top > bestTop) {
+          bestTop = top
+          current = href
+        }
+      }
+      setActiveHref(current)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [copy])
 
   const rotatePeople = (direction: 'prev' | 'next') => {
     setPeopleIndex((current) => {
@@ -417,7 +457,14 @@ function App() {
       const headerTrigger = ScrollTrigger.create({
         start: 140,
         end: 'max',
-        onToggle: (self) => header?.classList.toggle('is-condensed', self.isActive),
+        onToggle: (self) => {
+          // Frozen while the menu is open so the scroll-lock's scrollY=0 doesn't
+          // flip the condensed state and flash the header on close.
+          if (menuOpenRef.current) {
+            return
+          }
+          header?.classList.toggle('is-condensed', self.isActive)
+        },
       })
 
       // Swipe affordance for the people carousel (touch + pointer).
@@ -711,118 +758,196 @@ function App() {
         }
       })
 
-      // ---- Tablet / mobile: on-enter reveals (sections are taller than the viewport,
-      // so pinning isn't appropriate). ----
+      // ---- Tablet / mobile: pinned step-through, mirroring desktop. Now that the
+      // mobile layout is natural flow (content-sized sections) rather than an
+      // absolute canvas, each section can lock and reveal one item per swipe with
+      // snapping — the same model as desktop, with mobile-appropriate targets
+      // (vertical timeline dots, mobile orbit lines, stacked belief cards). ----
       mm.add('(max-width: 1100px) and (prefers-reduced-motion: no-preference)', () => {
-        let floatStarted = false
-        const startOrbitFloat = () => {
-          if (floatStarted) {
+        const STEP = 220
+        const snap = {
+          snapTo: 'labels' as const,
+          duration: { min: 0.2, max: 0.6 },
+          delay: 0.04,
+          ease: 'power1.inOut',
+        }
+        const pinStart = 'top 64px'
+
+        // Stats — title, then each counter reveals + counts up per scroll step.
+        const statCards = gsap.utils.toArray<HTMLElement>('.stat-card')
+        const statsTl = gsap.timeline({
+          defaults: { duration: 1, ease: ease.arrival },
+          scrollTrigger: {
+            trigger: '.stats-section',
+            start: pinStart,
+            end: `+=${STEP * (statCards.length + 1)}`,
+            pin: true,
+            anticipatePin: 1,
+            scrub: 1,
+            snap,
+          },
+        })
+        statsTl.from('.stats-title', { y: 40, autoAlpha: 0 }).addLabel('s0')
+        statCards.forEach((card, index) => {
+          statsTl.from(card, { y: 48, autoAlpha: 0, scale: 0.97 }, '>')
+          const value = card.querySelector<HTMLElement>('.stat-value')
+          if (value) {
+            statsTl.add(countUpTween(value), '<')
+          }
+          statsTl.addLabel(`s${index + 1}`)
+        })
+
+        // History — each milestone (dot + label) reveals per step. The connector
+        // line is a CSS pseudo-element on the article, so it appears with the dot.
+        const milestones = gsap.utils.toArray<HTMLElement>('.timeline article')
+        const historyTl = gsap.timeline({
+          defaults: { duration: 1, ease: ease.arrival },
+          scrollTrigger: {
+            trigger: '.history-section',
+            start: pinStart,
+            end: `+=${STEP * (milestones.length + 1)}`,
+            pin: true,
+            anticipatePin: 1,
+            scrub: 1,
+            snap,
+          },
+        })
+        historyTl.from('.history-title', { y: 40, autoAlpha: 0 }).addLabel('h0')
+        milestones.forEach((milestone, index) => {
+          // Draw the connector line leading into this milestone (it lives on the
+          // previous article's ::before), then pop the dot, then the label.
+          const previous = milestones[index - 1]
+          if (previous) {
+            historyTl.from(previous, { '--line-scale': 0, ease: 'none', duration: 1 }, '>')
+          }
+          historyTl.from(
+            milestone.querySelector('.timeline-dot'),
+            { scale: 0, transformOrigin: 'center', duration: 0.6, ease: ease.snap },
+            previous ? '<0.25' : '>',
+          )
+          historyTl.from(
+            milestone.querySelectorAll('h3, p'),
+            { y: 14, autoAlpha: 0, stagger: 0.06, duration: 0.6 },
+            '<',
+          )
+          historyTl.addLabel(`h${index + 1}`)
+        })
+
+        // Ecosystem — each node blooms one per step; then the orbit lines fade in
+        // and the whole ring starts rotating (matching desktop).
+        const nodes = gsap.utils.toArray<HTMLElement>('.orbit-node')
+        let rotationStarted = false
+        const startOrbitRotation = () => {
+          if (rotationStarted) {
             return
           }
-          floatStarted = true
-          gsap.utils.toArray<HTMLElement>('.orbit-node').forEach((node, index) => {
-            gsap.to(node, {
-              y: -8,
-              duration: gsap.utils.random(2.6, 3.8),
-              ease: 'sine.inOut',
-              yoyo: true,
-              repeat: -1,
-              delay: index * 0.35,
-            })
+          rotationStarted = true
+          const spin = 42
+          gsap.to('.ecosystem-orbit', {
+            rotation: 360,
+            transformOrigin: '50% 50%',
+            duration: spin,
+            ease: 'none',
+            repeat: -1,
+          })
+          gsap.to('.orbit-node', {
+            rotation: -360,
+            transformOrigin: '50% 50%',
+            duration: spin,
+            ease: 'none',
+            repeat: -1,
           })
         }
-
-        gsap.from('.stats-title', {
-          y: 40,
-          autoAlpha: 0,
-          duration: dur.medium,
-          ease: ease.arrival,
-          scrollTrigger: { trigger: '.stats-section', start: 'top 75%', once: true },
-        })
-        gsap.from('.stat-card', {
-          y: 48,
-          autoAlpha: 0,
-          scale: 0.97,
-          duration: dur.medium,
-          stagger: 0.1,
-          ease: ease.arrival,
-          clearProps: 'transform',
-          scrollTrigger: { trigger: '.stats-grid', start: 'top 80%', once: true },
-        })
-        shell.querySelectorAll<HTMLElement>('.stat-value').forEach((el) => countUp(el, '.stats-grid'))
-
-        const historyTl = gsap.timeline({
-          scrollTrigger: { trigger: '.timeline', start: 'top 85%', once: true },
-        })
-        historyTl
-          .from('.history-title', { y: 40, autoAlpha: 0, duration: dur.medium, ease: ease.arrival }, 0)
-          .set('.timeline-segment', { transformOrigin: 'left center' }, 0)
-          .from('.timeline-segment', { scaleX: 0, duration: dur.medium, stagger: 0.12, ease: 'power2.out' }, 0.1)
-          .from(
-            '.timeline-dot',
-            { scale: 0, transformOrigin: 'center', duration: dur.short, stagger: 0.12, ease: ease.snap },
-            0.2,
-          )
-          .from('.timeline h3, .timeline p', { y: 12, autoAlpha: 0, duration: dur.short, stagger: 0.05 }, 0.35)
-
+        // Match the desktop element order exactly: each node blooms as a whole unit
+        // — its ring (a child .orbit-ring), icon and label scale in together — so a
+        // bare ring is never shown. Only once every node is present do the
+        // connectors appear, and the spin kicks off with them.
+        gsap.set('.orbit-connectors-mobile', { autoAlpha: 0 })
         const orbitTl = gsap.timeline({
-          scrollTrigger: { trigger: '.ecosystem-orbit', start: 'top 80%', once: true },
-          onComplete: startOrbitFloat,
+          defaults: { duration: 1, ease: ease.snap },
+          scrollTrigger: {
+            trigger: '.ecosystem-section',
+            start: pinStart,
+            end: `+=${STEP * (nodes.length + 1)}`,
+            pin: true,
+            anticipatePin: 1,
+            scrub: 1,
+            snap,
+          },
         })
-        orbitTl
-          .from('.orbit-node', {
-            scale: 0.5,
-            autoAlpha: 0,
-            transformOrigin: 'center',
-            duration: dur.expressive,
-            stagger: 0.12,
-            ease: ease.snap,
-          })
-          .from(
-            '.orbit-link, .orbit-lines-mobile',
-            { autoAlpha: 0, duration: dur.medium, stagger: 0.08 },
-            '-=0.35',
-          )
+        orbitTl.addLabel('o0')
+        nodes.forEach((node, index) => {
+          orbitTl.from(node, { scale: 0.5, autoAlpha: 0, transformOrigin: 'center' }, '>')
+          orbitTl.addLabel(`o${index + 1}`)
+        })
+        orbitTl.to(
+          '.orbit-connectors-mobile',
+          { autoAlpha: 1, duration: 1, ease: ease.arrival, onStart: startOrbitRotation },
+          '>',
+        )
+        orbitTl.addLabel(`o${nodes.length + 1}`)
 
-        gsap.from('.beliefs-kicker, .beliefs-title', {
-          y: 30,
-          autoAlpha: 0,
-          duration: dur.medium,
-          stagger: 0.08,
-          ease: ease.arrival,
-          scrollTrigger: { trigger: '.beliefs-section', start: 'top 72%', once: true },
+        // Beliefs — each pro/con row (preserve + demolish together) reveals per
+        // step. Both cards stay in natural flow (no translate) so there's no empty
+        // gap left behind before the gallery; the lower card simply reveals as the
+        // pin releases and it scrolls into view.
+        const preserveItems = gsap.utils.toArray<HTMLElement>('.belief-card--preserve li')
+        const demolishItems = gsap.utils.toArray<HTMLElement>('.belief-card--demolish li')
+        const beliefRows = Math.max(preserveItems.length, demolishItems.length)
+        gsap.set([...preserveItems, ...demolishItems], { autoAlpha: 0, x: -20 })
+        gsap.set('.belief-card li img', { scale: 0, transformOrigin: 'center' })
+        const beliefsTl = gsap.timeline({
+          defaults: { duration: 1, ease: ease.arrival },
+          scrollTrigger: {
+            trigger: '.beliefs-section',
+            start: 'top top',
+            end: `+=${STEP * (beliefRows + 1)}`,
+            pin: true,
+            anticipatePin: 1,
+            scrub: 1,
+            snap,
+          },
         })
-        gsap.from('.belief-card', {
-          y: 56,
-          autoAlpha: 0,
-          duration: dur.medium,
-          stagger: 0.12,
-          ease: ease.arrival,
-          clearProps: 'transform',
-          scrollTrigger: { trigger: '.belief-cards', start: 'top 80%', once: true },
-        })
-        shell.querySelectorAll('.belief-card').forEach((card) => {
-          const trigger = { trigger: card, start: 'top 78%', once: true }
-          gsap.from(card.querySelectorAll('li'), {
-            x: -20,
-            autoAlpha: 0,
-            duration: dur.short,
-            stagger: 0.08,
-            ease: ease.arrival,
-            scrollTrigger: trigger,
-          })
-          gsap.from(card.querySelectorAll('li img'), {
-            scale: 0,
-            transformOrigin: 'center',
-            duration: dur.short,
-            stagger: 0.08,
-            ease: ease.snap,
-            scrollTrigger: trigger,
-          })
-        })
+        beliefsTl
+          .from('.beliefs-kicker, .beliefs-title', { y: 30, autoAlpha: 0, stagger: 0.08 })
+          .from('.belief-card', { y: 56, autoAlpha: 0, stagger: 0.12 }, '<0.1')
+          .addLabel('b0')
+        for (let row = 0; row < beliefRows; row += 1) {
+          const items = [preserveItems[row], demolishItems[row]].filter(Boolean)
+          const icons = items
+            .map((item) => item.querySelector('img'))
+            .filter((icon): icon is HTMLImageElement => Boolean(icon))
+          beliefsTl.to(items, { autoAlpha: 1, x: 0, duration: 1, ease: ease.arrival }, '>')
+          if (icons.length) {
+            beliefsTl.to(icons, { scale: 1, duration: 0.6, ease: ease.snap }, '<')
+          }
+          beliefsTl.addLabel(`b${row + 1}`)
+        }
       })
 
+      // Trigger positions are measured on mount, before images decode and fonts
+      // swap. As that content loads the page grows and every cached start/end
+      // shifts up — so reveals fire before their section reaches the viewport
+      // (most visible on mobile, where images are large relative to the screen).
+      // Re-measure once layout actually settles.
+      const refresh = () => ScrollTrigger.refresh()
+      const images = Array.from(shell.querySelectorAll('img'))
+      const pending = images.filter((img) => !img.complete)
+      pending.forEach((img) => {
+        img.addEventListener('load', refresh, { once: true })
+        img.addEventListener('error', refresh, { once: true })
+      })
+      window.addEventListener('load', refresh)
+      if (document.fonts?.ready) {
+        document.fonts.ready.then(refresh).catch(() => {})
+      }
+
       return () => {
+        pending.forEach((img) => {
+          img.removeEventListener('load', refresh)
+          img.removeEventListener('error', refresh)
+        })
+        window.removeEventListener('load', refresh)
         headerTrigger.kill()
         observer?.kill()
         mm.revert()
@@ -898,18 +1023,23 @@ function App() {
             <img alt="" src={hamburgerIcon} />
           </button>
         </div>
-        {menuOpen && (
-          <DesktopMenuOverlay
-            copy={copy}
-            locale={locale}
-            onClose={() => setMenuOpen(false)}
-            onLocaleChange={setLocale}
-            onNavigate={(href) => {
-              pendingScrollRef.current = href
-            }}
-          />
-        )}
       </header>
+
+      {/* Rendered OUTSIDE the header: the header's backdrop-filter establishes a
+          containing block, which would anchor the fixed overlay to the header
+          (and the scroll-locked body offset) instead of the viewport. */}
+      {menuOpen && (
+        <DesktopMenuOverlay
+          activeHref={activeHref}
+          copy={copy}
+          locale={locale}
+          onClose={() => setMenuOpen(false)}
+          onLocaleChange={setLocale}
+          onNavigate={(href) => {
+            pendingScrollRef.current = href
+          }}
+        />
+      )}
 
       <main id="top">
         <section className="hero-section">
@@ -1072,8 +1202,8 @@ function App() {
               <img
                 alt=""
                 aria-hidden="true"
-                className="orbit-lines-mobile"
-                src={ecoOrbitMobileLines}
+                className="orbit-connectors-mobile"
+                src={ecoOrbitMobileConnectors}
               />
               {ecosystemConnectors.map((connector) => (
                 <span
