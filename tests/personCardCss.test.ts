@@ -93,9 +93,11 @@ test('people carousel expands the full card run and moves next arrow beside it o
   )
 })
 
-test('people carousel keeps the previous arrow inside the 1024px viewport', () => {
+test('people carousel hides the arrows in the mobile/tablet range (swipe-only)', () => {
+  // At <=1100px the natural-flow mobile treatment applies; the carousel is
+  // swipe-driven and the prev/next arrows are hidden.
   assert.match(
     css,
-    /@media \(max-width: 1100px\) \{[\s\S]*?\.people-prev,\n {2}\.gallery-prev \{[\s\S]*?left: calc\(-1 \* var\(--side\) \+ 24px\);[\s\S]*?\}/,
+    /@media \(max-width: 1100px\) \{[\s\S]*?\.people-prev,\n {2}\.people-next \{[\s\S]*?display: none;[\s\S]*?\}/,
   )
 })

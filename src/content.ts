@@ -112,7 +112,7 @@ export const content = {
       close: 'Fechar',
       menuItems: [
         { label: 'Introdução', href: '#top' },
-        { label: 'Dados', href: '#community', active: true },
+        { label: 'Dados', href: '#community' },
         { label: 'Comunidade', href: '#people' },
         { label: 'Em que acreditamos', href: '#beliefs' },
         { label: 'Ecossistema', href: '#ecosystem' },
@@ -271,7 +271,7 @@ export const content = {
       close: 'Close',
       menuItems: [
         { label: 'Introduction', href: '#top' },
-        { label: 'Data', href: '#community', active: true },
+        { label: 'Data', href: '#community' },
         { label: 'Community', href: '#people' },
         { label: 'What we believe', href: '#beliefs' },
         { label: 'Ecosystem', href: '#ecosystem' },

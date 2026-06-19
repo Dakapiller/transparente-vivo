@@ -41,9 +41,11 @@ test('gallery next arrow moves beside the stage on 4k viewports', () => {
   )
 })
 
-test('gallery keeps the previous arrow inside the 1024px viewport', () => {
+test('gallery hides the arrows in the mobile/tablet range (swipe-only)', () => {
+  // At <=1100px the natural-flow mobile treatment applies; the carousel is
+  // swipe-driven and the prev/next arrows are hidden.
   assert.match(
     css,
-    /@media \(max-width: 1100px\) \{[\s\S]*?\.gallery-prev \{[\s\S]*?left: calc\(-1 \* var\(--side\) \+ 24px\);[\s\S]*?\}/,
+    /@media \(max-width: 1100px\) \{[\s\S]*?\.gallery-fade,\n {2}\.gallery-prev,\n {2}\.gallery-next \{[\s\S]*?display: none;[\s\S]*?\}/,
   )
 })

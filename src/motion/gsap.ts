@@ -11,6 +11,14 @@ import { SplitText } from 'gsap/SplitText'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText, Observer, CustomEase)
 
+// Stop the mobile address-bar show/hide from recalculating (and mis-firing)
+// trigger positions mid-scroll.
+// NOTE: we deliberately do NOT use ScrollTrigger.normalizeScroll() — it hijacks
+// wheel/touch scrolling and caches its own scroll position, which desyncs after a
+// programmatic scrollIntoView (menu navigation), snapping the page back on the
+// next swipe.
+ScrollTrigger.config({ ignoreMobileResize: true })
+
 // One shared easing language so the whole site moves like a single hand.
 CustomEase.create('arrival', '0.16, 1, 0.3, 1') // expo-out: entrances settling into place
 CustomEase.create('lift', '0.22, 0.61, 0.36, 1') // soft-out: hovers and small nudges
