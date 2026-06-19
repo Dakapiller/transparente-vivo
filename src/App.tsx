@@ -653,12 +653,11 @@ function App() {
           scrollTrigger: {
             trigger: '.ecosystem-section',
             start: 'top 120px',
-            end: `+=${STEP * (nodes.length + 2)}`,
+            end: `+=${STEP * (nodes.length + 1)}`,
             pin: true,
             anticipatePin: 1,
             scrub: 1,
             snap,
-            onLeave: startOrbitRotation,
           },
         })
         orbitTl.addLabel('o0')
@@ -666,8 +665,15 @@ function App() {
           orbitTl.from(node, { scale: 0.5, autoAlpha: 0, transformOrigin: 'center' }, '>')
           orbitTl.addLabel(`o${index + 1}`)
         })
-        // Final step: the connectors appear once every node is present (fade only).
-        orbitTl.to(links, { autoAlpha: 1, stagger: 0.1, ease: ease.arrival }, '>')
+        // Step 5: connectors fade in once every node is present. The spin kicks off
+        // on the SAME swipe via onStart — with scrub:1, waiting for onComplete lands
+        // a hair short of the tween end and the spin would only fire on the next swipe.
+        orbitTl.to(links, {
+          autoAlpha: 1,
+          stagger: 0.1,
+          ease: ease.arrival,
+          onStart: startOrbitRotation,
+        }, '>')
         orbitTl.addLabel(`o${nodes.length + 1}`)
 
         // Beliefs — each pro/con row (preserve + demolish together) reveals per step.
