@@ -427,6 +427,9 @@ function App() {
             target: peopleViewport,
             type: 'touch,pointer',
             tolerance: 40,
+            // Commit to the dominant axis on gesture start so a vertical page
+            // scroll that drifts sideways doesn't spuriously rotate the carousel.
+            lockAxis: true,
             onLeft: () => rotatePeople('next'),
             onRight: () => rotatePeople('prev'),
           })
@@ -823,13 +826,31 @@ function App() {
   )
 
   // People carousel track — GSAP-eased slide driven by the active index.
+  // The per-card step (card width + flex gap) differs per breakpoint, so measure
+  // it from the live DOM instead of hardcoding a desktop value — a fixed step
+  // over-shifts on mobile, where cards are narrower, and drifts out of alignment.
   useGSAP(
     () => {
-      gsap.to('.people-track', {
-        x: -peopleIndex * 313,
+      const track = shellRef.current?.querySelector<HTMLElement>('.people-track')
+      const first = track?.children[0] as HTMLElement | undefined
+      if (!track || !first) {
+        return
+      }
+
+      const stepOf = () =>
+        first.getBoundingClientRect().width + (parseFloat(getComputedStyle(track).columnGap) || 0)
+
+      gsap.to(track, {
+        x: -peopleIndex * stepOf(),
         duration: prefersReduced() ? 0 : 0.6,
         ease: ease.glide,
       })
+
+      // The per-card step changes across breakpoints/orientation; re-snap to the
+      // active index on resize so the track never drifts out of alignment.
+      const onResize = () => gsap.set(track, { x: -peopleIndex * stepOf() })
+      window.addEventListener('resize', onResize)
+      return () => window.removeEventListener('resize', onResize)
     },
     { scope: shellRef, dependencies: [peopleIndex] },
   )
@@ -1007,6 +1028,7 @@ function App() {
                   </article>
                 ))}
               </div>
+              <div aria-hidden="true" className="people-fade people-fade--left" />
               <div aria-hidden="true" className="people-fade" />
               <ArrowButton
                 className="people-prev"

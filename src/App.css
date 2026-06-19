@@ -817,6 +817,20 @@ select {
   z-index: 3;
 }
 
+/* Mirror the right fade so cards melt into the page on the left edge too,
+   instead of hard-overflowing past the prev button on wide screens. The
+   viewport is wider than the centred .wrap, so as the track slides, cards
+   exit into the left page margin (--side): cover that margin with solid white
+   and fade over the inner 185px, matching the right edge's falloff. */
+.people-fade--left {
+  background: linear-gradient(to right, #ffffff, #ffffff calc(100% - 185px), rgba(255, 255, 255, 0));
+  height: 100%;
+  left: calc(-1 * var(--side) - 4px);
+  right: auto;
+  top: 0;
+  width: calc(var(--side) + 193px);
+}
+
 .person-card {
   background: #f8f8f8;
   border-radius: 9.227px;
@@ -2065,6 +2079,10 @@ select {
     right: 0;
     top: 0;
     width: 110px;
+  }
+
+  .people-fade--left {
+    display: none;
   }
 
   .people-prev,
