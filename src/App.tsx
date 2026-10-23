@@ -22,6 +22,8 @@ import galleryCommunity24 from './assets/figma/gallery/gallery-24.jpg'
 import galleryCommunity25 from './assets/figma/gallery/gallery-25.jpg'
 import galleryCommunity26 from './assets/figma/gallery/gallery-26.jpg'
 import galleryCommunity27 from './assets/figma/gallery/gallery-27.jpg'
+import galleryCommunity28 from './assets/figma/gallery/gallery-28.jpg'
+import galleryCommunity29 from './assets/figma/gallery/gallery-29.jpg'
 import galleryArrowNext from './assets/figma/vectors/gallery-arrow-next.svg'
 import galleryArrowPrev from './assets/figma/vectors/gallery-arrow-prev.svg'
 import personAlex from './assets/figma/people/alex.jpg'
@@ -154,6 +156,8 @@ const galleryCommunityImages = [
   galleryCommunity25,
   galleryCommunity16,
   galleryCommunity22,
+  galleryCommunity28,
+  galleryCommunity29,
 ] as const
 const galleryImages = galleryCommunityImages
 

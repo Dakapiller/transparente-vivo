@@ -36,11 +36,11 @@ test('gallery wrapper and arrows use desktop side placement', () => {
 test('gallery carousel renders the original images once inside Embla slides', () => {
   assert.equal(
     app.match(/import galleryCommunity\d+ from '\.\/assets\/figma\/gallery\/gallery-\d+\.jpg'/g)?.length,
-    19,
+    21,
   )
   assert.match(
     app,
-    /const galleryCommunityImages = \[\n {2}galleryCommunity13,\n {2}galleryCommunity04,\n {2}galleryCommunity20,\n {2}galleryCommunity01,\n {2}galleryCommunity17,\n {2}galleryCommunity18,\n {2}galleryCommunity24,\n {2}galleryCommunity06,\n {2}galleryCommunity26,\n {2}galleryCommunity09,\n {2}galleryCommunity14,\n {2}galleryCommunity23,\n {2}galleryCommunity08,\n {2}galleryCommunity10,\n {2}galleryCommunity27,\n {2}galleryCommunity11,\n {2}galleryCommunity25,\n {2}galleryCommunity16,\n {2}galleryCommunity22,\n\] as const/,
+    /const galleryCommunityImages = \[\n {2}galleryCommunity13,\n {2}galleryCommunity04,\n {2}galleryCommunity20,\n {2}galleryCommunity01,\n {2}galleryCommunity17,\n {2}galleryCommunity18,\n {2}galleryCommunity24,\n {2}galleryCommunity06,\n {2}galleryCommunity26,\n {2}galleryCommunity09,\n {2}galleryCommunity14,\n {2}galleryCommunity23,\n {2}galleryCommunity08,\n {2}galleryCommunity10,\n {2}galleryCommunity27,\n {2}galleryCommunity11,\n {2}galleryCommunity25,\n {2}galleryCommunity16,\n {2}galleryCommunity22,\n {2}galleryCommunity28,\n {2}galleryCommunity29,\n\] as const/,
   )
   assert.match(app, /const galleryImages = galleryCommunityImages/)
   assert.doesNotMatch(app, /galleryTrackImages/)
