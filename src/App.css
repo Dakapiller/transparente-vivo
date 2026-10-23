@@ -1647,10 +1647,13 @@ select {
 .footer-mark {
   bottom: 7px;
   height: 448px;
-  left: 50%;
+  /* Centre with calc() on left, not transform: GSAP's parallax
+     (yPercent) owns the inline transform and caches the x offset it found at
+     load, so a translateX(-50%) here goes stale when the viewport crosses the
+     1100px breakpoint (tablet rotation / window resize). */
+  left: calc(50% - 1567px / 2);
   max-width: none;
   position: absolute;
-  transform: translateX(-50%);
   width: 1567px;
 }
 
@@ -2551,9 +2554,8 @@ select {
   .footer-mark {
     bottom: 44px;
     height: 123px;
-    left: -20px;
+    left: calc(50% - 429px / 2);
     opacity: 1;
-    transform: none;
     width: 429px;
   }
 }
