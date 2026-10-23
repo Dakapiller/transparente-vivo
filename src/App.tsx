@@ -62,7 +62,7 @@ import footerMark from './assets/figma/vectors/footer-mark.svg'
 import hamburgerIcon from './assets/figma/vectors/hamburger.svg'
 import instagramIcon from './assets/figma/vectors/instagram.svg'
 import linkedinIcon from './assets/figma/vectors/linkedin.svg'
-import logo from './assets/figma/vectors/logo.svg'
+import logo from './assets/figma/vectors/logo.svg?inline'
 import menuCloseIcon from './assets/figma/vectors/menu-close.svg'
 import menuSeparator from './assets/figma/vectors/menu-separator.svg'
 import personCardFrame from './assets/figma/vectors/person-card-frame.svg'
@@ -575,12 +575,10 @@ function App() {
 
         const heroTl = gsap.timeline({ defaults: { ease: ease.arrival } })
         heroTl
-          .from('.site-header .wordmark, .site-header .header-actions', {
-            y: -16,
-            autoAlpha: 0,
-            duration: dur.medium,
-            stagger: 0.08,
-          })
+          // The logo only slides in; it is never hidden (autoAlpha) so a slow
+          // or replayed load sequence (e.g. on language switch) can't blank it.
+          .from('.site-header .wordmark', { y: -16, duration: dur.medium, clearProps: 'transform' })
+          .from('.site-header .header-actions', { y: -16, autoAlpha: 0, duration: dur.medium }, 0.08)
           .to(split.words, { yPercent: 0, duration: dur.expressive, stagger: 0.08 }, 0.1)
           .from('.hero-copy h1 strong', { color: '#ffaf8e', duration: dur.expressive }, 0.2)
           .from(
@@ -975,7 +973,7 @@ function App() {
     <div className="site-shell" ref={shellRef}>
       <header className="site-header">
         <a aria-label="Transparente Vivo" className="wordmark" href="#top">
-          <img alt="" src={logo} />
+          <img alt="" height={67} src={logo} width={271} />
         </a>
         <div className="header-actions">
           <LanguageDropdown locale={locale} onLocaleChange={setLocale} />
