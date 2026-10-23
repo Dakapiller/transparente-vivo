@@ -484,7 +484,9 @@ function App() {
 
     return () => {
       menuOpenRef.current = false
-      restoreDocumentScroll(document, snapshot, (scrollY) => window.scrollTo(0, scrollY))
+      restoreDocumentScroll(document, snapshot, (scrollY) =>
+        window.scrollTo({ top: scrollY, behavior: 'instant' }),
+      )
     }
   }, [menuOpen])
 
@@ -938,9 +940,15 @@ function App() {
       // shifts up — so reveals fire before their section reaches the viewport
       // (most visible on mobile, where images are large relative to the screen).
       // Re-measure once layout actually settles.
-      const refresh = () => ScrollTrigger.refresh()
+      // ScrollTrigger.refresh() temporarily scrolls the window to 0 and back to
+      // re-measure. Calling it for every image load (including lazy gallery
+      // images that load *while the user is scrolling*) made the page jump to
+      // the top on mobile. refresh(true) debounces (200ms) and, if the user is
+      // scrolling, waits for scrollEnd before re-measuring.
+      const refresh = () => ScrollTrigger.refresh(true)
       const images = Array.from(shell.querySelectorAll('img'))
-      const pending = images.filter((img) => !img.complete)
+      // Lazy images (gallery) have CSS-fixed slide sizes, so they never shift layout.
+      const pending = images.filter((img) => !img.complete && img.loading !== 'lazy')
       pending.forEach((img) => {
         img.addEventListener('load', refresh, { once: true })
         img.addEventListener('error', refresh, { once: true })

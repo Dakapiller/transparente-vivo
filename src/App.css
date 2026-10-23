@@ -18,8 +18,11 @@
   box-sizing: border-box;
 }
 
+/* No global smooth scrolling: ScrollTrigger and the menu scroll-lock restore
+   positions programmatically, and smooth behaviour turns those into visible
+   jumps. Menu navigation already passes behavior: 'smooth' explicitly. */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body {
