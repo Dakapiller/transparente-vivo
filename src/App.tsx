@@ -45,6 +45,18 @@ import personRaquel from './assets/figma/people/raquel.jpg'
 import personRebecca from './assets/figma/people/rebecca.jpg'
 import personRicardo from './assets/figma/people/ricardo.jpg'
 import personVanessa from './assets/figma/people/vanessa.jpg'
+import personTomas from './assets/figma/people/tomas.jpg'
+import personDanielProduct from './assets/figma/people/daniel-product.jpg'
+import personDanielEngenheiro from './assets/figma/people/daniel-engenheiro.jpg'
+import personJoao from './assets/figma/people/joao.jpg'
+import personAfonso from './assets/figma/people/afonso.jpg'
+import personCarlos from './assets/figma/people/carlos.jpg'
+import personThomas from './assets/figma/people/thomas.jpg'
+import personAgatha from './assets/figma/people/agatha.jpg'
+import personYazmin from './assets/figma/people/yazmin.jpg'
+import personRenata from './assets/figma/people/renata.jpg'
+import personMalu from './assets/figma/people/malu.jpg'
+import personJuan from './assets/figma/people/juan.jpg'
 import arrowNext from './assets/figma/vectors/arrow-next.svg'
 import arrowPrev from './assets/figma/vectors/arrow-prev.svg'
 import campaignArrow from './assets/figma/vectors/campaign-arrow.svg'
@@ -125,6 +137,18 @@ const peopleImages = {
   'jose-maria': personJoseMaria,
   rebecca: personRebecca,
   hellen: personHellen,
+  tomas: personTomas,
+  'daniel-product': personDanielProduct,
+  'daniel-engenheiro': personDanielEngenheiro,
+  joao: personJoao,
+  afonso: personAfonso,
+  carlos: personCarlos,
+  thomas: personThomas,
+  agatha: personAgatha,
+  yazmin: personYazmin,
+  renata: personRenata,
+  malu: personMalu,
+  juan: personJuan,
 } satisfies Record<PersonId, string>
 
 const peopleImageLayout = { left: 0, top: 0, width: 237.916, height: 281.28 } as const
@@ -1106,7 +1130,7 @@ function App() {
               <div className="people-viewport" ref={peopleViewportRef}>
                 <div className="people-track">
                   {copy.people.map((person) => (
-                    <div className="people-slide" key={`${person.name}-${person.role}`}>
+                    <div className="people-slide" key={person.id}>
                       <article className="person-card">
                     <div className="portrait-frame">
                       <img alt="" aria-hidden="true" className="portrait-frame-lines" src={personCardFrame} />
