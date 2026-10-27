@@ -140,3 +140,8 @@ test('people carousel hides the arrows in the mobile/tablet range (swipe-only)',
     /@media \(max-width: 1100px\) \{[\s\S]*?\.people-prev,\n {2}\.people-next \{[\s\S]*?display: none;[\s\S]*?\}/,
   )
 })
+
+test('person cards show only first name and job title, never a start year', () => {
+  assert.doesNotMatch(app, /person\.since/)
+  assert.match(app, /<h3>\{person\.name\}<\/h3>\s*<span>\{person\.role\}<\/span>/)
+})

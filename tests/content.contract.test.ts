@@ -189,84 +189,72 @@ test('people testimonials match the portrait list source', () => {
       id: 'tomas',
       name: 'Tomás',
       role: 'Product',
-      since: 'Aqui desde 2024',
       quote: 'Este espaço tornou-se uma segunda casa.',
     },
     {
       id: 'daniel-product',
       name: 'Daniel',
       role: 'Product',
-      since: 'Aqui desde 2024',
       quote: 'Aqui encontrei pessoas com quem cresci.',
     },
     {
       id: 'daniel-engenheiro',
       name: 'Daniel',
       role: 'Engenheiro de Software',
-      since: 'Aqui desde 2025',
       quote: 'Aqui senti que não estava sozinho.',
     },
     {
       id: 'joao',
       name: 'João',
       role: 'Engenheiro de Software',
-      since: 'Aqui desde',
       quote: 'Este espaço faz parte da minha rotina.',
     },
     {
       id: 'afonso',
       name: 'Afonso',
       role: 'Gerente do Frik',
-      since: 'Aqui desde 2025',
       quote: 'Aqui encontrei pessoas que me fazem ficar.',
     },
     {
       id: 'carlos',
       name: 'Carlos',
-      role: 'Empregado da mesa',
-      since: 'Aqui desde 2023',
+      role: 'Empregado de mesa',
       quote: 'Este lugar tornou-se parte da minha história.',
     },
     {
       id: 'thomas',
       name: 'Thomas',
-      role: 'Empregado da mesa',
-      since: 'Aqui desde 2026',
+      role: 'Empregado de mesa',
       quote: 'Este lugar fez-me sentir bem-vindo desde o primeiro dia.',
     },
     {
       id: 'agatha',
       name: 'Ágatha',
       role: 'Empregada de balcão',
-      since: 'Aqui desde 2026',
       quote: 'Aqui surgiram ligações que não esperava.',
     },
     {
       id: 'yazmin',
       name: 'Yazmin',
-      role: 'Empregada da mesa',
-      since: 'Aqui desde 2026',
+      role: 'Empregada de mesa',
       quote: 'Este espaço fez-me acreditar em novas possibilidades.',
     },
     {
       id: 'renata',
       name: 'Renata',
-      role: 'Empregada da mesa',
-      since: 'Aqui desde 2018',
+      role: 'Empregada de mesa',
       quote: 'Aqui sinto-me em casa.',
     },
     {
       id: 'malu',
       name: 'Malu',
-      role: 'Empregada da mesa',
-      since: 'Aqui desde 2026',
+      role: 'Empregada de mesa',
       quote: 'Aqui encontrei inspiração para seguir em frente.',
     },
     {
       id: 'juan',
       name: 'Juan',
       role: 'Ajudante de cozinha',
-      since: 'Aqui desde 2025',
       quote: 'Este lugar ajudou-me a recomeçar.',
     },
   ]
@@ -282,10 +270,18 @@ test('people testimonials match the portrait list source', () => {
     content.en.people.map((person) => person.id),
     expectedPortuguesePeople.map((person) => person.id),
   )
-  // Unknown start years follow the existing convention (no year, no '?').
+  // Portraits show only first name and job title: the 12 people added from the
+  // October 2026 list carry no start year at all.
+  const newPeopleIds = [
+    'tomas', 'daniel-product', 'daniel-engenheiro', 'joao', 'afonso', 'carlos',
+    'thomas', 'agatha', 'yazmin', 'renata', 'malu', 'juan',
+  ]
   for (const language of languages) {
     for (const person of content[language.code].people) {
-      assert.doesNotMatch(person.since, /\?/)
+      if (newPeopleIds.includes(person.id)) {
+        assert.equal(person.since, undefined, `${person.id} should have no start year`)
+      }
+      assert.doesNotMatch(person.role, /\bda mesa\b/)
     }
   }
 })
