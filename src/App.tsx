@@ -603,9 +603,11 @@ function App() {
 
         const heroTl = gsap.timeline({ defaults: { ease: ease.arrival } })
         heroTl
-          // The logo only slides in; it is never hidden (autoAlpha) so a slow
-          // or replayed load sequence (e.g. on language switch) can't blank it.
-          .from('.site-header .wordmark', { y: -16, duration: dur.medium, clearProps: 'transform' })
+          // The header logo is deliberately NOT animated. .wordmark has CSS
+          // transitions on opacity/transform (hover, condensed header), and in
+          // Safari/WebKit a GSAP tween on those same properties got stuck at its
+          // start value — the logo stayed at opacity 0 on every load. It is now
+          // static and visible with no JavaScript involved.
           .from('.site-header .header-actions', { y: -16, autoAlpha: 0, duration: dur.medium }, 0.08)
           .to(split.words, { yPercent: 0, duration: dur.expressive, stagger: 0.08 }, 0.1)
           .from('.hero-copy h1 strong', { color: '#ffaf8e', duration: dur.expressive }, 0.2)

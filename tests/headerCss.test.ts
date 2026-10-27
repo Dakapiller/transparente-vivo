@@ -75,3 +75,11 @@ test('desktop menu rows use separate Figma separators centered between items', (
   assert.match(separator, /top: 70px;/)
   assert.match(separator, /width: 400px;/)
 })
+
+test('header logo is never animated by GSAP, so it is visible without JavaScript', () => {
+  // .wordmark carries CSS opacity/transform transitions; a GSAP tween on the same
+  // element froze at opacity 0 in Safari/WebKit and hid the logo.
+  assert.doesNotMatch(app, /\.from\([^)]*wordmark/)
+  assert.doesNotMatch(app, /\.(to|from|fromTo|set)\(\s*['"][^'"]*\.wordmark/)
+  assert.doesNotMatch(blockFor('.wordmark'), /opacity: 0;|visibility: hidden;/)
+})
