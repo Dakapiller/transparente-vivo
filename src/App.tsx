@@ -963,35 +963,35 @@ function App() {
         }
       })
 
-      // Trigger positions are measured on mount, before images decode and fonts
-      // swap. As that content loads the page grows and every cached start/end
-      // shifts up — so reveals fire before their section reaches the viewport
-      // (most visible on mobile, where images are large relative to the screen).
-      // Re-measure once layout actually settles.
-      // ScrollTrigger.refresh() temporarily scrolls the window to 0 and back to
-      // re-measure. Calling it for every image load (including lazy gallery
-      // images that load *while the user is scrolling*) made the page jump to
-      // the top on mobile. refresh(true) debounces (200ms) and, if the user is
-      // scrolling, waits for scrollEnd before re-measuring.
-      const refresh = () => ScrollTrigger.refresh(true)
-      const images = Array.from(shell.querySelectorAll('img'))
-      // Lazy images (gallery) have CSS-fixed slide sizes, so they never shift layout.
-      const pending = images.filter((img) => !img.complete && img.loading !== 'lazy')
-      pending.forEach((img) => {
-        img.addEventListener('load', refresh, { once: true })
-        img.addEventListener('error', refresh, { once: true })
-      })
-      window.addEventListener('load', refresh)
-      if (document.fonts?.ready) {
-        document.fonts.ready.then(refresh).catch(() => {})
-      }
+      // Trigger positions are measured on mount, before fonts swap; if layout
+      // grows afterwards every cached start/end is stale and reveals fire early.
+      //
+      // A ScrollTrigger refresh is NOT free: it scrolls the window to 0, measures,
+      // then scrolls back. The live site called it (forced) on every image load —
+      // including each lazy gallery image that loads as the gallery autoplays
+      // (every ~4.5s) — so it ran mid-scroll and mid-swipe, which on phones and
+      // in Safari shows up as the page jumping back to the top.
+      //
+      // Every image here has a CSS-fixed box, so image loads never move layout.
+      // Only re-measure when the page height actually changes (font swap, a real
+      // layout shift), and use refresh(true): debounced, and deferred until the
+      // user has stopped scrolling.
+      let lastHeight = shell.offsetHeight
+      const layoutObserver =
+        typeof ResizeObserver === 'undefined'
+          ? null
+          : new ResizeObserver(() => {
+              const height = shell.offsetHeight
+              if (Math.abs(height - lastHeight) < 2) {
+                return
+              }
+              lastHeight = height
+              ScrollTrigger.refresh(true)
+            })
+      layoutObserver?.observe(shell)
 
       return () => {
-        pending.forEach((img) => {
-          img.removeEventListener('load', refresh)
-          img.removeEventListener('error', refresh)
-        })
-        window.removeEventListener('load', refresh)
+        layoutObserver?.disconnect()
         headerTrigger.kill()
         mm.revert()
       }
@@ -1308,7 +1308,7 @@ function App() {
                 <img alt="" src={whatsappIcon} />
               </a>
             </div>
-            <img alt="" className="sign-image" src={signCtaImage} />
+            <img alt="" className="sign-image" height={1600} src={signCtaImage} width={1067} />
           </div>
         </section>
       </main>

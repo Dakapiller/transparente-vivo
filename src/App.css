@@ -2500,6 +2500,9 @@ select {
   }
 
   .sign-image {
+    /* Reserve the photo's box before it loads, so the page below the gallery
+       doesn't grow by ~500px mid-scroll (and re-trigger ScrollTrigger). */
+    aspect-ratio: 1067 / 1600;
     height: auto;
     margin: 32px 0 0;
     position: static;

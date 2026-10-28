@@ -33,7 +33,7 @@ test('sign CTA buttons are stacked to match the Figma desktop rows', () => {
 
 test('sign CTA shows the community workspace image beside the copy on desktop', () => {
   assert.match(app, /import signCtaImage from '\.\/assets\/figma\/gallery\/gallery-15\.jpg'/)
-  assert.match(app, /<img alt="" className="sign-image" src=\{signCtaImage\} \/>/)
+  assert.match(app, /<img alt="" className="sign-image" height=\{1600\} src=\{signCtaImage\} width=\{1067\} \/>/)
 
   const image = blockFor('.sign-image')
 

@@ -16,7 +16,14 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText, CustomEase)
 // wheel/touch scrolling and caches its own scroll position, which desyncs after a
 // programmatic scrollIntoView (menu navigation), snapping the page back on the
 // next swipe.
-ScrollTrigger.config({ ignoreMobileResize: true })
+// autoRefreshEvents drops the default "load": a full refresh scrolls the page to
+// 0 and back, and on slow phones window.load lands while the visitor is already
+// deep in the page. Real layout changes are caught by the ResizeObserver in
+// App.tsx instead (see the comment there).
+ScrollTrigger.config({
+  ignoreMobileResize: true,
+  autoRefreshEvents: 'visibilitychange,DOMContentLoaded,resize',
+})
 
 // One shared easing language so the whole site moves like a single hand.
 CustomEase.create('arrival', '0.16, 1, 0.3, 1') // expo-out: entrances settling into place
