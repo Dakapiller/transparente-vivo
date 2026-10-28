@@ -580,6 +580,156 @@ select {
   transform: translateX(5px);
 }
 
+/* ---- Launch event banner (Figma "Add Ons" page) ---- */
+.event-banner-section {
+  /* Cream from the hero melting through a peach glow into the sky-blue stats. */
+  background: linear-gradient(
+    180deg,
+    var(--cream) 0%,
+    var(--cream) 34%,
+    rgba(255, 175, 142, 0.62) 72%,
+    var(--sky) 100%
+  );
+  padding: 72px 0 84px;
+  position: relative;
+}
+
+.event-banner-label {
+  align-items: center;
+  background: var(--sky);
+  border-radius: 12px 12px 0 0;
+  color: var(--muted);
+  display: flex;
+  font-size: 18px;
+  font-weight: 500;
+  gap: 9px;
+  line-height: 24px;
+  margin: 0;
+  padding: 12px 24px 26px;
+}
+
+.event-banner-icon {
+  flex: 0 0 auto;
+  height: 16px;
+  width: 16px;
+}
+
+.event-banner-card {
+  background: #ffffff;
+  border-radius: 12px;
+  margin-top: -14px;
+  padding: 28px 28px 32px 26px;
+  position: relative;
+}
+
+.event-banner-dashes {
+  display: flex;
+  gap: 14px;
+}
+
+.event-banner-dashes > span {
+  background: var(--orange);
+  border-radius: 999px;
+  flex: 1 1 0;
+  height: 6px;
+}
+
+.event-banner-dashes--bottom {
+  /* Desktop: the bottom row stops short of the button, as in the design. */
+  margin-right: calc(315px + 14px);
+}
+
+.event-banner-title {
+  font-size: 52px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 55px;
+  margin: 16px 0 14px;
+  text-transform: uppercase;
+}
+
+.event-banner-title span,
+.event-banner-title strong {
+  display: block;
+}
+
+.event-banner-title span,
+.event-banner-date {
+  color: #8ac8f8;
+}
+
+.event-banner-title strong {
+  color: var(--orange);
+  font-weight: 800;
+}
+
+.event-banner-date {
+  font-size: 52px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 55px;
+  margin: 0;
+  position: absolute;
+  right: 28px;
+  text-transform: uppercase;
+  top: 50px;
+}
+
+.event-banner-cta {
+  align-items: center;
+  background: var(--blue-dark);
+  border-radius: 8px;
+  bottom: 32px;
+  color: #ffffff;
+  display: flex;
+  font-size: 20px;
+  font-weight: 600;
+  height: 62px;
+  justify-content: space-between;
+  line-height: 26px;
+  padding: 0 20px 0 24px;
+  position: absolute;
+  right: 28px;
+  text-decoration: none;
+  transition:
+    background 200ms ease,
+    transform 160ms ease;
+  width: 315px;
+}
+
+.event-banner-arrow {
+  display: block;
+  height: 26px;
+  transition: transform 280ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  width: 44px;
+}
+
+.event-banner-arrow img {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+@media (hover: hover) {
+  .event-banner-cta:hover {
+    background: #ff4c00;
+  }
+
+  .event-banner-cta:hover .event-banner-arrow {
+    transform: translateX(5px);
+  }
+}
+
+.event-banner-cta:focus-visible {
+  background: #ff4c00;
+  outline: 3px solid var(--blue-dark);
+  outline-offset: 3px;
+}
+
+.event-banner-cta:active {
+  transform: translateY(1px);
+}
+
 .stats-section {
   background:
     linear-gradient(180deg, var(--sky) 0%, var(--sky) 73%, rgba(229, 243, 255, 0) 100%);
@@ -1853,6 +2003,66 @@ select {
     right: 19px;
     top: 12px;
     width: 51.08px;
+  }
+
+  .event-banner-section {
+    padding: 40px 20px 56px;
+  }
+
+  .event-banner-label {
+    font-size: 13px;
+    gap: 7px;
+    line-height: 18px;
+    padding: 10px 18px 22px;
+  }
+
+  .event-banner-icon {
+    height: 12px;
+    width: 12px;
+  }
+
+  .event-banner-card {
+    padding: 20px 20px 22px;
+  }
+
+  .event-banner-dashes {
+    gap: 10px;
+  }
+
+  .event-banner-dashes > span {
+    height: 5px;
+  }
+
+  .event-banner-dashes > span:nth-child(n + 5) {
+    display: none;
+  }
+
+  .event-banner-dashes--bottom {
+    margin-right: 0;
+  }
+
+  .event-banner-title,
+  .event-banner-date {
+    font-size: clamp(28px, 10.2vw, 40px);
+    line-height: 1.02;
+  }
+
+  .event-banner-title {
+    margin: 12px 0 10px;
+  }
+
+  .event-banner-date {
+    margin-top: 12px;
+    position: static;
+  }
+
+  .event-banner-cta {
+    font-size: 18px;
+    height: 55px;
+    margin-top: 26px;
+    padding: 0 16px 0 20px;
+    position: static;
+    width: 100%;
   }
 
   .stats-section {

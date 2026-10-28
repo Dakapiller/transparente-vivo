@@ -102,6 +102,8 @@ import { lockDocumentScroll, restoreDocumentScroll } from './scrollLock'
 import { timelineMilestones, timelineSegments, toTimelinePercent } from './timelineLayout'
 
 const PETITION_URL = 'https://peticaopublica.com/pview.aspx?pi=PT131237'
+// Launch event (5 Dec) registration on Luma — José Maria's "Add Ons" banner.
+const EVENT_URL = 'https://luma.com/nz74etab'
 
 type TimelineMilestoneStyle = CSSProperties &
   Record<'--timeline-dot-left' | '--timeline-text-left' | '--timeline-text-width', string>
@@ -249,6 +251,64 @@ function CampaignButton({
         <img alt="" src={campaignArrow} />
       </span>
     </a>
+  )
+}
+
+function EventBanner({ copy }: { copy: (typeof content)[LanguageCode]['eventBanner'] }) {
+  // Static on purpose (no GSAP): visible by default, like the header logo.
+  return (
+    <section className="event-banner-section" aria-labelledby="event-banner-title">
+      <div className="wrap">
+        <div className="event-banner">
+          <p className="event-banner-label">
+            <svg aria-hidden="true" className="event-banner-icon" viewBox="0 0 16 16">
+              <path d="M8 1.5 15.2 14H.8L8 1.5Z" fill="currentColor" />
+              <path d="M8 6v3.6" stroke="#ffffff" strokeLinecap="round" strokeWidth="1.6" />
+              <circle cx="8" cy="11.6" fill="#ffffff" r="0.95" />
+            </svg>
+            <span>{copy.label}</span>
+          </p>
+          <div className="event-banner-card">
+            <span aria-hidden="true" className="event-banner-dashes event-banner-dashes--top">
+              {Array.from({ length: 12 }, (_, index) => (
+                <span key={index} />
+              ))}
+            </span>
+            <h2 className="event-banner-title" id="event-banner-title">
+              {copy.titleParts.map((part) =>
+                part.emphasis ? (
+                  <strong key={part.text}>{part.text}</strong>
+                ) : (
+                  <span key={part.text}>{part.text}</span>
+                ),
+              )}
+            </h2>
+            <span aria-hidden="true" className="event-banner-dashes event-banner-dashes--bottom">
+              {Array.from({ length: 8 }, (_, index) => (
+                <span key={index} />
+              ))}
+            </span>
+            <p className="event-banner-date">
+              <time dateTime={copy.dateTime}>{copy.date}</time>
+            </p>
+            <a
+              className="event-banner-cta"
+              href={EVENT_URL}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span>
+                {copy.cta}
+                <span className="sr-only">{copy.ctaHint}</span>
+              </span>
+              <span aria-hidden="true" className="event-banner-arrow">
+                <img alt="" src={campaignArrow} />
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -1051,6 +1111,8 @@ function App() {
             <img alt="" className="hero-image" src={heroImage} />
           </div>
         </section>
+
+        <EventBanner copy={copy.eventBanner} />
 
         <section className="stats-section" id="community">
           <div className="wrap">

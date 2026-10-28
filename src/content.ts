@@ -74,6 +74,14 @@ type LocaleContent = {
     body: string
     cta: string
   }
+  eventBanner: {
+    label: string
+    titleParts: RichTextPart[]
+    date: string
+    dateTime: string
+    cta: string
+    ctaHint: string
+  }
   intro: {
     titleStart: string
     titleEmphasis: string
@@ -166,6 +174,19 @@ export const content = {
       body:
         'Este espaço é hoje um lugar de trabalho, encontro e criação. Antes de decidir o seu futuro, é essencial ouvir quem lhe dá vida todos os dias.',
       cta: 'Apoia esta causa',
+    },
+    eventBanner: {
+      label: 'Evento de lançamento no Edifício Transparente',
+      titleParts: [
+        { text: 'Uma' },
+        { text: 'comunidade', emphasis: true },
+        { text: 'que faz' },
+        { text: 'cidade', emphasis: true },
+      ],
+      date: '05/DEZ–14:30',
+      dateTime: '2026-12-05T14:30',
+      cta: 'Inscreve-te aqui',
+      ctaHint: ' (abre a página do evento no Luma num novo separador)',
     },
     intro: {
       titleStart: 'Sabias que o Edifício Transparente está',
@@ -501,6 +522,19 @@ export const content = {
       body:
         'This space is now a place for work, gathering, and creation. Before deciding its future, it is essential to listen to the people who bring it to life every day.',
       cta: 'Support this cause',
+    },
+    eventBanner: {
+      label: 'Launch event at the Edifício Transparente',
+      titleParts: [
+        { text: 'A' },
+        { text: 'community', emphasis: true },
+        { text: 'that makes' },
+        { text: 'the city', emphasis: true },
+      ],
+      date: '05/DEC–14:30',
+      dateTime: '2026-12-05T14:30',
+      cta: 'Register here',
+      ctaHint: ' (opens the event page on Luma in a new tab)',
     },
     intro: {
       titleStart: 'Did you know the Edifício Transparente is',
